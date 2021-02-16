@@ -28,11 +28,13 @@ class ViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
         NSLog("ViewController : " + #function)
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
         NSLog("ViewController : " + #function)
     }
