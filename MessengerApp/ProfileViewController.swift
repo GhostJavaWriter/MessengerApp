@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  MessengerApp
 //
 //  Created by Bair Nadtsalov on 12.02.2021.
@@ -7,12 +7,45 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
+    //MARK: - UI
+    @IBOutlet weak var logoBackgroundView: UIView!
+    @IBOutlet weak var logoFirstLetter: UILabel!
+    @IBOutlet weak var logoSecondLetter: UILabel!
+    @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var positionLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var editButtonOutlet: UIButton!
+    
+    //MARK: - Private
+    private func setupView() {
+        //viewController title
+        title = "My Profile"
+        
+        //setup logoBackgroundView
+        logoBackgroundView.layer.cornerRadius = logoBackgroundView.frame.height/2
+        logoBackgroundView.layer.masksToBounds = false
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLogo))
+        logoBackgroundView.addGestureRecognizer(tapGesture)
+        
+        editButtonOutlet.layer.cornerRadius = 14
+    }
+    
+    @objc
+    private func tapLogo() {
+        print("tapped")
+        
+    }
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NSLog("ViewController : \(#function)")
+        
+        setupView()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
