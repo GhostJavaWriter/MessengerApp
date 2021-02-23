@@ -219,7 +219,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         dismiss(animated: true)
     }
-    
-    
+}
+
+extension UIButton {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let circlePath = UIBezierPath(ovalIn: self.bounds)
+        return circlePath.contains(point)
+    }
 }
 
