@@ -155,7 +155,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         /*
          На данном этапе жизненного цикла контроллера, размеры view не актуальны, т.е. не такие, какими они будут после вывода на экран. Поэтому, использовать вычисления, основанные на ширине / высоте view, в методе viewDidload не рекомендуется.
          */
-        setupLogoView()
         
     }
 
@@ -170,6 +169,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         NSLog("ViewController : " + #function)
         NSLog("editButton frame : \(String(describing: editButtonOutlet?.frame))")
+        
+        setupLogoView()
         //Frame отличается потому что - в методе viewDidLoad прописан layout, который установлен в storyboard, а autolayout меняет эти значения согласно constraints в зависимости от фактического устройства
         /*
          Методы, которые вызываются перед и после появления view на экране.
