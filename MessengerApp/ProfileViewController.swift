@@ -11,17 +11,15 @@ import AVFoundation
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: - UI
-    @IBOutlet weak var logoFirstLetter: UILabel?
-    @IBOutlet weak var logoSecondLetter: UILabel?
+    @IBOutlet weak var shortNameLabel: UILabel?
     @IBOutlet weak var fullNameLabel: UILabel?
     @IBOutlet weak var positionLabel: UILabel?
     @IBOutlet weak var locationLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
     @IBOutlet weak var logoImageView: UIImageView?
-    @IBOutlet weak var lettersStackView: UIStackView?
     
     //MARK: - Private
-    private func setupView() {
+    private func setupLogoView() {
         //viewController title
         title = "My Profile"
         
@@ -157,7 +155,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         /*
          На данном этапе жизненного цикла контроллера, размеры view не актуальны, т.е. не такие, какими они будут после вывода на экран. Поэтому, использовать вычисления, основанные на ширине / высоте view, в методе viewDidload не рекомендуется.
          */
-        setupView()
+        setupLogoView()
         
     }
 
@@ -218,7 +216,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        }
         
         logoImageView?.image = image
-        lettersStackView?.isHidden = true
+        shortNameLabel?.isHidden = true
         
         dismiss(animated: true)
     }

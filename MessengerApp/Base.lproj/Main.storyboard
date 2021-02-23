@@ -61,23 +61,12 @@
                                     <constraint firstAttribute="height" constant="240" id="HjB-ws-cns"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpZ-4F-cYl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-EK-xpQ">
                                 <rect key="frame" x="97" y="88.5" width="181.5" height="143.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-EK-xpQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="143.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="120"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZK2-HD-dfV">
-                                        <rect key="frame" x="100" y="0.0" width="81.5" height="143.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="120"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="120"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -86,10 +75,10 @@
                             <constraint firstItem="pF0-Q7-rU0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LMd-8P-AMO"/>
                             <constraint firstItem="jGp-iD-5Li" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LtA-3j-bYn"/>
                             <constraint firstItem="jGp-iD-5Li" firstAttribute="top" secondItem="pF0-Q7-rU0" secondAttribute="bottom" constant="20" id="Orl-px-82b"/>
-                            <constraint firstItem="tpZ-4F-cYl" firstAttribute="centerY" secondItem="wfF-qU-MVX" secondAttribute="centerY" id="Q5g-4p-3OY"/>
+                            <constraint firstItem="pa9-EK-xpQ" firstAttribute="centerX" secondItem="wfF-qU-MVX" secondAttribute="centerX" id="QxH-aQ-BfC"/>
                             <constraint firstItem="aCf-bx-BbF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="TFi-6U-y5K"/>
+                            <constraint firstItem="pa9-EK-xpQ" firstAttribute="centerY" secondItem="wfF-qU-MVX" secondAttribute="centerY" id="fej-sM-OrH"/>
                             <constraint firstItem="wfF-qU-MVX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="jTj-Gc-0o0"/>
-                            <constraint firstItem="tpZ-4F-cYl" firstAttribute="centerX" secondItem="wfF-qU-MVX" secondAttribute="centerX" id="kds-WZ-pEj"/>
                             <constraint firstItem="pF0-Q7-rU0" firstAttribute="top" secondItem="wfF-qU-MVX" secondAttribute="bottom" constant="20" id="wiJ-kO-xxo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aCf-bx-BbF" secondAttribute="bottom" constant="20" id="yzJ-nU-6Qw"/>
                         </constraints>
@@ -97,12 +86,10 @@
                     <connections>
                         <outlet property="editButtonOutlet" destination="aCf-bx-BbF" id="EBi-Ii-wQd"/>
                         <outlet property="fullNameLabel" destination="pF0-Q7-rU0" id="L8T-KP-T5O"/>
-                        <outlet property="lettersStackView" destination="tpZ-4F-cYl" id="FpK-ys-CvO"/>
                         <outlet property="locationLabel" destination="pRm-VE-yeC" id="dh6-qq-H6Z"/>
-                        <outlet property="logoFirstLetter" destination="pa9-EK-xpQ" id="ZEO-0t-gO3"/>
                         <outlet property="logoImageView" destination="wfF-qU-MVX" id="UKh-Kl-63H"/>
-                        <outlet property="logoSecondLetter" destination="ZK2-HD-dfV" id="i3d-ez-xgg"/>
                         <outlet property="positionLabel" destination="D62-sl-00G" id="TGP-fS-Fcw"/>
+                        <outlet property="shortNameLabel" destination="pa9-EK-xpQ" id="ZEO-0t-gO3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
