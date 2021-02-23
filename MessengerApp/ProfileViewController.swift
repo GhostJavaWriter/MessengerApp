@@ -210,12 +210,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let image = info[.editedImage] as? UIImage else { return }
         
         //saving logo image
-        let imageName = "avatar"
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        
-        if let jpegData = image.jpegData(compressionQuality: 0.7) {
-            try? jpegData.write(to: imagePath)
-        }
+//        let imageName = "avatar"
+//        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+//
+//        if let jpegData = image.jpegData(compressionQuality: 0.7) {
+//            try? jpegData.write(to: imagePath)
+//        }
         
         logoImageView?.image = image
         //TODO: fit image

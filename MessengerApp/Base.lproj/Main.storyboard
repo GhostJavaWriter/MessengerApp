@@ -53,7 +53,7 @@
                                     <action selector="editButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2nJ-Cf-3jX"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wfF-qU-MVX">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wfF-qU-MVX">
                                 <rect key="frame" x="67.5" y="40" width="240" height="240"/>
                                 <color key="backgroundColor" red="0.89307612179999996" green="0.91424483059999995" blue="0.1682473421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
