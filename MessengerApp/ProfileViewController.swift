@@ -6,17 +6,19 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: - UI
-    @IBOutlet weak var logoBackgroundView: UIView?
     @IBOutlet weak var logoFirstLetter: UILabel?
     @IBOutlet weak var logoSecondLetter: UILabel?
     @IBOutlet weak var fullNameLabel: UILabel?
     @IBOutlet weak var positionLabel: UILabel?
     @IBOutlet weak var locationLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
+    @IBOutlet weak var logoImageView: UIImageView?
+    @IBOutlet weak var lettersStackView: UIStackView?
     
     //MARK: - Private
     private func setupView() {
@@ -24,12 +26,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         title = "My Profile"
         
         //setup logoBackgroundView
-        if let cornerRadius = logoBackgroundView?.frame.height {
-            logoBackgroundView?.layer.cornerRadius = cornerRadius/2
+        if let logoHeight = logoImageView?.frame.height {
+            logoImageView?.layer.cornerRadius = logoHeight/2
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLogo))
-        logoBackgroundView?.addGestureRecognizer(tapGesture)
+        logoImageView?.addGestureRecognizer(tapGesture)
         
         editButtonOutlet?.layer.cornerRadius = 14
         
@@ -63,28 +65,66 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         present(ac, animated: true, completion: nil)
     }
+    @IBAction func editButtonTapped(_ sender: Any) {
+        print("edit tapped")
+    }
     
     private func setLogoImage(actionType: String) {
+        
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
         
-        switch actionType {
-        
-        case "Photo library":
+        if actionType == "Photo library" {
+            
             picker.sourceType = .photoLibrary
-        case "Take a photo":
+            present(picker, animated: true, completion: nil)
+            
+        } else if actionType == "Take a photo" {
+            
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                picker.sourceType = .camera
+                
+                switch AVCaptureDevice.authorizationStatus(for: .video) {
+                
+                case .authorized:
+                    
+                    picker.sourceType = .camera
+                    present(picker, animated: true, completion: nil)
+                    
+                case .notDetermined:
+                    
+                    AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                        if granted {
+                            DispatchQueue.main.async {
+                                picker.sourceType = .camera
+                                self?.present(picker, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                
+                case .denied:
+                    askPermissionForCameraUsage()
+                    return
+                case .restricted:
+                    askPermissionForCameraUsage()
+                    return
+                @unknown default:
+                    return
+                }
+                
             } else {
                 NSLog("camera is not aviable " + #function)
             }
             
-        default:
+        } else {
             NSLog("Action type doesn't exist " + #function)
         }
-        
-        present(picker, animated: true)
+    }
+    
+    private func askPermissionForCameraUsage() {
+        let ac = UIAlertController(title: "Camera usage", message: "Please go to settings and allow camera usage", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(ac, animated: true, completion: nil)
     }
     
     private func getDocumentsDirectory() -> URL {
@@ -176,6 +216,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let jpegData = image.jpegData(compressionQuality: 0.7) {
             try? jpegData.write(to: imagePath)
         }
+        
+        logoImageView?.image = image
+        //TODO: fit image
+        lettersStackView?.isHidden = true
         
         dismiss(animated: true)
     }

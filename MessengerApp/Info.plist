@@ -23,7 +23,9 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera to make cute photos</string>
+	<string>This app uses the camera to make your avatar</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app uses the photo library to make your avatar</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
