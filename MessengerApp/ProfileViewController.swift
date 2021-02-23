@@ -11,32 +11,19 @@ import AVFoundation
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: - UI
-    @IBOutlet weak var shortNameLabel: UILabel?
     @IBOutlet weak var fullNameLabel: UILabel?
     @IBOutlet weak var positionLabel: UILabel?
     @IBOutlet weak var locationLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
-    @IBOutlet weak var logoImageView: UIImageView?
+    @IBOutlet weak var logoView: UIButton?
     
-    //MARK: - Private
-    private func setupLogoView() {
-        //viewController title
-        title = "My Profile"
-        
-        //setup logoBackgroundView
-        if let logoHeight = logoImageView?.frame.height {
-            logoImageView?.layer.cornerRadius = logoHeight/2
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapLogo))
-        logoImageView?.addGestureRecognizer(tapGesture)
-        
-        editButtonOutlet?.layer.cornerRadius = 14
-        
+    //MARK: - Actions
+    
+    @IBAction func editButtonTapped(_ sender: Any) {
+        print("edit tapped")
     }
     
-    @objc
-    private func tapLogo() {
+    @IBAction func logoViewTapped(_ sender: Any) {
         
         let ac = UIAlertController(title: "Set photo from ...", message: nil, preferredStyle: .actionSheet)
         
@@ -63,8 +50,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         present(ac, animated: true, completion: nil)
     }
-    @IBAction func editButtonTapped(_ sender: Any) {
-        print("edit tapped")
+    
+    //MARK: - Private
+    private func setupLogoView() {
+        //viewController title
+        title = "My Profile"
+        
+        //setup logo
+        if let logoHeight = logoView?.frame.height {
+            logoView?.layer.cornerRadius = logoHeight/2
+        }
+        
+        editButtonOutlet?.layer.cornerRadius = 14
+        
     }
     
     private func setLogoImage(actionType: String) {
@@ -216,10 +214,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //            try? jpegData.write(to: imagePath)
 //        }
         
-        logoImageView?.image = image
-        shortNameLabel?.isHidden = true
+        logoView?.setImage(image, for: .normal)
+        logoView?.titleLabel?.text = ""
         
         dismiss(animated: true)
     }
+    
+    
 }
 
