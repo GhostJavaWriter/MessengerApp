@@ -218,7 +218,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        }
         
         logoImageView?.image = image
-        //TODO: fit image
         lettersStackView?.isHidden = true
         
         dismiss(animated: true)
