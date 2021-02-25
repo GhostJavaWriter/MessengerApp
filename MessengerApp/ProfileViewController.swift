@@ -59,6 +59,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         //setup logo
         if let logoHeight = logoView?.frame.height {
             logoView?.layer.cornerRadius = logoHeight/2
+            logoView?.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         }
         
         editButtonOutlet?.layer.cornerRadius = 14
