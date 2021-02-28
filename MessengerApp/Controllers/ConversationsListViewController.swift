@@ -8,6 +8,7 @@
 import UIKit
 
 struct Section {
+    var title : String
     var group : [ConversationModel]
 }
 
@@ -27,27 +28,30 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         return tableView
     }()
     
-    private var conversationsList = [Section(group: [ConversationModel(name: "John Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
-                                         ConversationModel(name: "John W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
-                                         ConversationModel(name: "John", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
-                                         ConversationModel(name: "JohWatson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "Watson K.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "H. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "W. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "O. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "B. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
-                                         ConversationModel(name: "P. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true)]),
-                         Section(group: [ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Johnny Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Johnny Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Johnny", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "J. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                         ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
-                                         ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
-                                         ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true)])
+    //TODO: fix models state
+    private var conversationsList = [Section(title: "Online",
+                                             group: [ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "J. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true)]),
+                                     Section(title: "History",
+                                             group: [ConversationModel(name: "John Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
+                                                     ConversationModel(name: "John W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
+                                                     ConversationModel(name: "John", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
+                                                     ConversationModel(name: "JohWatson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Watson K.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "H. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "W. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "O. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "B. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
+                                                     ConversationModel(name: "P. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true)])
     ]
     
     //MARK: - UI
@@ -80,6 +84,10 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return conversationsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return conversationsList[section].title
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
