@@ -14,8 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //You can switch off this over here - OS_ACTIVITY_MODE
         NSLog("Aplication moved from <Not running> to <Inactive> : " + #function)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let controller = ConversationsListViewController()
+        
+        let navigationController = UINavigationController(rootViewController: controller)
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
         return true
     }

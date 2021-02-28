@@ -12,6 +12,9 @@
 		8804582725D69B62006397F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582525D69B62006397F2 /* Main.storyboard */; };
 		8804582925D69B63006397F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8804582825D69B63006397F2 /* Assets.xcassets */; };
 		8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582A25D69B63006397F2 /* LaunchScreen.storyboard */; };
+		8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */; };
+		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
+		88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		8804582825D69B63006397F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8804582B25D69B63006397F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8804582D25D69B63006397F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
+		88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +61,40 @@
 			isa = PBXGroup;
 			children = (
 				8804581F25D69B62006397F2 /* AppDelegate.swift */,
-				8804582325D69B62006397F2 /* ProfileViewController.swift */,
+				88FB90A025EB247600438B5D /* Controllers */,
 				8804582525D69B62006397F2 /* Main.storyboard */,
+				8875696B25EB526C00BC0B00 /* Views */,
+				8875696D25EB527600BC0B00 /* Models */,
 				8804582825D69B63006397F2 /* Assets.xcassets */,
 				8804582A25D69B63006397F2 /* LaunchScreen.storyboard */,
 				8804582D25D69B63006397F2 /* Info.plist */,
 			);
 			path = MessengerApp;
+			sourceTree = "<group>";
+		};
+		8875696B25EB526C00BC0B00 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8875696D25EB527600BC0B00 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8875696525EB3DA200BC0B00 /* ConversationModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		88FB90A025EB247600438B5D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8804582325D69B62006397F2 /* ProfileViewController.swift */,
+				88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */,
 				8804582425D69B62006397F2 /* ProfileViewController.swift in Sources */,
 				8804582025D69B62006397F2 /* AppDelegate.swift in Sources */,
+				88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */,
+				8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
