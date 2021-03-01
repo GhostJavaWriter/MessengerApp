@@ -18,6 +18,16 @@ protocol ConversationCellConfiguration {
 
 class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private var shouldSetupConstraints = true
     
     private var nameLabel = UILabel()
@@ -33,6 +43,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
         nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
+        nameLabel.font = .systemFont(ofSize: 20)
         
         lastMessageTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         lastMessageTimeLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
@@ -40,22 +51,9 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         lastMessageTimeLabel.font = .systemFont(ofSize: 12)
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-
-            lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
-            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-            lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
-            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            
-            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-            messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
-
-        ])
+        messageLabel.numberOfLines = 2
+        messageLabel.lineBreakMode = .byTruncatingTail
+    
     }
     
     var name: String?
@@ -73,18 +71,6 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         hasUnreadMessages = model.hasUnreadMessages
         
         nameLabel.text = name
-        nameLabel.font = .systemFont(ofSize: 20)
-        
-        messageLabel.numberOfLines = 2
-        messageLabel.lineBreakMode = .byTruncatingTail
-        
-        if let lastMessage = message {
-            messageLabel.text = lastMessage
-        } else {
-            messageLabel.text = "No messages yet"
-            messageLabel.font = UIFont(name: "Arial", size: 14)
-            hasUnreadMessages = false
-        }
         
         lastMessageTimeLabel.text = date?.description
         
@@ -99,12 +85,35 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         } else {
             messageLabel.font = .systemFont(ofSize: 14)
         }
+        
+        if let lastMessage = message {
+            messageLabel.text = lastMessage
+        } else {
+            messageLabel.text = "No messages yet"
+            messageLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 14)
+        }
     }
     
     override func updateConstraints() {
         
         if shouldSetupConstraints {
-            configureView()
+            
+            NSLayoutConstraint.activate([
+
+                nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+                nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+
+                lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+                lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+                lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
+                lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+                
+                messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+                messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+                messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
+
+            ])
+            
             shouldSetupConstraints = false
         }
         

@@ -41,9 +41,9 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
                                                      ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
                                                      ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true)]),
                                      Section(title: "History",
-                                             group: [ConversationModel(name: "John Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
+                                             group: [ConversationModel(name: "John Watson", message: nil, date: nil, online: false, hasUnreadMessages: false),
                                                      ConversationModel(name: "John W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
-                                                     ConversationModel(name: "John", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
+                                                     ConversationModel(name: nil, message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
                                                      ConversationModel(name: "JohWatson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
                                                      ConversationModel(name: "Watson K.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
                                                      ConversationModel(name: "H. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: true),
@@ -104,8 +104,9 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         let section = conversationsList[indexPath.section]
         let conversation = section.group[indexPath.row]
         
-        cell.configure(with: conversation)
         cell.setNeedsUpdateConstraints()
+        cell.configure(with: conversation)
+        
         
         return cell
     }
