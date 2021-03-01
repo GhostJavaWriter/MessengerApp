@@ -105,8 +105,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         let conversation = section.group[indexPath.row]
         
         cell.configure(with: conversation)
-        //cell.updateConstraints()
         cell.setNeedsUpdateConstraints()
+        
         return cell
     }
 }

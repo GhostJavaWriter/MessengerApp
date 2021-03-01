@@ -20,16 +20,6 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     
     private var shouldSetupConstraints = true
     
-    override func updateConstraints() {
-        print("update constraints")
-        if shouldSetupConstraints {
-            configureView()
-            shouldSetupConstraints = false
-        }
-        
-        super.updateConstraints()
-    }
-    
     private var nameLabel = UILabel()
     private var messageLabel = UILabel()
     private var lastMessageTimeLabel = UILabel()
@@ -42,6 +32,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
         
         lastMessageTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         lastMessageTimeLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
@@ -108,5 +99,15 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         } else {
             messageLabel.font = .systemFont(ofSize: 14)
         }
+    }
+    
+    override func updateConstraints() {
+        
+        if shouldSetupConstraints {
+            configureView()
+            shouldSetupConstraints = false
+        }
+        
+        super.updateConstraints()
     }
 }
