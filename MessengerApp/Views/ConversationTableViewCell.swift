@@ -18,14 +18,16 @@ protocol ConversationCellConfiguration {
 
 class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureView()
-    }
+    private var shouldSetupConstraints = true
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func updateConstraints() {
+        print("update constraints")
+        if shouldSetupConstraints {
+            configureView()
+            shouldSetupConstraints = false
+        }
+        
+        super.updateConstraints()
     }
     
     private var nameLabel = UILabel()
@@ -33,27 +35,35 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     private var lastMessageTimeLabel = UILabel()
     
     private func configureView() {
+        
         contentView.addSubview(nameLabel)
         contentView.addSubview(messageLabel)
         contentView.addSubview(lastMessageTimeLabel)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
+        
         lastMessageTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        lastMessageTimeLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        lastMessageTimeLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        lastMessageTimeLabel.font = .systemFont(ofSize: 12)
+        
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+
+            lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
+            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             
-            
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            
-            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            
-            //TODO: add contentHuggingPriority
+            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
+
         ])
     }
     
@@ -69,15 +79,20 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         message = model.message
         date = model.date
         online = model.online
-        hasUnreadMessages = model.online
+        hasUnreadMessages = model.hasUnreadMessages
         
         nameLabel.text = name
+        nameLabel.font = .systemFont(ofSize: 20)
+        
+        messageLabel.numberOfLines = 2
+        messageLabel.lineBreakMode = .byTruncatingTail
         
         if let lastMessage = message {
             messageLabel.text = lastMessage
         } else {
             messageLabel.text = "No messages yet"
-            messageLabel.font = UIFont(name: "Arial", size: 10)
+            messageLabel.font = UIFont(name: "Arial", size: 14)
+            hasUnreadMessages = false
         }
         
         lastMessageTimeLabel.text = date?.description
@@ -89,9 +104,9 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         }
         
         if hasUnreadMessages {
-            messageLabel.font = .boldSystemFont(ofSize: 10)
+            messageLabel.font = .boldSystemFont(ofSize: 14)
         } else {
-            messageLabel.font = .systemFont(ofSize: 10)
+            messageLabel.font = .systemFont(ofSize: 14)
         }
     }
 }
