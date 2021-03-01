@@ -31,10 +31,10 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     private var conversationsList = [Section(title: "Online",
                                              group: [ConversationModel(name: nil, message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: Date(), online: true, hasUnreadMessages: true),
                                                      ConversationModel(name: "Johnny Watson", message: nil, date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum dsfs sfsdf sdfsdf sdfsdf sdfsdfs sdfsdf sdfsdf sdfsf sdfsfff fdfsfs sdfsdf .", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnn", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Johnny", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum dsfs sfsdf sdfsdf sdfsdf sdfsdfs sdfsdf sdfsdf sdfsf sdfsfff fdfsfs sdfsdf .", date: Date(), online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Johnny", message: nil, date: nil, online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: nil, message: nil, date: nil, online: true, hasUnreadMessages: false),
                                                      ConversationModel(name: "J. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
                                                      ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
                                                      ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
@@ -75,6 +75,14 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         title = "Tinkoff Chat"
         view.backgroundColor = .white
         
+        
+        let someDate = Date()
+        
+        //For check date format of timeLabel change value here
+        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -13, to: someDate) // <---
+        
+        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
+        
         configureTableView()
 
     }
@@ -106,7 +114,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         cell.setNeedsUpdateConstraints()
         cell.configure(with: conversation)
-        
         
         return cell
     }

@@ -48,12 +48,40 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         lastMessageTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         lastMessageTimeLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         lastMessageTimeLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
-        lastMessageTimeLabel.font = .systemFont(ofSize: 12)
+        lastMessageTimeLabel.font = .systemFont(ofSize: 14)
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.numberOfLines = 2
         messageLabel.lineBreakMode = .byTruncatingTail
     
+    }
+    
+    private func getFormatedTime(from date: Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        
+        if checkDate(date) {
+            dateFormatter.dateFormat = "HH:mm"
+        } else {
+            dateFormatter.dateFormat = "dd MMM"
+        }
+        
+        let currentTime = dateFormatter.string(from: date)
+        
+        return currentTime
+    }
+    
+    private func checkDate(_ lastDate: Date) -> Bool {
+        let calendar = Calendar.current
+        
+        let startOfLastDate =  calendar.startOfDay(for: lastDate)
+        let startOfToday = calendar.startOfDay(for: Date())
+        
+        if let numberOfDays = calendar.dateComponents([.day], from: startOfLastDate, to: startOfToday).day {
+            return numberOfDays < 1
+        } else {
+            return false
+        }
     }
     
     var name: String?
@@ -70,9 +98,11 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         online = model.online
         hasUnreadMessages = model.hasUnreadMessages
         
-        nameLabel.text = name
+        nameLabel.text = name ?? "Unknown"
         
-        lastMessageTimeLabel.text = date?.description
+        if let date = date {
+            lastMessageTimeLabel.text = getFormatedTime(from: date)
+        }
         
         if online {
             self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
