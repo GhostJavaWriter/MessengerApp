@@ -76,12 +76,12 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         view.backgroundColor = .white
         
         
-        let someDate = Date()
-        
-        //For check date format of timeLabel change value here
-        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -13, to: someDate) // <---
-        
-        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
+//        let someDate = Date()
+//
+//        //For check date format of timeLabel change value here
+//        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -13, to: someDate) // <---
+//
+//        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
         
         configureTableView()
 

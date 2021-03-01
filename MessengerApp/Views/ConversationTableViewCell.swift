@@ -22,6 +22,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureView()
+
     }
     
     required init?(coder: NSCoder) {
@@ -124,6 +125,14 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        nameLabel.text = nil
+        messageLabel.text = nil
+        lastMessageTimeLabel.text = nil
+    }
+    
     override func updateConstraints() {
         
         if shouldSetupConstraints {
@@ -146,7 +155,6 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
             
             shouldSetupConstraints = false
         }
-        
         super.updateConstraints()
     }
 }
