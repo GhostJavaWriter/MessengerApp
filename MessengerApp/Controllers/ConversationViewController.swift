@@ -58,8 +58,9 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
         
-        cell.messageLabel.text = "some text"
-        cell.needsUpdateConstraints()
+        cell.setNeedsUpdateConstraints()
+        let someText = "some text sdfsfsdfsdfsdfs sdfsdf sd fsdf s fsdf sdfsfsfsdfs sd fsd fsd "
+        cell.configure(isInboxMessage: false, text: someText)
         
         return cell
     }
