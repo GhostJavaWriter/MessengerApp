@@ -64,21 +64,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         //let profile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController")
     }
     
-    //MARK: - UI
-    
-    private func configureTableView() {
-        
-        view.addSubview(tableView)
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-    }
-    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -95,7 +80,9 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
 
         conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
         
-        configureTableView()
+        view.addSubview(tableView)
+        
+        tableView.pinToSafeAreaEdges()
 
     }
     
@@ -128,5 +115,23 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         cell.configure(with: conversation)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let conversationViewController = ConversationViewController()
+        
+        //conversationViewController.companionName = 
+        
+        navigationController?.pushViewController(conversationViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, HeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

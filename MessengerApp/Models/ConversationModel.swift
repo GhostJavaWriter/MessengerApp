@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ConversationModel {
+struct ConversationModel : ConversationCellConfiguration {
     
     var name: String?
     var message: String?

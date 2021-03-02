@@ -96,6 +96,7 @@
                             <constraint firstItem="aCf-bx-BbF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.65" id="VrO-CL-poW"/>
                             <constraint firstItem="pF0-Q7-rU0" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="ZIW-PQ-1U4"/>
                             <constraint firstItem="ePV-h5-pD2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="jQ5-zq-0xX"/>
+                            <constraint firstItem="ePV-h5-pD2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="254" id="wZB-hh-pXc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aCf-bx-BbF" secondAttribute="bottom" constant="30" id="yzJ-nU-6Qw"/>
                         </constraints>
                     </view>

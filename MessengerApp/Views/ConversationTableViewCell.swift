@@ -7,16 +7,7 @@
 
 import UIKit
 
-protocol ConversationCellConfiguration {
-    
-    var name : String? {get set}
-    var message : String? {get set}
-    var date : Date? {get set}
-    var online : Bool {get set}
-    var hasUnreadMessages : Bool {get set}
-}
-
-class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
+class ConversationTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -85,39 +76,27 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         }
     }
     
-    var name: String?
-    var message: String?
-    var date: Date?
-    var online: Bool = false
-    var hasUnreadMessages: Bool = false
-    
     func configure(with model: ConversationModel) {
         
-        name = model.name
-        message = model.message
-        date = model.date
-        online = model.online
-        hasUnreadMessages = model.hasUnreadMessages
+        nameLabel.text = model.name ?? "Unknown"
         
-        nameLabel.text = name ?? "Unknown"
-        
-        if let date = date {
+        if let date = model.date {
             lastMessageTimeLabel.text = getFormatedTime(from: date)
         }
         
-        if online {
+        if model.online {
             self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         } else {
             self.backgroundColor = .white
         }
         
-        if hasUnreadMessages {
+        if model.hasUnreadMessages {
             messageLabel.font = .boldSystemFont(ofSize: 14)
         } else {
             messageLabel.font = .systemFont(ofSize: 14)
         }
         
-        if let lastMessage = message {
+        if let lastMessage = model.message {
             messageLabel.text = lastMessage
         } else {
             messageLabel.text = "No messages yet"
