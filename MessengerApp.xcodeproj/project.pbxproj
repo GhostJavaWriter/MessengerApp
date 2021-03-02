@@ -14,6 +14,7 @@
 		8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582A25D69B63006397F2 /* LaunchScreen.storyboard */; };
 		8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
+		8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ConversationViewController.swift */; };
 		88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		8804582D25D69B63006397F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
+		8875697525EDC61300BC0B00 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 			children = (
 				8804582325D69B62006397F2 /* ProfileViewController.swift */,
 				88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */,
+				8875697525EDC61300BC0B00 /* ConversationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			files = (
 				8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */,
 				8804582425D69B62006397F2 /* ProfileViewController.swift in Sources */,
+				8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */,
 				8804582025D69B62006397F2 /* AppDelegate.swift in Sources */,
 				88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */,
 				8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */,

@@ -53,6 +53,17 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
                                                      ConversationModel(name: "P. Watson", message: "Reprehenderit mollit excepteur labore", date: Date(), online: false, hasUnreadMessages: true)])
     ]
     
+    @objc
+    private func openProfileView() {
+        
+        if let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+            
+            profileController.modalTransitionStyle = .coverVertical
+            present(profileController, animated: true, completion: nil)
+        }
+        //let profile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController")
+    }
+    
     //MARK: - UI
     
     private func configureTableView() {
@@ -75,13 +86,14 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         title = "Tinkoff Chat"
         view.backgroundColor = .white
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileView))
         
-//        let someDate = Date()
-//
-//        //For check date format of timeLabel change value here
-//        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -13, to: someDate) // <---
-//
-//        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
+        let someDate = Date()
+
+        //For check date format of timeLabel change value here
+        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -73, to: someDate) // <---
+
+        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
         
         configureTableView()
 

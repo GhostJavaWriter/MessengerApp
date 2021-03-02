@@ -18,6 +18,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var logoView: UIButton?
     
     //MARK: - Actions
+    @IBAction func closeProfileBtn(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func editButtonTapped(_ sender: Any) {
         print("edit tapped")
@@ -53,14 +56,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //MARK: - Private
     private func setupLogoView() {
-        //viewController title
-        title = "My Profile"
         
-        //setup logo
-        if let logoHeight = logoView?.frame.height {
-            logoView?.layer.cornerRadius = logoHeight/2
-            logoView?.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
-        }
+        let logoHeight = CGFloat(view.frame.width * 0.6)
+        logoView?.layer.cornerRadius = logoHeight/2
+        logoView?.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         
         editButtonOutlet?.layer.cornerRadius = 14
         
@@ -151,9 +150,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         NSLog("ViewController : \(#function)")
         NSLog("editButton frame : \(String(describing: editButtonOutlet?.frame)) " + #function)
-        /*
-         На данном этапе жизненного цикла контроллера, размеры view не актуальны, т.е. не такие, какими они будут после вывода на экран. Поэтому, использовать вычисления, основанные на ширине / высоте view, в методе viewDidload не рекомендуется.
-         */
         
     }
 
@@ -161,6 +157,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewWillAppear(animated)
         
         NSLog("ViewController : " + #function)
+        
+        setupLogoView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -169,7 +167,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         NSLog("ViewController : " + #function)
         NSLog("editButton frame : \(String(describing: editButtonOutlet?.frame))")
         
-        setupLogoView()
         //Frame отличается потому что - в методе viewDidLoad прописан layout, который установлен в storyboard, а autolayout меняет эти значения согласно constraints в зависимости от фактического устройства
         /*
          Методы, которые вызываются перед и после появления view на экране.
