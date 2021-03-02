@@ -10,4 +10,5 @@ import Foundation
 struct MessageModel : MessageCellConfiguration{
     
     var text : String?
+    var isInbox : Bool
 }

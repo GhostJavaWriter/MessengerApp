@@ -36,6 +36,15 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
     }
     
+    private let messages = [MessageModel(text: "Hi there!", isInbox: false),
+                            MessageModel(text: "Hi!", isInbox: true),
+                            MessageModel(text: "How are you?", isInbox: false),
+                            MessageModel(text: "I'm fine, what about you?", isInbox: true),
+                            MessageModel(text: "I'm ok", isInbox: false),
+                            MessageModel(text: "Have you seen the sunrise this morning?", isInbox: true),
+                            MessageModel(text: "Nope", isInbox: false),
+    ]
+    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -43,7 +52,7 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         view.backgroundColor = .white
         
         title = companionName
-    
+        
         configureTableView()
     }
     
@@ -51,7 +60,7 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 2
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,8 +68,11 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
         
         cell.setNeedsUpdateConstraints()
-        let someText = "some text sdfsfsdfsdfsdfs sdfsdf sd fsdf s fsdf sdfsfsfsdfs sd fsd fsd "
-        cell.configure(isInboxMessage: false, text: someText)
+        //let someText = "some text sdfsfsdfsdfsdfs sdfsdf sd fsdf s fsdf sdfsfsfsdfs sd fsd fsd "
+        
+        let messageModel = messages[indexPath.row]
+        
+        cell.configure(isInboxMessage: messageModel.isInbox, text: messageModel.text)
         
         return cell
     }
