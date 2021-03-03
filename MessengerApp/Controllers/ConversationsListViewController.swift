@@ -61,7 +61,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
             profileController.modalTransitionStyle = .coverVertical
             present(profileController, animated: true, completion: nil)
         }
-        //let profile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController")
     }
     
     //MARK: - LifeCycle
@@ -96,10 +95,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         return conversationsList[section].title
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversationsList[section].group.count
     }
@@ -111,7 +106,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         let section = conversationsList[indexPath.section]
         let conversation = section.group[indexPath.row]
         
-        cell.setNeedsUpdateConstraints()
         cell.configure(with: conversation)
         
         return cell
@@ -121,17 +115,15 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         let conversationViewController = ConversationViewController()
         
-        //conversationViewController.companionName = 
+        let section = conversationsList[indexPath.section]
+        let conversation = section.group[indexPath.row]
+        conversationViewController.companionName = conversation.name
         
         navigationController?.pushViewController(conversationViewController, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, HeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
 }

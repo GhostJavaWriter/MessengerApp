@@ -31,18 +31,27 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         view.addSubview(tableView)
         tableView.pinToSafeAreaEdges()
         
-        //tableView.separatorStyle = .none
-        
-        
+        tableView.separatorStyle = .none
     }
     
-    private let messages = [MessageModel(text: "Hi there!", isInbox: false),
-                            MessageModel(text: "Hi!", isInbox: true),
-                            MessageModel(text: "How are you?", isInbox: false),
-                            MessageModel(text: "I'm fine, what about you?", isInbox: true),
-                            MessageModel(text: "I'm ok", isInbox: false),
-                            MessageModel(text: "Have you seen the sunrise this morning?", isInbox: true),
-                            MessageModel(text: "Nope", isInbox: false),
+    private let messages = [MessageModel(text: "Hi there!", isInbox: true),
+                            MessageModel(text: "Hi!", isInbox: false),
+                            MessageModel(text: "How are you?", isInbox: true),
+                            MessageModel(text: "I'm fine, what about you?", isInbox: false),
+                            MessageModel(text: "I'm ok", isInbox: true),
+                            MessageModel(text: "Have you seen the sunrise this morning?", isInbox: false),
+                            MessageModel(text: "Nope", isInbox: true),
+                            MessageModel(text: "Nope jjjj aaa jfdf adfsfsfsf sfdsfsdf fdsfds fd fdfdf f dsfdsfs fsdf fsdff fdsfkjlj jlkjl ljlkj kkljlk jlklkj jlkklj jlkjklll ll", isInbox: false),
+                            MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
+                            MessageModel(text: "Nope3", isInbox: false),
+                            MessageModel(text: nil, isInbox: true),
+                            MessageModel(text: "Nope5", isInbox: false),
+                            MessageModel(text: "Nope6", isInbox: true),
+                            MessageModel(text: "Nope7", isInbox: false),
+                            MessageModel(text: "Nope8", isInbox: true),
+                            MessageModel(text: "Nope9", isInbox: false),
+                            MessageModel(text: "Nope10", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: false),
     ]
     
     //MARK: - LifeCycle
@@ -67,15 +76,10 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
         
-        cell.setNeedsUpdateConstraints()
-        //let someText = "some text sdfsfsdfsdfsdfs sdfsdf sd fsdf s fsdf sdfsfsfsdfs sd fsd fsd "
-        
         let messageModel = messages[indexPath.row]
         
-        cell.configure(isInboxMessage: messageModel.isInbox, text: messageModel.text)
-        
+        cell.configure(text: messageModel.text, isInbox: messageModel.isInbox)
+        cell.setNeedsUpdateConstraints()
         return cell
     }
-    
-    
 }

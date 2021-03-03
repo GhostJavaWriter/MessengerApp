@@ -13,14 +13,11 @@ class ConversationTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureView()
-
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    private var shouldSetupConstraints = true
     
     private var nameLabel = UILabel()
     private var messageLabel = UILabel()
@@ -102,6 +99,22 @@ class ConversationTableViewCell: UITableViewCell {
             messageLabel.text = "No messages yet"
             messageLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 14)
         }
+        
+        NSLayoutConstraint.activate([
+
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+
+            lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
+            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            
+            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
+
+        ])
     }
     
     override func prepareForReuse() {
@@ -110,30 +123,5 @@ class ConversationTableViewCell: UITableViewCell {
         nameLabel.text = nil
         messageLabel.text = nil
         lastMessageTimeLabel.text = nil
-    }
-    
-    override func updateConstraints() {
-        
-        if shouldSetupConstraints {
-            
-            NSLayoutConstraint.activate([
-
-                nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-                nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-
-                lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
-                lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-                lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
-                lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-                
-                messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-                messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-                messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
-
-            ])
-            
-            shouldSetupConstraints = false
-        }
-        super.updateConstraints()
     }
 }

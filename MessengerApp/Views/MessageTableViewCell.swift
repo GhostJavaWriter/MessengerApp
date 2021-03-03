@@ -9,55 +9,68 @@ import UIKit
 
 class MessageTableViewCell: UITableViewCell {
     
-    func configure(isInboxMessage side: Bool, text: String?) {
-        messageLabel.text = text
-        isInboxMessage = side
-    }
+    private var messageLabel = UILabel()
+    private var isInbox = false
+    
+    private var inboxLayoutConstraints = [NSLayoutConstraint]()
+    private var outboxLayoutConstraints = [NSLayoutConstraint]()
+    
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        configureView()
+        contentView.addSubview(messageLabel)
+        contentView.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: 20).isActive = true
+        
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageLabel.numberOfLines = 0
+        messageLabel.lineBreakMode = .byWordWrapping
+        
+        messageLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        let messageInset = contentView.frame.width/4
+        let edgeInset : CGFloat = 30
+        
+        let inboxLeadingAnchor = messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: edgeInset)
+        let inboxTrailingAnchor = messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -messageInset)
+        
+        inboxLayoutConstraints.append(inboxLeadingAnchor)
+        inboxLayoutConstraints.append(inboxTrailingAnchor)
+        
+        NSLayoutConstraint.activate(inboxLayoutConstraints)
+        
+        let outboxLeadingAnchor = messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: messageInset)
+        let outboxTrailingAnchor = messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeInset)
+        
+        outboxLayoutConstraints.append(outboxLeadingAnchor)
+        outboxLayoutConstraints.append(outboxTrailingAnchor)
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private var messageLabel = UILabel()
-    
-    private var isInboxMessage = false
-    
-    private func configureView() {
-        
-        contentView.addSubview(messageLabel)
-        
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.numberOfLines = 0
-        messageLabel.lineBreakMode = .byWordWrapping
-        
-        messageLabel.layer.borderWidth = 1
-        messageLabel.layer.borderColor = UIColor.darkGray.cgColor
+    func configure(text: String?, isInbox: Bool) {
+        messageLabel.text = text
+        self.isInbox = isInbox
     }
     
     override func updateConstraints() {
-        
-        let messageInset = contentView.frame.width/4
-        
-        messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        
-        if isInboxMessage {
+    
+        if isInbox {
             messageLabel.textAlignment = .left
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -messageInset).isActive = true
+            
+            NSLayoutConstraint.deactivate(outboxLayoutConstraints)
+            NSLayoutConstraint.activate(inboxLayoutConstraints)
+            
         } else {
             messageLabel.textAlignment = .right
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: messageInset).isActive = true
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+            
+            NSLayoutConstraint.deactivate(inboxLayoutConstraints)
+            NSLayoutConstraint.activate(outboxLayoutConstraints)
         }
-        
         super.updateConstraints()
     }
-
 }
