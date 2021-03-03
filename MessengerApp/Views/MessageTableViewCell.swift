@@ -19,13 +19,11 @@ class MessageTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(messageLabel)
-        //contentView.heightAnchor.constraint(equalTo: messageLabel.heightAnchor, constant: 20).isActive = true
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byWordWrapping
         
-        //messageLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         

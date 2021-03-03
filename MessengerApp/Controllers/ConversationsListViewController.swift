@@ -15,12 +15,12 @@ struct Section {
 class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //MARK: - Private
-    private let cellIdentifier = String(describing: ConversationTableViewCell.self)
+    private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
     
     private lazy var tableView : UITableView = {
         
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
-        tableView.register(ConversationTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(ConversationsListTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -103,7 +103,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ConversationTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ConversationsListTableViewCell else { return UITableViewCell() }
         
         let section = conversationsList[indexPath.section]
         let conversation = section.group[indexPath.row]

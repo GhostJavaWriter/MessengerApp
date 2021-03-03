@@ -12,7 +12,7 @@
 		8804582725D69B62006397F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582525D69B62006397F2 /* Main.storyboard */; };
 		8804582925D69B63006397F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8804582825D69B63006397F2 /* Assets.xcassets */; };
 		8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582A25D69B63006397F2 /* LaunchScreen.storyboard */; };
-		8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */; };
+		8875696325EB39F700BC0B00 /* ConversationsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
 		8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ConversationViewController.swift */; };
 		8875697A25EDE06800BC0B00 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697925EDE06800BC0B00 /* UIButtonExtension.swift */; };
@@ -32,7 +32,7 @@
 		8804582825D69B63006397F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8804582B25D69B63006397F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8804582D25D69B63006397F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		8875697525EDC61300BC0B00 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		8875697925EDE06800BC0B00 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		8875696B25EB526C00BC0B00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8875696225EB39F700BC0B00 /* ConversationTableViewCell.swift */,
+				8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */,
 				8875698025EDE4F600BC0B00 /* MessageTableViewCell.swift */,
 			);
 			path = Views;
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8875696325EB39F700BC0B00 /* ConversationTableViewCell.swift in Sources */,
+				8875696325EB39F700BC0B00 /* ConversationsListTableViewCell.swift in Sources */,
 				8804582425D69B62006397F2 /* ProfileViewController.swift in Sources */,
 				8875698125EDE4F600BC0B00 /* MessageTableViewCell.swift in Sources */,
 				8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */,
