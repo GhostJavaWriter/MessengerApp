@@ -12,8 +12,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     //MARK: - UI
     @IBOutlet weak var fullNameLabel: UILabel?
-    @IBOutlet weak var positionLabel: UILabel?
-    @IBOutlet weak var locationLabel: UILabel?
+    @IBOutlet weak var descriptionLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
     @IBOutlet weak var logoView: UIButton?
     
@@ -62,7 +61,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         logoView?.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         
         editButtonOutlet?.layer.cornerRadius = 14
-        
+        descriptionLabel?.text = "iOS course student\nIrkutsk, Russia sdfsdf sdfsdf sdf sdf sdfsd fsfs sdfsdfsdfs sdfsfsf done sdfsdf sdf sf sdfs r"
     }
     
     private func setLogoImage(actionType: String) {
