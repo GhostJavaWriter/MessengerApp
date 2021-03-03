@@ -32,6 +32,8 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         tableView.pinToSafeAreaEdges()
         
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
     }
     
     private let messages = [MessageModel(text: "Hi there!", isInbox: true),

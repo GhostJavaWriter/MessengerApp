@@ -24,22 +24,24 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         
         return tableView
     }()
     
     private var conversationsList = [Section(title: "Online",
-                                             group: [ConversationModel(name: nil, message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Johnny Watson", message: nil, date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Ronald Robertson", message: "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum dsfs sfsdf sdfsdf sdfsdf sdfsdfs sdfsdf sdfsdf sdfsf sdfsfff fdfsfs sdfsdf .", date: Date(), online: true, hasUnreadMessages: false),
+                                             group: [ConversationModel(name: nil, message: "name nil, have date, online = true, hasUnreadMessages = true", date: Date(), online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Johnny Watson", message: nil, date: nil, online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Ronald Robertson", message: "have name, have date, online = true, hasUnreadMessages = false", date: Date(), online: true, hasUnreadMessages: false),
                                                      ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Johnny", message: nil, date: nil, online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: nil, message: nil, date: nil, online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "J. Watson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore", date: nil, online: true, hasUnreadMessages: true)]),
+                                                     ConversationModel(name: "Johnny", message: nil, date: Date(), online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: nil, message: nil, date: Date(), online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "J. Watson", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: false),
+                                                     ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
+                                                     ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true)]),
                                      Section(title: "History",
                                              group: [ConversationModel(name: "John Watson", message: nil, date: nil, online: false, hasUnreadMessages: false),
                                                      ConversationModel(name: "John W.", message: "Reprehenderit mollit excepteur labore", date: nil, online: false, hasUnreadMessages: false),
@@ -120,10 +122,5 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         conversationViewController.companionName = conversation.name
         
         navigationController?.pushViewController(conversationViewController, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 100
     }
 }

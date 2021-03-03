@@ -32,7 +32,7 @@ class ConversationTableViewCell: UITableViewCell {
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.numberOfLines = 2
         messageLabel.lineBreakMode = .byTruncatingTail
-    
+        messageLabel.font = .systemFont(ofSize: 14)
     }
     
     private func getFormatedTime(from date: Date) -> String {
@@ -77,6 +77,7 @@ class ConversationTableViewCell: UITableViewCell {
         
         if let name = model.name {
             nameLabel.text = name
+            nameLabel.font = .systemFont(ofSize: 20)
         } else {
             nameLabel.text = "Unknown"
             nameLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 20)
@@ -92,33 +93,33 @@ class ConversationTableViewCell: UITableViewCell {
             self.backgroundColor = .white
         }
         
-        if model.hasUnreadMessages {
-            messageLabel.font = .boldSystemFont(ofSize: 14)
-        } else {
-            messageLabel.font = .systemFont(ofSize: 14)
-        }
-        
         if let lastMessage = model.message {
+            
+            if model.hasUnreadMessages {
+                messageLabel.font = .boldSystemFont(ofSize: 14)
+            }
+            
             messageLabel.text = lastMessage
+            
         } else {
             messageLabel.text = "No messages yet"
             messageLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 14)
         }
         
         NSLayoutConstraint.activate([
-
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
 
             lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
             lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
-            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             
             messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
-
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -127,6 +128,7 @@ class ConversationTableViewCell: UITableViewCell {
         
         nameLabel.text = nil
         messageLabel.text = nil
+        messageLabel.font = .systemFont(ofSize: 14)
         lastMessageTimeLabel.text = nil
     }
 }
