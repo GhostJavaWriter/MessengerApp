@@ -15,8 +15,6 @@ class MessageTableViewCell: UITableViewCell {
     private var inboxLayoutConstraints = [NSLayoutConstraint]()
     private var outboxLayoutConstraints = [NSLayoutConstraint]()
     
-    
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        NSLog("Aplication moved from <Not running> to <Inactive> : " + #function)
+        //Aplication moved from <Not running> to <Inactive>
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -30,26 +30,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         
-        NSLog("Aplication moved from <Active> to <Inactive> : " + #function)
+        //Aplication moved from <Active> to <Inactive>
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-        NSLog("Aplication moved from <Inactive> to <Background> : " + #function)
+        //Aplication moved from <Inactive> to <Background>
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-        NSLog("Aplication moved from <Background> to <Inactive> : " + #function)
+        //Aplication moved from <Background> to <Inactive>
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        NSLog("Aplication moved from <Inactive> to <Active> : " + #function)
+        //Aplication moved from <Inactive> to <Active>
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        NSLog("Aplication moved from <Background> to <Suspended> : " + #function)
+        //Aplication moved from <Background> to <Suspended>
     }
 }

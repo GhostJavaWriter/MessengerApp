@@ -60,7 +60,11 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         view.backgroundColor = .white
         
-        title = companionName
+        if let name = companionName {
+            title = name
+        } else {
+            title = "Unknown"
+        }
         
         configureTableView()
     }

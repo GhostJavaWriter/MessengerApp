@@ -9,16 +9,6 @@ import UIKit
 
 class ConversationTableViewCell: UITableViewCell {
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     private var nameLabel = UILabel()
     private var messageLabel = UILabel()
     private var lastMessageTimeLabel = UILabel()
@@ -73,9 +63,24 @@ class ConversationTableViewCell: UITableViewCell {
         }
     }
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     func configure(with model: ConversationModel) {
         
-        nameLabel.text = model.name ?? "Unknown"
+        if let name = model.name {
+            nameLabel.text = name
+        } else {
+            nameLabel.text = "Unknown"
+            nameLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 20)
+        }
         
         if let date = model.date {
             lastMessageTimeLabel.text = getFormatedTime(from: date)
