@@ -22,19 +22,12 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        return tableView
-    }()
-    
-    private func configureTableView() {
-        
-        view.addSubview(tableView)
-        tableView.pinToSafeAreaEdges()
-        
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
-    }
+        
+        return tableView
+    }()
     
     private let messages = [MessageModel(text: "Hi there!", isInbox: true),
                             MessageModel(text: "Hi!", isInbox: false),
@@ -68,7 +61,8 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
             title = "Unknown"
         }
         
-        configureTableView()
+        view.addSubview(tableView)
+        tableView.pinToSafeAreaEdges()
     }
     
     //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -81,6 +75,7 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
+        cell.selectionStyle = .none
         
         let messageModel = messages[indexPath.row]
         
