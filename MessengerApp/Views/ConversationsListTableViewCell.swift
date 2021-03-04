@@ -89,7 +89,7 @@ class ConversationsListTableViewCell: UITableViewCell {
         }
         
         if online {
-            self.backgroundColor = UIColor(red: 255, green: 255, blue: 0, alpha: 0.2)
+            self.backgroundColor = #colorLiteral(red: 0.9999001622, green: 1, blue: 0.8476017118, alpha: 1)
         } else {
             self.backgroundColor = .white
         }

@@ -13,12 +13,15 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
     
     //MARK: - Private
     
-    private let cellIdentifier = String(describing: MessageTableViewCell.self)
+    private let inboxCellIdentifier = String(describing: InboxMessageCell.self)
+    private let outboxCellIdentifier = String(describing: OutboxMessageCell.self)
     
     private lazy var tableView : UITableView = {
         
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
-        tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        tableView.register(InboxMessageCell.self, forCellReuseIdentifier: inboxCellIdentifier)
+        tableView.register(OutboxMessageCell.self, forCellReuseIdentifier: outboxCellIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -41,12 +44,23 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
                             MessageModel(text: "Nope3", isInbox: false),
                             MessageModel(text: nil, isInbox: true),
                             MessageModel(text: "Nope5", isInbox: false),
-                            MessageModel(text: "Nope6", isInbox: true),
+                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope7", isInbox: false),
                             MessageModel(text: "Nope8", isInbox: true),
-                            MessageModel(text: "Nope9", isInbox: false),
+                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs joker", isInbox: false),
                             MessageModel(text: "Nope10", isInbox: false),
                             MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: true),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: true),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: true),
+                            MessageModel(text: "Nope11", isInbox: true),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: false),
+                            MessageModel(text: "Nope11", isInbox: true),
     ]
     
     //MARK: - LifeCycle
@@ -74,13 +88,20 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else { return UITableViewCell()}
-        cell.selectionStyle = .none
-        
         let messageModel = messages[indexPath.row]
         
-        cell.configure(text: messageModel.text, isInbox: messageModel.isInbox)
-        cell.setNeedsUpdateConstraints()
+        if messageModel.isInbox {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: inboxCellIdentifier, for: indexPath) as? InboxMessageCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            cell.configure(text: messageModel.text)
+            
+            return cell
+        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: outboxCellIdentifier, for: indexPath) as? OutboxMessageCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
+        cell.configure(text: messageModel.text)
+        
         return cell
     }
 }

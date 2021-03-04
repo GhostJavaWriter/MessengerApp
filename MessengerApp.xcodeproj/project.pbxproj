@@ -17,10 +17,11 @@
 		8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ConversationViewController.swift */; };
 		8875697A25EDE06800BC0B00 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697925EDE06800BC0B00 /* UIButtonExtension.swift */; };
 		8875697E25EDE0F300BC0B00 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697D25EDE0F300BC0B00 /* UITableViewExtension.swift */; };
-		8875698125EDE4F600BC0B00 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698025EDE4F600BC0B00 /* MessageTableViewCell.swift */; };
+		8875698125EDE4F600BC0B00 /* InboxMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698025EDE4F600BC0B00 /* InboxMessageCell.swift */; };
 		8875698525EDF8D000BC0B00 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698425EDF8D000BC0B00 /* ConversationCellConfiguration.swift */; };
 		8875698A25EDF9AC00BC0B00 /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698925EDF9AC00BC0B00 /* MessageCellConfiguration.swift */; };
 		8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698C25EDF9D600BC0B00 /* MessageModel.swift */; };
+		88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10B525F0D454009EE75F /* OutboxMessageCell.swift */; };
 		88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,10 +38,11 @@
 		8875697525EDC61300BC0B00 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		8875697925EDE06800BC0B00 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		8875697D25EDE0F300BC0B00 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
-		8875698025EDE4F600BC0B00 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		8875698025EDE4F600BC0B00 /* InboxMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageCell.swift; sourceTree = "<group>"; };
 		8875698425EDF8D000BC0B00 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
 		8875698925EDF9AC00BC0B00 /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
 		8875698C25EDF9D600BC0B00 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		88DC10B525F0D454009EE75F /* OutboxMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutboxMessageCell.swift; sourceTree = "<group>"; };
 		88FB909D25EB246B00438B5D /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,7 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */,
-				8875698025EDE4F600BC0B00 /* MessageTableViewCell.swift */,
+				8875698025EDE4F600BC0B00 /* InboxMessageCell.swift */,
+				88DC10B525F0D454009EE75F /* OutboxMessageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,11 +217,12 @@
 			files = (
 				8875696325EB39F700BC0B00 /* ConversationsListTableViewCell.swift in Sources */,
 				8804582425D69B62006397F2 /* ProfileViewController.swift in Sources */,
-				8875698125EDE4F600BC0B00 /* MessageTableViewCell.swift in Sources */,
+				8875698125EDE4F600BC0B00 /* InboxMessageCell.swift in Sources */,
 				8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */,
 				8875698A25EDF9AC00BC0B00 /* MessageCellConfiguration.swift in Sources */,
 				8875697E25EDE0F300BC0B00 /* UITableViewExtension.swift in Sources */,
 				8875697A25EDE06800BC0B00 /* UIButtonExtension.swift in Sources */,
+				88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */,
 				8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */,
 				8875698525EDF8D000BC0B00 /* ConversationCellConfiguration.swift in Sources */,
 				8804582025D69B62006397F2 /* AppDelegate.swift in Sources */,

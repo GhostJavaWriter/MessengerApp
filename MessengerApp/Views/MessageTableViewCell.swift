@@ -1,5 +1,5 @@
 //
-//  MessageTableViewCell.swift
+//  InboxMessageCell.swift
 //  MessengerApp
 //
 //  Created by Bair Nadtsalov on 02.03.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+class InboxMessageCell: UITableViewCell {
     
     private var messageLabel = UILabel()
     private var isInbox = false
