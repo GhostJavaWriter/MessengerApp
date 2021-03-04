@@ -57,7 +57,8 @@ class ConversationsListTableViewCell: UITableViewCell {
         let startOfToday = calendar.startOfDay(for: Date())
         
         if let numberOfDays = calendar.dateComponents([.day], from: startOfLastDate, to: startOfToday).day {
-            return numberOfDays < 1
+            //Тут не знаю, насколько правильно обрабатывать даты из будущего, но добавил abs
+            return abs(numberOfDays) < 1
         } else {
             return false
         }
