@@ -1,0 +1,200 @@
+//
+//  ConversationsListViewController.swift
+//  MessengerApp
+//
+//  Created by Bair Nadtsalov on 28.02.2021.
+//
+
+import UIKit
+
+struct TableViewItems {
+    var title : String
+    var group : [ConversationModel]
+}
+
+class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    //MARK: - Private
+    private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
+    
+    private lazy var tableView : UITableView = {
+        
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.register(ConversationsListTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
+        return tableView
+    }()
+    private var conversationsList = [TableViewItems]()
+
+    @objc
+    private func openProfileView() {
+        
+        if let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+            
+            present(profileController, animated: true, completion: nil)
+        }
+    }
+    
+    private func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
+    
+    private func fillData() {
+        //EXAMPLE INPUT DATA: here we will "load" item from somewhere
+        
+        conversationsList.append(TableViewItems(title: "Online", group: [ConversationModel]()))
+        conversationsList.append(TableViewItems(title: "History", group: [ConversationModel]()))
+        
+        var inputConversations = [ConversationModel]()
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: nil,
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Johnny Watson",
+                                                    message: nil,
+                                                    date: nil,
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: "John Watson",
+                                                    message: "some message",
+                                                    date: Date(timeIntervalSinceNow: -6000.0),
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Ronald Robertson",
+                                                    message: "have name, have date, online = true, hasUnreadMessages = false",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf",
+                                                    message: "Reprehenderit mollit excepteur labore",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: "Johnny",
+                                                    message: nil,
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "i have no name and my message isn't read",
+                                                    date: Date(),
+                                                    online: false,
+                                                    hasUnreadMessages: true))
+        //that chat shouldn't appear
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: nil,
+                                                    date: nil,
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "i have no name",
+                                                    date: nil,
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        
+        for _ in 1...20 {
+            
+            let randomLength = Int.random(in: 3...100)
+            let randomInterval = -Int.random(in: 1000...300000)
+            
+            let name = "\(randomString(length: randomLength)) \(randomString(length: randomLength))"
+            let message = "\(randomString(length: randomLength))"
+            let date = Date(timeIntervalSinceNow: Double(randomInterval))
+            let online = Bool.random()
+            let hasUnreadMessages = Bool.random()
+            
+            inputConversations.append(ConversationModel(name: name,
+                                                        message: message,
+                                                        date: date,
+                                                        online: online,
+                                                        hasUnreadMessages: hasUnreadMessages))
+        }
+        
+        //here we are sorting an input conversations to different sections in conversations list
+        //later we can add rules what we need
+        for item in inputConversations {
+            if item.online {
+                conversationsList[0].group.append(item)
+            } else if item.message != nil {
+                conversationsList[1].group.append(item)
+            } else {
+                NSLog("\(item) : invalid object. because it's has no message and isn't online")
+            }
+        }
+    }
+    
+    //MARK: - LifeCycle
+    
+    override func viewDidLoad() {
+        
+        title = "Tinkoff Chat"
+        view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileView))
+        
+        view.addSubview(tableView)
+        tableView.pinToSafeAreaEdges()
+        
+        fillData()
+    }
+    
+    //MARK: - UITableViewDataSource, UITableViewDelegate
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return conversationsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return conversationsList[section].title
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return conversationsList[section].group.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ConversationsListTableViewCell else { return UITableViewCell() }
+        
+        let section = conversationsList[indexPath.section]
+        let chat = section.group[indexPath.row]
+        
+        cell.configure(name: chat.name,
+                       message: chat.message,
+                       date: chat.date,
+                       online: chat.online,
+                       hasUnreadMessages: chat.hasUnreadMessages)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let conversationViewController = ConversationViewController()
+        
+        let section = conversationsList[indexPath.section]
+        let conversation = section.group[indexPath.row]
+        conversationViewController.companionName = conversation.name
+        
+        navigationController?.pushViewController(conversationViewController, animated: true)
+    }
+}
