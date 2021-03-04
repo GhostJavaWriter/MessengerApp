@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Section {
+struct TableViewItems {
     var title : String
     var group : [ConversationModel]
 }
@@ -29,39 +29,114 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         return tableView
     }()
-    
-    private var conversationsList = [Section(title: "Online",
-                                             group: [ConversationModel(name: nil, message: "name nil, have date, online = true, hasUnreadMessages = true", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Johnny Watson", message: nil, date: nil, online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Ronald Robertson", message: "have name, have date, online = true, hasUnreadMessages = false", date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Johnny", message: nil, date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: nil, message: nil, date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: nil, message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Johnny W.", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Hudson", message: "Reprehenderit mollit excepteur labore labore fjjfj aaa jfjf jjj lll ljjj ljjlj ljlj jljlj jljlj jlj ljlj jljljljljljlj ljljljlj jljljl ljljlj ljjlj ljljlj ljljljljljl end of message", date: Date(), online: true, hasUnreadMessages: false),
-                                                     ConversationModel(name: "Bair Nadtsalov", message: "Reprehenderit mollit excepteur labore", date: Date(), online: true, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Jennifer", message: "Reprehenderit mollit excepteur labore fjjfj aaa jfjf jjj lll ljjj ljjlj ljlj jljlj jljlj jlj ljlj jljljljljljlj ljljljlj jljljl ljljlj ljjlj ljljlj ljljljljljl end of message", date: Date(), online: true, hasUnreadMessages: true)]),
-                                     Section(title: "History",
-                                             group: [ConversationModel(name: "John Watson", message: "some message", date: Date(timeIntervalSinceNow: -6000.0), online: false, hasUnreadMessages: false),
-                                                     ConversationModel(name: "John W.", message: "That message have no date and I have read, it's possible?", date: nil, online: false, hasUnreadMessages: false),
-                                                     ConversationModel(name: nil, message: "Reprehenderit mollit excepteur labore", date: Date(), online: false, hasUnreadMessages: false),
-                                                     ConversationModel(name: "JohWatson", message: "Reprehenderit mollit excepteur labore", date: Date(timeIntervalSinceNow: -86000.0), online: false, hasUnreadMessages: true),
-                                                     ConversationModel(name: "Watson K.", message: "Reprehenderit mollit excepteur labore", date: Date(timeIntervalSinceNow: -172000.0), online: false, hasUnreadMessages: true),
-                                                     ConversationModel(name: "John Connor", message: "I'm from the future. Reprehenderit mollit excepteur labore fjjfj aaa jfjf jjj lll ljjj ljjlj ljlj jljlj jljlj jlj ljlj jljljljljljlj ljljljlj jljljl ljljlj ljjlj ljljlj ljljljljljl end of message", date: Date(timeIntervalSinceNow: 300000.0), online: false, hasUnreadMessages: false),
-                                                     ConversationModel(name: "W. Watson", message: "Reprehenderit mollit excepteur labore fjjfj aaa jfjf jjj lll ljjj ljjlj ljlj jljlj jljlj jlj ljlj jljljljljljlj ljljljlj jljljl ljljlj ljjlj ljljlj ljljljljljl end of message", date: Date(timeIntervalSinceNow: -300000.0), online: false, hasUnreadMessages: true),
-                                                     ConversationModel(name: nil, message: "Reprehenderit mollit excepteur labore", date: Date(timeIntervalSinceNow: -300000.0), online: false, hasUnreadMessages: true),
-                                                     ConversationModel(name: "B. Watson", message: "That message have no date and I didn't read", date: nil, online: false, hasUnreadMessages: true),
-                                                     ConversationModel(name: "P. Watson", message: "Reprehenderit mollit excepteur labore", date: Date(timeIntervalSinceNow: -300000.0), online: false, hasUnreadMessages: false)])
-    ]
-    
+    private var conversationsList = [TableViewItems]()
+
     @objc
     private func openProfileView() {
         
         if let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
             
-            profileController.modalTransitionStyle = .coverVertical
             present(profileController, animated: true, completion: nil)
+        }
+    }
+    
+    private func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
+    
+    private func fillData() {
+        //EXAMPLE INPUT DATA: here we will "load" item from somewhere
+        
+        conversationsList.append(TableViewItems(title: "Online", group: [ConversationModel]()))
+        conversationsList.append(TableViewItems(title: "History", group: [ConversationModel]()))
+        
+        var inputConversations = [ConversationModel]()
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
+                                                    date: nil,
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Johnny Watson",
+                                                    message: nil,
+                                                    date: nil,
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: "John Watson",
+                                                    message: "some message",
+                                                    date: Date(timeIntervalSinceNow: -6000.0),
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Ronald Robertson",
+                                                    message: "have name, have date, online = true, hasUnreadMessages = false",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf",
+                                                    message: "Reprehenderit mollit excepteur labore",
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: true))
+        inputConversations.append(ConversationModel(name: "Johnny",
+                                                    message: nil,
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "i have no name and my message isn't read",
+                                                    date: Date(),
+                                                    online: false,
+                                                    hasUnreadMessages: true))
+        //that chat shouldn't appear
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: nil,
+                                                    date: nil,
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        inputConversations.append(ConversationModel(name: nil,
+                                                    message: "i have no name",
+                                                    date: nil,
+                                                    online: false,
+                                                    hasUnreadMessages: false))
+        
+        for _ in 1...20 {
+            
+            let randomLength = Int.random(in: 3...100)
+            let randomInterval = -Int.random(in: 1000...300000)
+            
+            let name = "\(randomString(length: randomLength)) \(randomString(length: randomLength))"
+            let message = "\(randomString(length: randomLength))"
+            let date = Date(timeIntervalSinceNow: Double(randomInterval))
+            let online = Bool.random()
+            let hasUnreadMessages = Bool.random()
+            
+            inputConversations.append(ConversationModel(name: name,
+                                                        message: message,
+                                                        date: date,
+                                                        online: online,
+                                                        hasUnreadMessages: hasUnreadMessages))
+        }
+        
+        //here we are sorting an input conversations to different sections in conversations list
+        //later we can add rules what we need
+        for item in inputConversations {
+            if item.online {
+                conversationsList[0].group.append(item)
+            } else if item.message != nil {
+                conversationsList[1].group.append(item)
+            } else {
+                NSLog("\(item) : invalid object. because it's has no message and isn't online")
+            }
         }
     }
     
@@ -74,17 +149,10 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileView))
         
-        let someDate = Date()
-
-        //For check date format of timeLabel change value here
-        let modifiedDate = Calendar.current.date(byAdding: .hour, value: -73, to: someDate) // <---
-
-        conversationsList[0].group.append(ConversationModel(name: "Eddard Stark", message: "I'm honest but stupid man", date: modifiedDate, online: true, hasUnreadMessages: false))
-        
         view.addSubview(tableView)
-        
         tableView.pinToSafeAreaEdges()
-
+        
+        fillData()
     }
     
     //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -106,9 +174,13 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ConversationsListTableViewCell else { return UITableViewCell() }
         
         let section = conversationsList[indexPath.section]
-        let conversation = section.group[indexPath.row]
+        let chat = section.group[indexPath.row]
         
-        cell.configure(with: conversation)
+        cell.configure(name: chat.name,
+                       message: chat.message,
+                       date: chat.date,
+                       online: chat.online,
+                       hasUnreadMessages: chat.hasUnreadMessages)
         
         return cell
     }

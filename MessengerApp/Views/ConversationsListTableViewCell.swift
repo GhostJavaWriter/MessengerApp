@@ -30,7 +30,7 @@ class ConversationsListTableViewCell: UITableViewCell {
         lastMessageTimeLabel.font = .systemFont(ofSize: 14)
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.numberOfLines = 2
+        messageLabel.numberOfLines = 1
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.font = .systemFont(ofSize: 14)
     }
@@ -74,9 +74,9 @@ class ConversationsListTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(with model: ConversationModel) {
+    func configure(name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool) {
         
-        if let name = model.name {
+        if let name = name {
             nameLabel.text = name
             nameLabel.font = .systemFont(ofSize: 20)
         } else {
@@ -84,19 +84,19 @@ class ConversationsListTableViewCell: UITableViewCell {
             nameLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 20)
         }
         
-        if let date = model.date {
+        if let date = date {
             lastMessageTimeLabel.text = getFormatedTime(from: date)
         }
         
-        if model.online {
-            self.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        if online {
+            self.backgroundColor = UIColor(red: 255, green: 255, blue: 0, alpha: 0.2)
         } else {
             self.backgroundColor = .white
         }
         
-        if let lastMessage = model.message {
+        if let lastMessage = message {
             
-            if model.hasUnreadMessages {
+            if hasUnreadMessages {
                 messageLabel.font = .boldSystemFont(ofSize: 14)
             }
             
