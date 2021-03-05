@@ -32,12 +32,22 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     private var conversationsList = [TableViewItems]()
 
     @objc
-    private func openProfileView() {
+    private func openProfileViewController() {
         
-        if let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+        if let profileController = UIStoryboard(name: "ProfileViewController", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
             
             present(profileController, animated: true, completion: nil)
         }
+    }
+    
+    @objc
+    private func openThemesViewController() {
+        
+        if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
+            
+            navigationController?.pushViewController(themesController, animated: true)
+        }
+        
     }
     
     private func randomString(length: Int) -> String {
@@ -147,7 +157,9 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         title = "Tinkoff Chat"
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileViewController))
+        let settingsImage = UIImage(named: "settingsWheel")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(openThemesViewController))
         
         view.addSubview(tableView)
         tableView.pinToSafeAreaEdges()
