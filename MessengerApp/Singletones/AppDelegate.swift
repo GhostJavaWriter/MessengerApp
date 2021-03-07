@@ -17,8 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Aplication moved from <Not running> to <Inactive>
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        
         let controller = ConversationsListViewController()
+        
+        let themeManager = ThemeManager()
+        
+        themeManager.currentTheme = ThemeOptions.classic
+        themeManager.setTheme(theme: ThemeOptions.classic)
+        
+        controller.themeManager = themeManager
         
         let navigationController = UINavigationController(rootViewController: controller)
         

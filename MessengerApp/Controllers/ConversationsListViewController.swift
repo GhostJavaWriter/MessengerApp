@@ -15,6 +15,9 @@ struct TableViewItems {
 class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //MARK: - Private
+    
+    var themeManager : ThemeManager?
+    
     private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
     
     private lazy var tableView : UITableView = {
@@ -24,8 +27,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = 100
         
         return tableView
     }()
@@ -44,6 +46,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     private func openThemesViewController() {
         
         if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
+            
+            themesController.themeManager = themeManager
             
             navigationController?.pushViewController(themesController, animated: true)
         }
@@ -155,14 +159,13 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         
         title = "Tinkoff Chat"
-        view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileViewController))
         let settingsImage = UIImage(named: "settingsWheel")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(openThemesViewController))
         
         view.addSubview(tableView)
-        tableView.pinToSafeAreaEdges()
+        tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         
         fillData()
     }

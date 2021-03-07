@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var descriptionLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
     @IBOutlet weak var logoView: UIButton?
+    @IBOutlet weak var closeButtonOutlet: UIButton?
     
     //MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
@@ -35,7 +36,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             } else {
                 print("Action type error in " + #function)
             }
-            
         }))
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {

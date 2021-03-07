@@ -76,7 +76,7 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         }
         
         view.addSubview(tableView)
-        tableView.pinToSafeAreaEdges()
+        tableView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
     //MARK: - UITableViewDelegate, UITableViewDataSource

@@ -13,7 +13,7 @@
         <scene sceneID="4hF-o9-ANS">
             <objects>
                 <viewController storyboardIdentifier="ThemesViewController" id="vXy-W0-hoa" customClass="ThemesViewController" customModule="MessengerApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ThemesViewController" id="rif-3s-S4v">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ThemesViewController" id="rif-3s-S4v" customClass="AppView" customModule="MessengerApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -45,7 +45,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" red="1" green="0.99998790029999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="Ey7-uy-KGu" firstAttribute="width" secondItem="3Qa-sz-Yhq" secondAttribute="width" id="1b3-Xx-cjs"/>
                                                     <constraint firstItem="Ey7-uy-KGu" firstAttribute="leading" secondItem="3Qa-sz-Yhq" secondAttribute="trailing" constant="10" id="Dub-G5-1bQ"/>
@@ -62,10 +62,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUp-Fd-TNq">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUp-Fd-TNq" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="118.5" width="111" height="39.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -121,10 +120,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1M-vZ-ftP">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1M-vZ-ftP" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="130.5" width="111" height="27.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -180,10 +178,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-KW-UjB">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-KW-UjB" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="130.5" width="111" height="27.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -201,7 +198,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qZE-Pj-b5w"/>
-                        <color key="backgroundColor" red="0.090306065980000003" green="0.19712087510000001" blue="0.36472275850000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.77664710313835605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qZE-Pj-b5w" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="SC5-iV-cQe" secondAttribute="bottom" constant="130" id="BZC-eK-oA5"/>
                             <constraint firstItem="SC5-iV-cQe" firstAttribute="leading" secondItem="qZE-Pj-b5w" secondAttribute="leading" constant="38" id="QQb-HH-8eH"/>

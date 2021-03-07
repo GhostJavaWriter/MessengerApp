@@ -9,12 +9,19 @@ import UIKit
 
 class ThemesViewController: UIViewController {
     
+    var themesPickerDelegate : ThemesPickerDelegate?
+    var themeManager : ThemeManager?
+    
+    //MARK: - UI
+    
     @IBOutlet weak var classicButton: UIView!
     @IBOutlet weak var classicLabel: UILabel!
     @IBOutlet weak var dayButton: UIView!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var nightButton: UIView!
     @IBOutlet weak var nightLabel: UILabel!
+    
+    //MARK: - Private
     
     @objc
     private func cancelSettings() {
@@ -23,17 +30,44 @@ class ThemesViewController: UIViewController {
     
     @objc
     private func setClassicTheme() {
-        print("classic")
+        
+        themesPickerDelegate?.setTheme(theme: ThemeOptions.classic)
+        setButtonBorderColor(theme: ThemeOptions.classic)
+        setDefaultBtnStyle()
+        classicButton.layer.borderWidth = 2
+        classicButton.layer.borderColor = UIColor.blue.cgColor
     }
     
     @objc
     private func setDayTheme() {
-        print("day")
+        
+        themesPickerDelegate?.setTheme(theme: ThemeOptions.day)
+        setButtonBorderColor(theme: ThemeOptions.day)
+        setDefaultBtnStyle()
+        dayButton.layer.borderWidth = 2
+        dayButton.layer.borderColor = UIColor.blue.cgColor
     }
     
     @objc
     private func setNightTheme() {
-        print("night")
+        
+        themesPickerDelegate?.setTheme(theme: ThemeOptions.night)
+        setButtonBorderColor(theme: ThemeOptions.night)
+        setDefaultBtnStyle()
+        nightButton.layer.borderWidth = 2
+        nightButton.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    private func setButtonBorderColor(theme: ThemeOptions) {
+        
+        switch theme {
+        case .classic:
+            classicButton.layer.borderColor = UIColor.systemBlue.cgColor
+        case .day:
+            dayButton.layer.borderColor = UIColor.systemBlue.cgColor
+        case .night:
+            nightButton.layer.borderColor = UIColor.systemBlue.cgColor
+        }
     }
     
     private func configureGestureRecognizers() {
@@ -57,12 +91,33 @@ class ThemesViewController: UIViewController {
         nightLabel.addGestureRecognizer(nightLabelTapped)
     }
     
+    private func setDefaultBtnStyle() {
+        
+        classicButton.layer.borderWidth = 2
+        dayButton.layer.borderWidth = 2
+        nightButton.layer.borderWidth = 2
+        
+        classicButton.layer.borderColor = UIColor.lightGray.cgColor
+        dayButton.layer.borderColor = UIColor.lightGray.cgColor
+        nightButton.layer.borderColor = UIColor.lightGray.cgColor
+    }
+    
+    //MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let themeManager = ThemeManager()
+        themesPickerDelegate = themeManager
+        
+        
+        
         title = "Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSettings))
         
+        setDefaultBtnStyle()
+        
         configureGestureRecognizers()
     }
+    
 }

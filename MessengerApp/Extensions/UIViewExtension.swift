@@ -9,6 +9,7 @@ import UIKit
 
 extension UIView {
     
+    //FIXME: bad extension
     func pinToSafeAreaEdges() {
         
         guard let superview = self.superview else { return }
