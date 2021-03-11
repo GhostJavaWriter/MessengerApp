@@ -42,7 +42,6 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
                             MessageModel(text: "Nope jjjj aaa jfdf adfsfsfsf sfdsfsdf fdsfds fd fdfdf f dsfdsfs fsdf fsdff fdsfkjlj jlkjl ljlkj kkljlk jlklkj jlkklj jlkjklll ll", isInbox: false),
                             MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope3", isInbox: false),
-                            MessageModel(text: nil, isInbox: true),
                             MessageModel(text: "Nope5", isInbox: false),
                             MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope7", isInbox: false),

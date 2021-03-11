@@ -9,97 +9,137 @@ import UIKit
 
 class ThemesViewController: UIViewController {
     
-    var themesPickerDelegate : ThemesPickerDelegate?
-    var themeManager : ThemeManager?
+    weak var themesPickerDelegate : ThemesPickerDelegate?
+    
+    var themesPickerClouser : ((ThemeOptions) -> ())?
+    
+    var conversationsListVC : ConversationsListViewController?
     
     //MARK: - UI
     
-    @IBOutlet weak var classicButton: UIView!
+    //rename the buttons
+    @IBOutlet weak var classicThemeView: UIView!
     @IBOutlet weak var classicLabel: UILabel!
-    @IBOutlet weak var dayButton: UIView!
+    @IBOutlet weak var dayThemeView: UIView!
     @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var nightButton: UIView!
+    @IBOutlet weak var nightThemeView: UIView!
     @IBOutlet weak var nightLabel: UILabel!
     
     //MARK: - Private
     
+    private let userDefaults = UserDefaults.standard
+    
+    /*
+     
+     В clouser:
+     Если мы явно не указываем способ захвата, Swift использует сильный захват.
+     
+     themesController хранит ссылку на clouser тут -> var themesPickerClouser : ((ThemeOptions) -> ())?
+     а тот в свою очередь захватывает ссылку на themesController
+     
+     themesController.themesPickerClouser = { theme in
+         self.apply(theme: theme)
+         themesController?.conversationsListVC = self
+     }
+     
+    */
+    
     @objc
     private func cancelSettings() {
-        //cancel settings
+        
+        themesPickerClouser?(.classic)
+        themesPickerDelegate?.apply(theme: .classic)
+        applyToCurrentScreen(theme: .classic, buttonView: classicThemeView)
     }
     
     @objc
     private func setClassicTheme() {
         
-        themesPickerDelegate?.setTheme(theme: ThemeOptions.classic)
-        setButtonBorderColor(theme: ThemeOptions.classic)
-        setDefaultBtnStyle()
-        classicButton.layer.borderWidth = 2
-        classicButton.layer.borderColor = UIColor.blue.cgColor
+        themesPickerDelegate?.apply(theme: .classic)
+        themesPickerClouser?(.classic)
+        
+        applyToCurrentScreen(theme: .classic, buttonView: classicThemeView)
     }
     
     @objc
     private func setDayTheme() {
         
-        themesPickerDelegate?.setTheme(theme: ThemeOptions.day)
-        setButtonBorderColor(theme: ThemeOptions.day)
-        setDefaultBtnStyle()
-        dayButton.layer.borderWidth = 2
-        dayButton.layer.borderColor = UIColor.blue.cgColor
+        themesPickerDelegate?.apply(theme: .day)
+        themesPickerClouser?(.day)
+        
+        applyToCurrentScreen(theme: .day, buttonView: dayThemeView)
     }
     
     @objc
     private func setNightTheme() {
         
-        themesPickerDelegate?.setTheme(theme: ThemeOptions.night)
-        setButtonBorderColor(theme: ThemeOptions.night)
-        setDefaultBtnStyle()
-        nightButton.layer.borderWidth = 2
-        nightButton.layer.borderColor = UIColor.blue.cgColor
+        themesPickerDelegate?.apply(theme: .night)
+        themesPickerClouser?(.night)
+        
+        applyToCurrentScreen(theme: .night, buttonView: nightThemeView)
     }
     
-    private func setButtonBorderColor(theme: ThemeOptions) {
+    private func applyToCurrentScreen(theme: ThemeOptions, buttonView: UIView) {
         
-        switch theme {
-        case .classic:
-            classicButton.layer.borderColor = UIColor.systemBlue.cgColor
-        case .day:
-            dayButton.layer.borderColor = UIColor.systemBlue.cgColor
-        case .night:
-            nightButton.layer.borderColor = UIColor.systemBlue.cgColor
-        }
+        UIApplication.shared.windows.reload()
+        userDefaults.set(theme.rawValue, forKey: Keys.selectedTheme)
+        
+        repaintSelectedView(selectedButton: buttonView)
     }
     
     private func configureGestureRecognizers() {
         
         let classicBtnTapped = UITapGestureRecognizer(target: self, action: #selector(setClassicTheme))
-        classicButton.addGestureRecognizer(classicBtnTapped)
+        classicThemeView.addGestureRecognizer(classicBtnTapped)
         
         let classicLabelTapped = UITapGestureRecognizer(target: self, action: #selector(setClassicTheme))
         classicLabel.addGestureRecognizer(classicLabelTapped)
         
         let dayButtonTapped = UITapGestureRecognizer(target: self, action: #selector(setDayTheme))
-        dayButton.addGestureRecognizer(dayButtonTapped)
+        dayThemeView.addGestureRecognizer(dayButtonTapped)
         
         let dayLabelTapped = UITapGestureRecognizer(target: self, action: #selector(setDayTheme))
         dayLabel.addGestureRecognizer(dayLabelTapped)
         
         let nightButtonTapped = UITapGestureRecognizer(target: self, action: #selector(setNightTheme))
-        nightButton.addGestureRecognizer(nightButtonTapped)
+        nightThemeView.addGestureRecognizer(nightButtonTapped)
         
         let nightLabelTapped = UITapGestureRecognizer(target: self, action: #selector(setNightTheme))
         nightLabel.addGestureRecognizer(nightLabelTapped)
     }
     
-    private func setDefaultBtnStyle() {
+    private func repaintSelectedView(selectedButton: UIView) {
         
-        classicButton.layer.borderWidth = 2
-        dayButton.layer.borderWidth = 2
-        nightButton.layer.borderWidth = 2
+        classicThemeView.layer.borderColor = UIColor.lightGray.cgColor
+        dayThemeView.layer.borderColor = UIColor.lightGray.cgColor
+        nightThemeView.layer.borderColor = UIColor.lightGray.cgColor
         
-        classicButton.layer.borderColor = UIColor.lightGray.cgColor
-        dayButton.layer.borderColor = UIColor.lightGray.cgColor
-        nightButton.layer.borderColor = UIColor.lightGray.cgColor
+        selectedButton.layer.borderColor = UIColor.systemBlue.cgColor
+        
+        classicThemeView.layer.borderWidth = 2
+        dayThemeView.layer.borderWidth = 2
+        nightThemeView.layer.borderWidth = 2
+        
+        classicThemeView.layer.cornerRadius = 14
+        dayThemeView.layer.cornerRadius = 14
+        nightThemeView.layer.cornerRadius = 14
+    }
+    
+    private func loadCurrentTheme() {
+    
+        if let rawValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
+           let currentTheme = ThemeOptions(rawValue: rawValue) {
+            switch currentTheme {
+            case .classic:
+                repaintSelectedView(selectedButton: classicThemeView)
+            case .day:
+                repaintSelectedView(selectedButton: dayThemeView)
+            case .night:
+                repaintSelectedView(selectedButton: nightThemeView)
+            }
+        } else {
+            repaintSelectedView(selectedButton: classicThemeView)
+        }
     }
     
     //MARK: - LifeCycle
@@ -107,17 +147,11 @@ class ThemesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let themeManager = ThemeManager()
-        themesPickerDelegate = themeManager
-        
-        
-        
         title = "Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSettings))
         
-        setDefaultBtnStyle()
+        loadCurrentTheme()
         
         configureGestureRecognizers()
     }
-    
 }

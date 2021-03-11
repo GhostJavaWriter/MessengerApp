@@ -7,25 +7,23 @@
 
 import UIKit
 
-class ThemeManager : ThemesPickerDelegate {
+class ThemeManager {
     
     var currentTheme : ThemeOptions?
     
     //MARK: - ThemesPickerDelegate
     
-    //Потом разделить код на методы по экранам или просто сгруппировать с комментами
-    func setTheme(theme: ThemeOptions) {
+    func apply(theme: ThemeOptions) {
         
         currentTheme = theme
         
         //View
         AppView.appearance().backgroundColor = theme.colors.appBgColor
+        AppInboxMessageView.appearance().backgroundColor = theme.colors.inboxMsgBgColor
+        AppOutboxMessageView.appearance().backgroundColor = theme.colors.outboxMsgBgColor
         
         //Labels
         AppLabel.appearance().textColor = theme.colors.mainTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.colors.mainTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [InboxMessageCell.self]).backgroundColor = theme.colors.inboxMsgBgColor
-        UILabel.appearance(whenContainedInInstancesOf: [OutboxMessageCell.self]).backgroundColor = theme.colors.outboxMsgBgColor
         
         //Buttons
         AppButton.appearance().setTitleColor(theme.colors.btnEnabledTitleColor, for: .normal)
@@ -37,17 +35,21 @@ class ThemeManager : ThemesPickerDelegate {
         UITableView.appearance().backgroundColor = theme.colors.appBgColor
         
         //NavigationBar
-        UINavigationBar.appearance().barStyle = theme.navBarStyle
         let titleColor = theme.colors.mainTextColor
+        
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor]
         UINavigationBar.appearance().tintColor = theme.colors.barButtonColor
         UINavigationBar.appearance().backgroundColor = theme.colors.appBgColor
+        UINavigationBar.appearance().barTintColor = theme.colors.appBgColor
         
         //AlertController
-        
-        
-        //Reload
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.reload()
+        if #available(iOS 13.0, *) {
+            UIView.appearance().overrideUserInterfaceStyle = theme.userInterfaceStyle
+        } else {
+            NSLog("anavailable -", #function)
+        }
     }
 }
+
+

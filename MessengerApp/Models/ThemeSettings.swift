@@ -54,11 +54,11 @@ extension ThemeSettings {
                                           alertControllerTitleColor: .white)
 }
 
-enum ThemeOptions {
+enum ThemeOptions : String {
     
-    case classic
-    case day
-    case night
+    case classic = "classic"
+    case day = "day"
+    case night = "night"
     var colors : ThemeSettings {
         switch self {
         case .classic : return ThemeSettings.classicTheme
@@ -73,4 +73,19 @@ enum ThemeOptions {
         case .night : return .blackOpaque
         }
     }
+    
+    var userInterfaceStyle : UIUserInterfaceStyle {
+        switch self {
+        case .classic:
+            return .light
+        case .day:
+            return .light
+        case .night:
+            return .dark
+        }
+    }
+}
+
+enum Keys {
+    static let selectedTheme = "SelectedTheme"
 }

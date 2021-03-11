@@ -15,3 +15,9 @@ extension UIWindow {
         }
     }
 }
+
+extension Array where Element == UIWindow {
+    func reload() {
+        forEach { $0.reload() }
+    }
+}

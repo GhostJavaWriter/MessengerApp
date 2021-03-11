@@ -9,9 +9,9 @@ import UIKit
 
 class ConversationsListTableViewCell: UITableViewCell {
     
-    private var nameLabel = UILabel()
-    private var messageLabel = UILabel()
-    private var lastMessageTimeLabel = UILabel()
+    private var nameLabel = AppLabel()
+    private var messageLabel = AppLabel()
+    private var lastMessageTimeLabel = AppLabel()
     private var avatarImage = UIView()
     
     private func configureView() {

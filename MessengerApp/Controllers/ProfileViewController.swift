@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     //MARK: - UI
     @IBOutlet weak var fullNameLabel: UILabel?
     @IBOutlet weak var descriptionLabel: UILabel?
@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func editButtonTapped(_ sender: Any) {
         print("edit tapped")
+        
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
@@ -47,8 +48,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }))
         }
-        
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        ac.addAction(cancelAction)
         
         present(ac, animated: true, completion: nil)
     }
@@ -129,6 +130,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //MARK: - Lifecycle
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

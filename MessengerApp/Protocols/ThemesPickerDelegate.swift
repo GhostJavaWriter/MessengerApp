@@ -5,9 +5,9 @@
 //  Created by Bair Nadtsalov on 05.03.2021.
 //
 
-import Foundation
+import UIKit
 
-protocol ThemesPickerDelegate {
+protocol ThemesPickerDelegate : class {
     
-    func setTheme(theme: ThemeOptions)
+    func apply(theme: ThemeOptions)
 }

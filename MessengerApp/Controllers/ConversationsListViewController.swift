@@ -12,11 +12,12 @@ struct TableViewItems {
     var group : [ConversationModel]
 }
 
-class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    //MARK: - Private
+class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, ThemesPickerDelegate {
     
     var themeManager : ThemeManager?
+    var themesController : ThemesViewController?
+    
+    //MARK: - Private
     
     private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
     
@@ -47,11 +48,14 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
             
-            themesController.themeManager = themeManager
-            
+            themesController.themesPickerDelegate = self
+            self.themesController = themesController
+//            themesController.themesPickerClouser = { [weak themesController] theme in
+//                self.apply(theme: theme)
+//                themesController?.conversationsListVC = self
+//            }
             navigationController?.pushViewController(themesController, animated: true)
         }
-        
     }
     
     private func randomString(length: Int) -> String {
@@ -115,7 +119,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         inputConversations.append(ConversationModel(name: nil,
                                                     message: nil,
                                                     date: nil,
-                                                    online: false,
+                                                    online: true,
                                                     hasUnreadMessages: false))
         inputConversations.append(ConversationModel(name: nil,
                                                     message: "i have no name",
@@ -157,6 +161,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         title = "Tinkoff Chat"
         
@@ -211,5 +216,11 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         conversationViewController.companionName = conversation.name
         
         navigationController?.pushViewController(conversationViewController, animated: true)
+    }
+    
+    //MARK: - ThemesPickerDelegate
+    func apply(theme: ThemeOptions) {
+        themeManager?.apply(theme: theme)
+        
     }
 }

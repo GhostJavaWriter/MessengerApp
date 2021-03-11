@@ -56,11 +56,6 @@
                                                     <constraint firstAttribute="bottom" secondItem="Ey7-uy-KGu" secondAttribute="bottom" constant="20" id="aPz-9a-sr4"/>
                                                     <constraint firstItem="Ey7-uy-KGu" firstAttribute="height" secondItem="nh8-AF-9Pw" secondAttribute="height" multiplier="0.3" id="y8E-49-66L"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="14"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUp-Fd-TNq" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="118.5" width="111" height="39.5"/>
@@ -114,11 +109,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="c9v-0f-r6G" secondAttribute="trailing" constant="25" id="cdm-V7-CSK"/>
                                                     <constraint firstAttribute="bottom" secondItem="c9v-0f-r6G" secondAttribute="bottom" constant="20" id="l9Q-Xz-4Mz"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="14"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1M-vZ-ftP" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="130.5" width="111" height="27.5"/>
@@ -172,11 +162,6 @@
                                                     <constraint firstItem="owT-XD-OzV" firstAttribute="height" secondItem="d3l-GC-dly" secondAttribute="height" multiplier="0.3" id="frZ-1S-f3H"/>
                                                     <constraint firstAttribute="trailing" secondItem="owT-XD-OzV" secondAttribute="trailing" constant="25" id="rVy-db-l8K"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="14"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-KW-UjB" customClass="AppLabel" customModule="MessengerApp" customModuleProvider="target">
                                                 <rect key="frame" x="113.5" y="130.5" width="111" height="27.5"/>
@@ -198,7 +183,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qZE-Pj-b5w"/>
-                        <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.77664710313835605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qZE-Pj-b5w" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="SC5-iV-cQe" secondAttribute="bottom" constant="130" id="BZC-eK-oA5"/>
                             <constraint firstItem="SC5-iV-cQe" firstAttribute="leading" secondItem="qZE-Pj-b5w" secondAttribute="leading" constant="38" id="QQb-HH-8eH"/>
@@ -209,12 +194,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="classicButton" destination="nh8-AF-9Pw" id="6Ga-KD-ctc"/>
                         <outlet property="classicLabel" destination="BUp-Fd-TNq" id="pwA-ZL-q8c"/>
-                        <outlet property="dayButton" destination="amy-OP-opz" id="DGX-Yi-huW"/>
+                        <outlet property="classicThemeView" destination="nh8-AF-9Pw" id="6Ga-KD-ctc"/>
                         <outlet property="dayLabel" destination="V1M-vZ-ftP" id="Qb7-De-q5r"/>
-                        <outlet property="nightButton" destination="d3l-GC-dly" id="OTr-h5-coE"/>
+                        <outlet property="dayThemeView" destination="amy-OP-opz" id="DGX-Yi-huW"/>
                         <outlet property="nightLabel" destination="oyy-KW-UjB" id="Tm7-Mg-qCF"/>
+                        <outlet property="nightThemeView" destination="d3l-GC-dly" id="OTr-h5-coE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L4y-23-3FH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

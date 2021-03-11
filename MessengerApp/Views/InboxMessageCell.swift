@@ -9,29 +9,39 @@ import UIKit
 
 class InboxMessageCell: UITableViewCell {
     
-    private var messageLabel = UILabel()
+    private var messageBgView = AppInboxMessageView()
+    private var messageLabel = AppLabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(messageLabel)
+        messageBgView.addSubview(messageLabel)
+        contentView.addSubview(messageBgView)
+        
+        let edgeInset : CGFloat = 30
+        let labelInset : CGFloat = 5
+        let messageInset = contentView.frame.width/4
+        
+        messageBgView.translatesAutoresizingMaskIntoConstraints = false
+        messageBgView.layer.cornerRadius = 10
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byWordWrapping
         messageLabel.textAlignment = .left
         
-        let edgeInset : CGFloat = 30
-        let messageInset = contentView.frame.width/4
+        NSLayoutConstraint.activate([
+            messageBgView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: labelInset),
+            messageBgView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: edgeInset),
+            messageBgView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -messageInset),
+            messageBgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -labelInset),
+            
+            messageLabel.topAnchor.constraint(equalTo: messageBgView.topAnchor, constant: labelInset),
+            messageLabel.bottomAnchor.constraint(equalTo: messageBgView.bottomAnchor, constant: -labelInset),
+            messageLabel.leadingAnchor.constraint(equalTo: messageBgView.leadingAnchor, constant: labelInset),
+            messageLabel.trailingAnchor.constraint(equalTo: messageBgView.trailingAnchor, constant: -labelInset)
+        ])
         
-        messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                          constant: 10).isActive = true
-        messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                             constant: -10).isActive = true
-        messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                              constant: edgeInset).isActive = true
-        messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                               constant: -messageInset).isActive = true
     }
     
     required init?(coder: NSCoder) {

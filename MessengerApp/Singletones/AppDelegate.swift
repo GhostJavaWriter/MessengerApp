@@ -18,15 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let controller = ConversationsListViewController()
-        
         let themeManager = ThemeManager()
-        
-        themeManager.currentTheme = ThemeOptions.classic
-        themeManager.setTheme(theme: ThemeOptions.classic)
-        
         controller.themeManager = themeManager
         
         let navigationController = UINavigationController(rootViewController: controller)
+        
+        let userDefaults = UserDefaults.standard
+        if let rowValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
+           let theme = ThemeOptions(rawValue: rowValue) {
+            themeManager.apply(theme: theme)
+        } else {
+            themeManager.apply(theme: .classic)
+            NSLog("Theme loading fail. Apply default classic theme")
+        }
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
