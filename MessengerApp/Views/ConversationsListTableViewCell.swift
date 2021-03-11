@@ -9,15 +9,21 @@ import UIKit
 
 class ConversationsListTableViewCell: UITableViewCell {
     
-    private var nameLabel = UILabel()
-    private var messageLabel = UILabel()
-    private var lastMessageTimeLabel = UILabel()
+    private var nameLabel = AppLabel()
+    private var messageLabel = AppLabel()
+    private var lastMessageTimeLabel = AppLabel()
+    private var avatarImage = UIView()
     
     private func configureView() {
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(messageLabel)
         contentView.addSubview(lastMessageTimeLabel)
+        contentView.addSubview(avatarImage)
+        
+        //FIXME: change fixed values to drowing circle with UIBizierPath and add views to UIStackView
+        avatarImage.layer.cornerRadius = 30
+        avatarImage.translatesAutoresizingMaskIntoConstraints = false
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
@@ -33,6 +39,27 @@ class ConversationsListTableViewCell: UITableViewCell {
         messageLabel.numberOfLines = 1
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.font = .systemFont(ofSize: 14)
+        
+        NSLayoutConstraint.activate([
+            
+            avatarImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            avatarImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            avatarImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            avatarImage.widthAnchor.constraint(equalToConstant: 60),
+            
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            nameLabel.leadingAnchor.constraint(equalTo: avatarImage.trailingAnchor, constant: 10),
+
+            lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
+            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            
+            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+        ])
     }
     
     private func getFormatedTime(from date: Date) -> String {
@@ -89,9 +116,9 @@ class ConversationsListTableViewCell: UITableViewCell {
         }
         
         if online {
-            self.backgroundColor = #colorLiteral(red: 0.9999001622, green: 1, blue: 0.8476017118, alpha: 1)
+            avatarImage.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         } else {
-            self.backgroundColor = .white
+            avatarImage.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         }
         
         if let lastMessage = message {
@@ -106,22 +133,6 @@ class ConversationsListTableViewCell: UITableViewCell {
             messageLabel.text = "No messages yet"
             messageLabel.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 14)
         }
-        
-        NSLayoutConstraint.activate([
-            
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
-
-            lastMessageTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
-            lastMessageTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-            lastMessageTimeLabel.lastBaselineAnchor.constraint(equalTo: nameLabel.lastBaselineAnchor, constant: 0),
-            lastMessageTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            
-            messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-            messageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
     }
     
     override func prepareForReuse() {

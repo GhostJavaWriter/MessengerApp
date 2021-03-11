@@ -12,9 +12,13 @@ struct TableViewItems {
     var group : [ConversationModel]
 }
 
-class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, ThemesPickerDelegate {
+    
+    var themeManager : ThemeManager?
+    var themesController : ThemesViewController?
     
     //MARK: - Private
+    
     private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
     
     private lazy var tableView : UITableView = {
@@ -24,19 +28,33 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = 100
         
         return tableView
     }()
     private var conversationsList = [TableViewItems]()
 
     @objc
-    private func openProfileView() {
+    private func openProfileViewController() {
         
-        if let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+        if let profileController = UIStoryboard(name: "ProfileViewController", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
             
             present(profileController, animated: true, completion: nil)
+        }
+    }
+    
+    @objc
+    private func openThemesViewController() {
+        
+        if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
+            
+            themesController.themesPickerDelegate = self
+            self.themesController = themesController
+//            themesController.themesPickerClouser = { [weak themesController] theme in
+//                self.apply(theme: theme)
+//                themesController?.conversationsListVC = self
+//            }
+            navigationController?.pushViewController(themesController, animated: true)
         }
     }
     
@@ -101,7 +119,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         inputConversations.append(ConversationModel(name: nil,
                                                     message: nil,
                                                     date: nil,
-                                                    online: false,
+                                                    online: true,
                                                     hasUnreadMessages: false))
         inputConversations.append(ConversationModel(name: nil,
                                                     message: "i have no name",
@@ -143,14 +161,16 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         title = "Tinkoff Chat"
-        view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(openProfileViewController))
+        let settingsImage = UIImage(named: "settingsWheel")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(openThemesViewController))
         
         view.addSubview(tableView)
-        tableView.pinToSafeAreaEdges()
+        tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         
         fillData()
     }
@@ -196,5 +216,11 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         conversationViewController.companionName = conversation.name
         
         navigationController?.pushViewController(conversationViewController, animated: true)
+    }
+    
+    //MARK: - ThemesPickerDelegate
+    func apply(theme: ThemeOptions) {
+        themeManager?.apply(theme: theme)
+        
     }
 }

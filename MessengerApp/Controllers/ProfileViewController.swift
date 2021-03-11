@@ -9,12 +9,13 @@ import UIKit
 import AVFoundation
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     //MARK: - UI
     @IBOutlet weak var fullNameLabel: UILabel?
     @IBOutlet weak var descriptionLabel: UILabel?
     @IBOutlet weak var editButtonOutlet: UIButton?
     @IBOutlet weak var logoView: UIButton?
+    @IBOutlet weak var closeButtonOutlet: UIButton?
     
     //MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
@@ -23,6 +24,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func editButtonTapped(_ sender: Any) {
         print("edit tapped")
+        
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
@@ -35,7 +37,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             } else {
                 print("Action type error in " + #function)
             }
-            
         }))
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -47,8 +48,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }))
         }
-        
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        ac.addAction(cancelAction)
         
         present(ac, animated: true, completion: nil)
     }
@@ -129,6 +130,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //MARK: - Lifecycle
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
