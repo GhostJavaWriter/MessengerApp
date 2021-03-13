@@ -23,8 +23,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        print("edit tapped")
         
+        //get start
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
