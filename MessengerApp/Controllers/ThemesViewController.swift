@@ -27,8 +27,6 @@ class ThemesViewController: UIViewController {
     
     //MARK: - Private
     
-    private let userDefaults = UserDefaults.standard
-    
     /*
      
      В clouser:
@@ -82,9 +80,18 @@ class ThemesViewController: UIViewController {
     private func applyToCurrentScreen(theme: ThemeOptions, buttonView: UIView) {
         
         UIApplication.shared.windows.reload()
-        userDefaults.set(theme.rawValue, forKey: Keys.selectedTheme)
         
         repaintSelectedView(selectedButton: buttonView)
+        
+        let gcdSaver = DataManagerGCD()
+        gcdSaver.saveCurrentTheme(theme: theme, fileName: "theme.json") { (result) in
+            switch result {
+            case .success(let result):
+                print("is saved? - ", result)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
     }
     
     private func configureGestureRecognizers() {
@@ -125,23 +132,6 @@ class ThemesViewController: UIViewController {
         nightThemeView.layer.cornerRadius = 14
     }
     
-    private func loadCurrentTheme() {
-    
-        if let rawValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
-           let currentTheme = ThemeOptions(rawValue: rawValue) {
-            switch currentTheme {
-            case .classic:
-                repaintSelectedView(selectedButton: classicThemeView)
-            case .day:
-                repaintSelectedView(selectedButton: dayThemeView)
-            case .night:
-                repaintSelectedView(selectedButton: nightThemeView)
-            }
-        } else {
-            repaintSelectedView(selectedButton: classicThemeView)
-        }
-    }
-    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -149,8 +139,6 @@ class ThemesViewController: UIViewController {
         
         title = "Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSettings))
-        
-        loadCurrentTheme()
         
         configureGestureRecognizers()
     }

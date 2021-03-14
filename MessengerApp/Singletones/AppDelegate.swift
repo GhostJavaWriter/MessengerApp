@@ -23,14 +23,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController(rootViewController: controller)
         
-        let userDefaults = UserDefaults.standard
-        if let rowValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
-           let theme = ThemeOptions(rawValue: rowValue) {
-            themeManager.apply(theme: theme)
-        } else {
-            themeManager.apply(theme: .classic)
-            NSLog("Theme loading fail. Apply default classic theme")
+        //Load saved theme if that exist
+        let gcdManager = DataManagerGCD()
+        gcdManager.loadData(fileName: "theme.json") { (result) in
+            switch result {
+            case .success(let data):
+                parseSavedThemeModel(jsonData: data) { (result) in
+                    switch result {
+                    case .success(let dictionary):
+                        if let savedTheme = dictionary["theme"],
+                           let theme = ThemeOptions(rawValue: savedTheme) {
+                            DispatchQueue.main.async {
+                                themeManager.apply(theme: theme)
+                                UIApplication.shared.windows.reload()
+                            }
+                        }
+                        
+                    case .failure:
+                        themeManager.apply(theme: .classic)
+                        NSLog("Theme loading fail. Apply default classic theme")
+                    }
+                }
+                
+            case .failure:
+                print("error loading")
+            }
         }
+        
+//        let userDefaults = UserDefaults.standard
+//        if let rowValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
+//           let theme = ThemeOptions(rawValue: rowValue) {
+//            themeManager.apply(theme: theme)
+//        } else {
+//            themeManager.apply(theme: .classic)
+//            NSLog("Theme loading fail. Apply default classic theme")
+//        }
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

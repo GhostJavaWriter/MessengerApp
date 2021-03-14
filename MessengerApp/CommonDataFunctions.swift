@@ -48,7 +48,6 @@ public func syncSaveData(toFile: String, name: String, workInfo: String, locatio
         do {
             if let data = jsonString.data(using: .utf8) {
                 try data.write(to: pathWithFilename)
-                sleep(1)
                 completion(.success(data))
             } else {
                 completion(.failure(DataOperationError.dataCreateError))
@@ -65,7 +64,6 @@ public func syncLoadImg(imageString: String, completion: @escaping (Result<UIIma
         let pathWithFileName = path.appendingPathComponent(imageString)
         if let data = try? Data(contentsOf: pathWithFileName),
            let image = UIImage(data: data) {
-            sleep(1)
             completion(.success(image))
         } else {
             completion(.failure(DataOperationError.readingError))
@@ -79,7 +77,6 @@ public func syncReadData(fileName: String, completion: @escaping (Result<Data, E
         if let path = getDocumentsDirectory() {
             let pathWithFileName = path.appendingPathComponent(fileName)
             let jsonData = try Data(contentsOf: pathWithFileName)
-            sleep(1)
             completion(.success(jsonData))
         }
         
@@ -89,7 +86,28 @@ public func syncReadData(fileName: String, completion: @escaping (Result<Data, E
     }
 }
 
-public func parse(jsonData: Data, completion: @escaping (Result<Dictionary<String, String>, Error>) -> Void) {
+public func syncSaveTheme(fileName: String, theme: Any, completion: @escaping (Result<Bool, Error>) -> Void) {
+    
+    guard let theme = theme as? ThemeOptions else { return }
+    
+    let jsonString = "{\"theme\": \"\(theme.rawValue)\"}"
+    
+    if let path = getDocumentsDirectory() {
+        let pathWithFileName = path.appendingPathComponent(fileName)
+        do {
+            if let data = jsonString.data(using: .utf8) {
+                try data.write(to: pathWithFileName)
+                completion(.success(true))
+            } else {
+                completion(.failure(DataOperationError.dataCreateError))
+            }
+        } catch {
+            completion(.failure(DataOperationError.writingError))
+        }
+    }
+}
+
+public func parseUserInfoModel(jsonData: Data, completion: @escaping (Result<Dictionary<String, String>, Error>) -> Void) {
     do {
         let decodedData = try JSONDecoder().decode(UserDataModel.self,
                                                    from: jsonData)
@@ -99,7 +117,19 @@ public func parse(jsonData: Data, completion: @escaping (Result<Dictionary<Strin
         
         completion(.success(dictrionary))
     } catch {
-        print("decode error", error)
+        completion(.failure(error))
+    }
+}
+
+public func parseSavedThemeModel(jsonData: Data, completion: @escaping (Result<Dictionary<String, String>, Error>) -> Void) {
+    do {
+        let decodedData = try JSONDecoder().decode(SavedThemeModel.self,
+                                                   from: jsonData)
+        let dictrionary = ["theme" : decodedData.theme]
+        
+        completion(.success(dictrionary))
+    } catch {
+        
         completion(.failure(error))
     }
 }

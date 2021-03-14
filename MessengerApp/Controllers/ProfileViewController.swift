@@ -253,7 +253,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             switch result {
             case .success(let data):
                 
-                parse(jsonData: data) { (result) in
+                parseUserInfoModel(jsonData: data) { (result) in
                     switch result {
                     case .success(let dictionary):
                         self?.nameTextField.text = dictionary["name"]
@@ -294,7 +294,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             switch result {
             case .success(let data):
                 
-                parse(jsonData: data) { (result) in
+                parseUserInfoModel(jsonData: data) { (result) in
                     switch result {
                     case .success(let dictionary):
                         self?.nameTextField.text = dictionary["name"]

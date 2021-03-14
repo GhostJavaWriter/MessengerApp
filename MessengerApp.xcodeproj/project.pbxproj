@@ -16,6 +16,7 @@
 		882B1A0F25FDAED100E67F15 /* CommonDataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */; };
 		882B1A1625FDCDBA00E67F15 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */; };
 		882B1A1A25FE11EA00E67F15 /* DataManagerOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */; };
+		882B1A1D25FE4FF400E67F15 /* SavedThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */; };
 		8875696325EB39F700BC0B00 /* ConversationsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
 		8875697625EDC61300BC0B00 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ConversationViewController.swift */; };
@@ -50,6 +51,7 @@
 		882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDataFunctions.swift; sourceTree = "<group>"; };
 		882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerOperations.swift; sourceTree = "<group>"; };
+		882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedThemeModel.swift; sourceTree = "<group>"; };
 		8875696225EB39F700BC0B00 /* ConversationsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		8875697525EDC61300BC0B00 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */,
+				882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */,
 				8875696525EB3DA200BC0B00 /* ConversationModel.swift */,
 				8875698C25EDF9D600BC0B00 /* MessageModel.swift */,
 				88DC10C725F250CA009EE75F /* ThemeSettings.swift */,
@@ -288,6 +291,7 @@
 				882B1A1A25FE11EA00E67F15 /* DataManagerOperations.swift in Sources */,
 				882B1A0C25FDA64300E67F15 /* DataManagerGCD.swift in Sources */,
 				8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */,
+				882B1A1D25FE4FF400E67F15 /* SavedThemeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
