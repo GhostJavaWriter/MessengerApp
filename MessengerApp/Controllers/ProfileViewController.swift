@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         configureSaveButtons()
         
-        enableEditingMode()
+        editingMode(enable: true)
         
         //save buttons is inactive
         //coursor in nameTextField
@@ -73,7 +73,21 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc
     private func saveGCDBtnTapped() {
+        if let nameText = nameTextField.text {
+            
+            gcdDataManager.saveData(name: nameText) { result in
+                switch result {
+                case .success:
+                    print("saved")
+                case .failure:
+                    print("error")
+                }
+            }
+        } else {
+            print("name field is empty")
+        }
         
+        editingMode(enable: false)
     }
     
     @objc
@@ -115,6 +129,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private var tempWorkText: String?
     private var tempLocationText: String?
     
+    private let gcdDataManager = DataManagerGCD()
+    
     private func setupLogoView() {
         
         let logoHeight = CGFloat(view.frame.width * 0.6)
@@ -122,7 +138,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         logoView.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         
         editButtonOutlet.layer.cornerRadius = 14
-        
     }
     
     private func setLogoImage(actionType: String) {
@@ -186,29 +201,47 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         present(ac, animated: true, completion: nil)
     }
     
-    private func getDocumentsDirectory() -> URL {
-        
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    private func loadUserData() {
+        gcdDataManager.loadData(fileName: "userData.json") { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                let name = parse(jsonData: data)
+                self?.nameTextField.text = name
+            case .failure:
+                print("error loading")
+            }
+        }
     }
     
-    private func enableEditingMode() {
+    private func editingMode(enable: Bool) {
         
-        //save current info for cancel case
-        tempLogoImage = logoView.imageView?.image
-        tempNameText = nameTextField.text
-        tempWorkText = workInfoTextField.text
-        tempLocationText = locationTextField.text
-        
-        editButtonOutlet.isHidden = true
-        
-        nameTextField.isEnabled = true
-        workInfoTextField.isEnabled = true
-        locationTextField.isEnabled = true
-        
-        nameTextField.becomeFirstResponder()
-        
-        configureSaveButtons()
+        if enable {
+            //save current info for cancel case
+            tempLogoImage = logoView.imageView?.image
+            tempNameText = nameTextField.text
+            tempWorkText = workInfoTextField.text
+            tempLocationText = locationTextField.text
+            
+            editButtonOutlet.isHidden = true
+            
+            nameTextField.isEnabled = true
+            workInfoTextField.isEnabled = true
+            locationTextField.isEnabled = true
+            
+            nameTextField.becomeFirstResponder()
+            
+            configureSaveButtons()
+        } else {
+            editButtonOutlet.isHidden = false
+            
+            nameTextField.isEnabled = false
+            workInfoTextField.isEnabled = false
+            locationTextField.isEnabled = false
+            
+            cancelEditButton.isHidden = true
+            saveGCDButton.isHidden = true
+            saveOperationsButton.isHidden = true
+        }
     }
     
     private func configureSaveButtons() {
@@ -282,6 +315,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadUserData()
+        
         nameTextField.delegate = self
         workInfoTextField.delegate = self
         locationTextField.delegate = self
@@ -306,7 +341,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         logoView.titleLabel?.text = ""
         
         dismiss(animated: true)
-        enableEditingMode()
+        editingMode(enable: true)
     }
     
     //MARK: - UITextFieldDelegate
