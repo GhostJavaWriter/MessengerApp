@@ -14,20 +14,45 @@ class DataManagerGCD {
     
     func loadData(fileName: String, completion: @escaping (Result<Data, Error>) -> Void) {
         queue.async {
-            readFromFile(fileName: fileName) { result in
+            syncReadData(fileName: fileName) { result in
                 DispatchQueue.main.async {
                     completion(result)
                 }
             }
         }
     }
-    func saveData(name: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func saveData(toFile: String, name: String, workInfo: String, location: String, completion: @escaping (Result<Data, Error>) -> Void) {
         queue.async {
-            saveToFile(nameField: name) { result in
+            syncSaveData(toFile: toFile, name: name, workInfo: workInfo, location: location) { result in
                 DispatchQueue.main.async {
                     completion(result)
                 }
             }
         }
     }
+    
+    func loadImage(imageString: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        queue.async {
+            syncLoadImg(imageString: imageString) { result in
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+        }
+    }
+    
+    func saveImage(imageString: String, image: UIImage, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        queue.async {
+            syncSaveImg(fileName: imageString, image: image) { (result) in
+                switch result {
+                case .success(let result):
+                    completion(.success(result))
+                case .failure(let err):
+                    completion(.failure(err))
+                }
+            }
+        }
+    }
+    
+    
 }

@@ -60,7 +60,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editingMode(enable: true)
         
         //save buttons is inactive
-        //coursor in nameTextField
     }
     
     @objc
@@ -73,9 +72,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc
     private func saveGCDBtnTapped() {
-        if let nameText = nameTextField.text {
+        if let nameText = nameTextField.text,
+           let workText = workInfoTextField.text,
+           let location = locationTextField.text {
             
-            gcdDataManager.saveData(name: nameText) { result in
+            gcdDataManager.saveData(toFile: "userData.json", name: nameText, workInfo: workText, location: location) { result in
                 switch result {
                 case .success:
                     print("saved")
@@ -84,7 +85,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }
         } else {
-            print("name field is empty")
+            print("fields error")
+        }
+        
+        if let image = logoView.imageView?.image {
+            gcdDataManager.saveImage(imageString: "logo.jpg", image: image) { (result) in
+                switch result {
+                case .success(let image):
+                    print(image)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        } else {
+            print("there is no image")
         }
         
         editingMode(enable: false)
@@ -93,6 +107,38 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @objc
     private func saveOperationsBtnTapped() {
         
+        if let nameText = nameTextField.text,
+           let workText = workInfoTextField.text,
+           let location = locationTextField.text {
+            
+            let userInfo = UserDataModel(name: nameText, workInfo: workText, location: location)
+            
+            operationsDataManager.saveData(toFile: "userData.json", userInfo: userInfo) { result in
+                switch result {
+                case .success:
+                    print("saved")
+                case .failure:
+                    print("error")
+                }
+            }
+        } else {
+            print("fields error")
+        }
+        
+        if let image = logoView.imageView?.image {
+            operationsDataManager.saveImage(toFile: "logo.jpg", image: image) { (result) in
+                switch result {
+                case .success(let image):
+                    print(image)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        } else {
+            print("there is no image")
+        }
+        
+        editingMode(enable: false)
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
@@ -130,6 +176,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private var tempLocationText: String?
     
     private let gcdDataManager = DataManagerGCD()
+    private let operationsDataManager = DataManagerOperations()
     
     private func setupLogoView() {
         
@@ -201,12 +248,62 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         present(ac, animated: true, completion: nil)
     }
     
-    private func loadUserData() {
+    private func loadUserDataGCD() {
         gcdDataManager.loadData(fileName: "userData.json") { [weak self] (result) in
             switch result {
             case .success(let data):
-                let name = parse(jsonData: data)
-                self?.nameTextField.text = name
+                
+                parse(jsonData: data) { (result) in
+                    switch result {
+                    case .success(let dictionary):
+                        self?.nameTextField.text = dictionary["name"]
+                        self?.workInfoTextField.text = dictionary["workInfo"]
+                        self?.locationTextField.text = dictionary["location"]
+                    case .failure:
+                        print("parsing error")
+                    }
+                }
+            case .failure:
+                print("error loading")
+            }
+        }
+        
+        gcdDataManager.loadImage(imageString: "logo.jpg") { [weak self] result in
+            switch result {
+            case .success(let image):
+                self?.logoView.setImage(image, for: .normal)
+            case .failure:
+                self?.logoView.setImage(nil, for: .normal)
+            }
+        }
+    }
+    
+    private func loadUserDataOperations() {
+        
+        operationsDataManager.loadImage(fileWithImage: "logo.jpg") { [weak self] (result) in
+            
+            switch result {
+            case .success(let image):
+                self?.logoView.setImage(image, for: .normal)
+            case .failure:
+                self?.logoView.setImage(nil, for: .normal)
+            }
+        }
+        operationsDataManager.loadData(fileWithData: "userData.json") { [weak self] (result) in
+            
+            switch result {
+            case .success(let data):
+                
+                parse(jsonData: data) { (result) in
+                    switch result {
+                    case .success(let dictionary):
+                        self?.nameTextField.text = dictionary["name"]
+                        self?.workInfoTextField.text = dictionary["workInfo"]
+                        self?.locationTextField.text = dictionary["location"]
+                    case .failure:
+                        print("parsing error")
+                    }
+                }
             case .failure:
                 print("error loading")
             }
@@ -315,7 +412,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadUserData()
+        //loadUserDataGCD()
+        loadUserDataOperations()
         
         nameTextField.delegate = self
         workInfoTextField.delegate = self

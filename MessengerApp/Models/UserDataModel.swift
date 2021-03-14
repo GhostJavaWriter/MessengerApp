@@ -9,5 +9,7 @@ import Foundation
 
 struct UserDataModel : Codable {
     
-    let nameField : String
+    let name : String
+    let workInfo : String
+    let location : String
 }
