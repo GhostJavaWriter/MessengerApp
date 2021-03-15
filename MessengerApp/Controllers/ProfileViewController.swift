@@ -8,23 +8,137 @@
 import UIKit
 import AVFoundation
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     //MARK: - UI
-    @IBOutlet weak var fullNameLabel: UILabel?
-    @IBOutlet weak var descriptionLabel: UILabel?
-    @IBOutlet weak var editButtonOutlet: UIButton?
-    @IBOutlet weak var logoView: UIButton?
-    @IBOutlet weak var closeButtonOutlet: UIButton?
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var workInfoTextField: UITextField!
+    @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var editButtonOutlet: AppButton!
+    @IBOutlet weak var logoView: UIButton!
+    @IBOutlet weak var closeButtonOutlet: UIButton!
+    
+    lazy var cancelEditButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
+        button.layer.cornerRadius = 14
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(cancelBtnTapped), for: .touchUpInside)
+        return button
+    }()
+    lazy var saveGCDButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Save GCD", for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
+        button.layer.cornerRadius = 14
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(saveGCDBtnTapped), for: .touchUpInside)
+        return button
+    }()
+    lazy var saveOperationsButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Save Operations", for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
+        button.layer.cornerRadius = 14
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(saveOperationsBtnTapped), for: .touchUpInside)
+        return button
+    }()
     
     //MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
+        
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        print("edit tapped")
         
+        configureSaveButtons()
+        
+        editingMode(enable: true)
+        
+        //save buttons is inactive
+    }
+    
+    @objc
+    private func cancelBtnTapped() {
+        logoView.setImage(tempLogoImage, for: .normal)
+        nameTextField.text = tempNameText
+        workInfoTextField.text = tempWorkText
+        locationTextField.text = tempLocationText
+    }
+    
+    @objc
+    private func saveGCDBtnTapped() {
+        if let nameText = nameTextField.text,
+           let workText = workInfoTextField.text,
+           let location = locationTextField.text {
+            
+            gcdDataManager.saveData(toFile: "userData.json", name: nameText, workInfo: workText, location: location) { result in
+                switch result {
+                case .success:
+                    print("saved")
+                case .failure:
+                    print("error")
+                }
+            }
+        } else {
+            print("fields error")
+        }
+        
+        if let image = logoView.imageView?.image {
+            gcdDataManager.saveImage(imageString: "logo.jpg", image: image) { (result) in
+                switch result {
+                case .success(let image):
+                    print(image)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        } else {
+            print("there is no image")
+        }
+        
+        editingMode(enable: false)
+    }
+    
+    @objc
+    private func saveOperationsBtnTapped() {
+        
+        if let nameText = nameTextField.text,
+           let workText = workInfoTextField.text,
+           let location = locationTextField.text {
+            
+            let userInfo = UserDataModel(name: nameText, workInfo: workText, location: location)
+            
+            operationsDataManager.saveData(toFile: "userData.json", userInfo: userInfo) { result in
+                switch result {
+                case .success:
+                    print("saved")
+                case .failure:
+                    print("error")
+                }
+            }
+        } else {
+            print("fields error")
+        }
+        
+        if let image = logoView.imageView?.image {
+            operationsDataManager.saveImage(toFile: "logo.jpg", image: image) { (result) in
+                switch result {
+                case .success(let image):
+                    print(image)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        } else {
+            print("there is no image")
+        }
+        
+        editingMode(enable: false)
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
@@ -55,14 +169,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     //MARK: - Private
+    
+    private var tempLogoImage: UIImage?
+    private var tempNameText: String?
+    private var tempWorkText: String?
+    private var tempLocationText: String?
+    
+    private let gcdDataManager = DataManagerGCD()
+    private let operationsDataManager = DataManagerOperations()
+    
     private func setupLogoView() {
         
         let logoHeight = CGFloat(view.frame.width * 0.6)
-        logoView?.layer.cornerRadius = logoHeight/2
-        logoView?.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
+        logoView.layer.cornerRadius = logoHeight/2
+        logoView.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         
-        editButtonOutlet?.layer.cornerRadius = 14
-        descriptionLabel?.text = "iOS course student\nIrkutsk, Russia sdfsdf sdfsdf sdf sdf sdfsd fsfs sdfsdfsdfs sdfsfsf done sdfsdf sdf sf sdfs r"
+        editButtonOutlet.layer.cornerRadius = 14
     }
     
     private func setLogoImage(actionType: String) {
@@ -118,20 +240,187 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     private func askPermissionForCameraUsage() {
-        let ac = UIAlertController(title: "Camera usage", message: "Please go to settings and allow camera usage", preferredStyle: .alert)
+        
+        let ac = UIAlertController(title: "Camera usage",
+                                   message: "Please go to settings and allow camera usage",
+                                   preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(ac, animated: true, completion: nil)
     }
     
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    private func loadUserDataGCD() {
+        gcdDataManager.loadData(fileName: "userData.json") { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                
+                parseUserInfoModel(jsonData: data) { (result) in
+                    switch result {
+                    case .success(let dictionary):
+                        self?.nameTextField.text = dictionary["name"]
+                        self?.workInfoTextField.text = dictionary["workInfo"]
+                        self?.locationTextField.text = dictionary["location"]
+                    case .failure:
+                        print("parsing error")
+                    }
+                }
+            case .failure:
+                print("error loading")
+            }
+        }
+        
+        gcdDataManager.loadImage(imageString: "logo.jpg") { [weak self] result in
+            switch result {
+            case .success(let image):
+                self?.logoView.setImage(image, for: .normal)
+            case .failure:
+                self?.logoView.setImage(nil, for: .normal)
+            }
+        }
+    }
+    
+    private func loadUserDataOperations() {
+        
+        operationsDataManager.loadImage(fileWithImage: "logo.jpg") { [weak self] (result) in
+            
+            switch result {
+            case .success(let image):
+                self?.logoView.setImage(image, for: .normal)
+            case .failure:
+                self?.logoView.setImage(nil, for: .normal)
+            }
+        }
+        operationsDataManager.loadData(fileWithData: "userData.json") { [weak self] (result) in
+            
+            switch result {
+            case .success(let data):
+                
+                parseUserInfoModel(jsonData: data) { (result) in
+                    switch result {
+                    case .success(let dictionary):
+                        self?.nameTextField.text = dictionary["name"]
+                        self?.workInfoTextField.text = dictionary["workInfo"]
+                        self?.locationTextField.text = dictionary["location"]
+                    case .failure:
+                        print("parsing error")
+                    }
+                }
+            case .failure:
+                print("error loading")
+            }
+        }
+    }
+    
+    private func editingMode(enable: Bool) {
+        
+        if enable {
+            //save current info for cancel case
+            tempLogoImage = logoView.imageView?.image
+            tempNameText = nameTextField.text
+            tempWorkText = workInfoTextField.text
+            tempLocationText = locationTextField.text
+            
+            editButtonOutlet.isHidden = true
+            
+            nameTextField.isEnabled = true
+            workInfoTextField.isEnabled = true
+            locationTextField.isEnabled = true
+            
+            nameTextField.becomeFirstResponder()
+            
+            configureSaveButtons()
+        } else {
+            editButtonOutlet.isHidden = false
+            
+            nameTextField.isEnabled = false
+            workInfoTextField.isEnabled = false
+            locationTextField.isEnabled = false
+            
+            cancelEditButton.isHidden = true
+            saveGCDButton.isHidden = true
+            saveOperationsButton.isHidden = true
+        }
+    }
+    
+    private func configureSaveButtons() {
+        
+        let verStackView = UIStackView()
+        verStackView.axis = .vertical
+        verStackView.distribution = .equalSpacing
+        verStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let horStackView = UIStackView()
+        horStackView.axis = .horizontal
+        horStackView.distribution = .equalSpacing
+        horStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        horStackView.addSubview(saveGCDButton)
+        horStackView.addSubview(saveOperationsButton)
+        
+        verStackView.addSubview(horStackView)
+        verStackView.addSubview(cancelEditButton)
+        
+        view.addSubview(verStackView)
+        
+        NSLayoutConstraint.activate([
+            verStackView.topAnchor.constraint(greaterThanOrEqualTo: locationTextField.bottomAnchor, constant: 30),
+            verStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            verStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            verStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            
+            cancelEditButton.topAnchor.constraint(equalTo: verStackView.topAnchor),
+            cancelEditButton.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
+            cancelEditButton.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
+            cancelEditButton.bottomAnchor.constraint(equalTo: horStackView.topAnchor, constant: -10),
+            cancelEditButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            horStackView.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
+            horStackView.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
+            horStackView.bottomAnchor.constraint(equalTo: verStackView.bottomAnchor),
+            
+            saveGCDButton.leadingAnchor.constraint(equalTo: horStackView.leadingAnchor),
+            saveGCDButton.trailingAnchor.constraint(equalTo: saveOperationsButton.leadingAnchor, constant: -10),
+            saveGCDButton.topAnchor.constraint(equalTo: horStackView.topAnchor),
+            saveGCDButton.bottomAnchor.constraint(equalTo: horStackView.bottomAnchor),
+            saveGCDButton.heightAnchor.constraint(equalToConstant: 40),
+            saveGCDButton.widthAnchor.constraint(equalTo: saveOperationsButton.widthAnchor),
+            
+            saveOperationsButton.trailingAnchor.constraint(equalTo: horStackView.trailingAnchor),
+            saveOperationsButton.topAnchor.constraint(equalTo: horStackView.topAnchor),
+            saveOperationsButton.bottomAnchor.constraint(equalTo: horStackView.bottomAnchor),
+            saveOperationsButton.heightAnchor.constraint(equalTo: saveGCDButton.heightAnchor),
+        ])
+    }
+    
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height - 90
+            }
+        }
+    }
+
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //loadUserDataGCD()
+        loadUserDataOperations()
+        
+        nameTextField.delegate = self
+        workInfoTextField.delegate = self
+        locationTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -146,10 +435,26 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         guard let image = info[.editedImage] as? UIImage else { return }
         
-        logoView?.setImage(image, for: .normal)
-        logoView?.titleLabel?.text = ""
+        logoView.setImage(image, for: .normal)
+        logoView.titleLabel?.text = ""
         
         dismiss(animated: true)
+        editingMode(enable: true)
+    }
+    
+    //MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
     }
 }
 
