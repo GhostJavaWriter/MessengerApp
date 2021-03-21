@@ -40,26 +40,14 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
                             MessageModel(text: "Have you seen the sunrise this morning?", isInbox: false),
                             MessageModel(text: "Nope", isInbox: true),
                             MessageModel(text: "Nope jjjj aaa jfdf adfsfsfsf sfdsfsdf fdsfds fd fdfdf f dsfdsfs fsdf fsdff fdsfkjlj jlkjl ljlkj kkljlk jlklkj jlkklj jlkjklll ll", isInbox: false),
-                            MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
+                            MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope3", isInbox: false),
                             MessageModel(text: "Nope5", isInbox: false),
                             MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope7", isInbox: false),
                             MessageModel(text: "Nope8", isInbox: true),
                             MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs joker", isInbox: false),
-                            MessageModel(text: "Nope10", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: true),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: true),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: true),
-                            MessageModel(text: "Nope11", isInbox: true),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: false),
-                            MessageModel(text: "Nope11", isInbox: true),
+                           
     ]
     
     //MARK: - LifeCycle

@@ -49,11 +49,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
             
             themesController.themesPickerDelegate = self
-            self.themesController = themesController
-//            themesController.themesPickerClouser = { [weak themesController] theme in
-//                self.apply(theme: theme)
-//                themesController?.conversationsListVC = self
-//            }
+            themesController.currentTheme = themeManager?.currentTheme
+
             navigationController?.pushViewController(themesController, animated: true)
         }
     }
@@ -70,62 +67,6 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         conversationsList.append(TableViewItems(title: "History", group: [ConversationModel]()))
         
         var inputConversations = [ConversationModel]()
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: true))
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: "name nil, have date, online = true, hasUnreadMessages = true",
-                                                    date: nil,
-                                                    online: true,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: "Johnny Watson",
-                                                    message: nil,
-                                                    date: nil,
-                                                    online: true,
-                                                    hasUnreadMessages: true))
-        inputConversations.append(ConversationModel(name: "John Watson",
-                                                    message: "some message",
-                                                    date: Date(timeIntervalSinceNow: -6000.0),
-                                                    online: false,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: "Ronald Robertson",
-                                                    message: "have name, have date, online = true, hasUnreadMessages = false",
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: "Johnny Watsonnnnnnnnnnnnnnnsfadasfsasdf",
-                                                    message: "Reprehenderit mollit excepteur labore",
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: true))
-        inputConversations.append(ConversationModel(name: "Johnny",
-                                                    message: nil,
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: "i have no name and my message isn't read",
-                                                    date: Date(),
-                                                    online: false,
-                                                    hasUnreadMessages: true))
-        //that chat shouldn't appear
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: nil,
-                                                    date: nil,
-                                                    online: true,
-                                                    hasUnreadMessages: false))
-        inputConversations.append(ConversationModel(name: nil,
-                                                    message: "i have no name",
-                                                    date: nil,
-                                                    online: false,
-                                                    hasUnreadMessages: false))
         
         for _ in 1...20 {
             

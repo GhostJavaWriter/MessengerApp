@@ -31,7 +31,6 @@
 		88DC10C825F250CA009EE75F /* ThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10C725F250CA009EE75F /* ThemeSettings.swift */; };
 		88DC10CB25F259C4009EE75F /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10CA25F259C4009EE75F /* ThemeManager.swift */; };
 		88DC10CE25F25B01009EE75F /* ThemesPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10CD25F25B01009EE75F /* ThemesPickerDelegate.swift */; };
-		88DC10D125F47347009EE75F /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10D025F47347009EE75F /* UIAlertControllerExtension.swift */; };
 		88DC10D825F5001B009EE75F /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10D725F5001B009EE75F /* UIWindowExtension.swift */; };
 		88DC10EC25F61B12009EE75F /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10EB25F61B11009EE75F /* AppView.swift */; };
 		88DC10F325F61BA9009EE75F /* AppLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10F225F61BA9009EE75F /* AppLabel.swift */; };
@@ -66,7 +65,6 @@
 		88DC10C725F250CA009EE75F /* ThemeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettings.swift; sourceTree = "<group>"; };
 		88DC10CA25F259C4009EE75F /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		88DC10CD25F25B01009EE75F /* ThemesPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesPickerDelegate.swift; sourceTree = "<group>"; };
-		88DC10D025F47347009EE75F /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		88DC10D725F5001B009EE75F /* UIWindowExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowExtension.swift; sourceTree = "<group>"; };
 		88DC10EB25F61B11009EE75F /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		88DC10F225F61BA9009EE75F /* AppLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLabel.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				8875697925EDE06800BC0B00 /* UIButtonExtension.swift */,
-				88DC10D025F47347009EE75F /* UIAlertControllerExtension.swift */,
 				88DC10D725F5001B009EE75F /* UIWindowExtension.swift */,
 			);
 			path = Extensions;
@@ -284,7 +281,6 @@
 				88DC10CB25F259C4009EE75F /* ThemeManager.swift in Sources */,
 				8804582025D69B62006397F2 /* AppDelegate.swift in Sources */,
 				88DC10CE25F25B01009EE75F /* ThemesPickerDelegate.swift in Sources */,
-				88DC10D125F47347009EE75F /* UIAlertControllerExtension.swift in Sources */,
 				88DC10C825F250CA009EE75F /* ThemeSettings.swift in Sources */,
 				88DC10D825F5001B009EE75F /* UIWindowExtension.swift in Sources */,
 				88FB909E25EB246B00438B5D /* ConversationsListViewController.swift in Sources */,

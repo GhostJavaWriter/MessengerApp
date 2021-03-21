@@ -42,6 +42,7 @@ class ThemeManager {
         UINavigationBar.appearance().tintColor = theme.colors.barButtonColor
         UINavigationBar.appearance().backgroundColor = theme.colors.appBgColor
         UINavigationBar.appearance().barTintColor = theme.colors.appBgColor
+        UINavigationBar.appearance().barStyle = theme.navBarStyle
         
         //AlertController
         if #available(iOS 13.0, *) {

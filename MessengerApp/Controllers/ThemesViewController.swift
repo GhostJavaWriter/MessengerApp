@@ -11,9 +11,7 @@ class ThemesViewController: UIViewController {
     
     weak var themesPickerDelegate : ThemesPickerDelegate?
     
-    var themesPickerClouser : ((ThemeOptions) -> ())?
-    
-    var conversationsListVC : ConversationsListViewController?
+    var currentTheme : ThemeOptions?
     
     //MARK: - UI
     
@@ -27,25 +25,9 @@ class ThemesViewController: UIViewController {
     
     //MARK: - Private
     
-    /*
-     
-     В clouser:
-     Если мы явно не указываем способ захвата, Swift использует сильный захват.
-     
-     themesController хранит ссылку на clouser тут -> var themesPickerClouser : ((ThemeOptions) -> ())?
-     а тот в свою очередь захватывает ссылку на themesController
-     
-     themesController.themesPickerClouser = { theme in
-         self.apply(theme: theme)
-         themesController?.conversationsListVC = self
-     }
-     
-    */
-    
     @objc
     private func cancelSettings() {
         
-        themesPickerClouser?(.classic)
         themesPickerDelegate?.apply(theme: .classic)
         applyToCurrentScreen(theme: .classic, buttonView: classicThemeView)
     }
@@ -54,7 +36,6 @@ class ThemesViewController: UIViewController {
     private func setClassicTheme() {
         
         themesPickerDelegate?.apply(theme: .classic)
-        themesPickerClouser?(.classic)
         
         applyToCurrentScreen(theme: .classic, buttonView: classicThemeView)
     }
@@ -63,7 +44,6 @@ class ThemesViewController: UIViewController {
     private func setDayTheme() {
         
         themesPickerDelegate?.apply(theme: .day)
-        themesPickerClouser?(.day)
         
         applyToCurrentScreen(theme: .day, buttonView: dayThemeView)
     }
@@ -72,7 +52,6 @@ class ThemesViewController: UIViewController {
     private func setNightTheme() {
         
         themesPickerDelegate?.apply(theme: .night)
-        themesPickerClouser?(.night)
         
         applyToCurrentScreen(theme: .night, buttonView: nightThemeView)
     }
@@ -140,6 +119,19 @@ class ThemesViewController: UIViewController {
         title = "Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSettings))
         
+        switch currentTheme {
+        case .classic:
+            repaintSelectedView(selectedButton: classicThemeView)
+        case .day:
+            repaintSelectedView(selectedButton: dayThemeView)
+        case .night:
+            repaintSelectedView(selectedButton: nightThemeView)
+        default:
+            repaintSelectedView(selectedButton: classicThemeView)
+        }
+        
         configureGestureRecognizers()
     }
+    
+    
 }

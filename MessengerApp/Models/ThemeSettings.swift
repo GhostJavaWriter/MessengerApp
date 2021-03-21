@@ -16,8 +16,6 @@ struct ThemeSettings {
     let btnEnabledTitleColor : UIColor
     let subviewsTextColor : UIColor
     let barButtonColor : UIColor
-    let alertControllerBgColor : UIColor
-    let alertControllerTitleColor : UIColor
     
 }
 
@@ -29,9 +27,7 @@ extension ThemeSettings {
                                             mainTextColor: .black,
                                             btnEnabledTitleColor: .systemBlue,
                                             subviewsTextColor: .systemGray,
-                                            barButtonColor: .systemBlue,
-                                            alertControllerBgColor: .white,
-                                            alertControllerTitleColor: .black)
+                                            barButtonColor: .systemBlue)
     
     static let dayTheme = ThemeSettings(appBgColor: .white,
                                         inboxMsgBgColor: #colorLiteral(red: 0.9165825248, green: 0.9216925502, blue: 0.9301533699, alpha: 1),
@@ -39,9 +35,7 @@ extension ThemeSettings {
                                         mainTextColor: .black,
                                         btnEnabledTitleColor: .systemBlue,
                                         subviewsTextColor: .systemGray,
-                                        barButtonColor: .systemBlue,
-                                        alertControllerBgColor: .white,
-                                        alertControllerTitleColor: .black)
+                                        barButtonColor: .systemBlue)
     
     static let nightTheme = ThemeSettings(appBgColor: #colorLiteral(red: 0.1182499751, green: 0.1221381798, blue: 0.1246878579, alpha: 1),
                                           inboxMsgBgColor: #colorLiteral(red: 0.1803726256, green: 0.1804046035, blue: 0.180365622, alpha: 1),
@@ -49,9 +43,7 @@ extension ThemeSettings {
                                           mainTextColor: .white,
                                           btnEnabledTitleColor: .systemBlue,
                                           subviewsTextColor: .systemGray,
-                                          barButtonColor: .white,
-                                          alertControllerBgColor: UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 0.75),
-                                          alertControllerTitleColor: .white)
+                                          barButtonColor: .white)
 }
 
 enum ThemeOptions : String {
