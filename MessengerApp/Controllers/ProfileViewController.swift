@@ -106,20 +106,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
            let workText = workInfoTextField.text,
            let location = locationTextField.text {
             indicatorView.startAnimating()
+            saveGCDButton.isEnabled = false
             gcdDataManager.saveData(toFile: "userData.json",
                                     name: nameText,
                                     workInfo: workText,
                                     location: location) { [weak self] result in
-                switch result {
-                case .success:
-                    print("saved")
-                case .failure:
-                    print("error")
-                }
                 DispatchQueue.main.async {
                     self?.indicatorView.stopAnimating()
                 }
-                
+                switch result {
+                case .success:
+                    DispatchQueue.main.async {
+                        self?.showSavingSucceedAlert()
+                    }
+                case .failure:
+                    DispatchQueue.main.async {
+                        self?.showSavingFailAlert()
+                    }
+                }
             }
         } else {
             print("fields error")
@@ -138,7 +142,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             print("there is no image")
         }
         
-        editingMode(enable: false)
+        
     }
     
     @objc
@@ -214,6 +218,32 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     private let gcdDataManager = DataManagerGCD()
     private let operationsDataManager = DataManagerOperations()
+    
+    private func showSavingSucceedAlert() {
+        let alert = UIAlertController(title: "Data saved", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { [weak self] (_) in
+            DispatchQueue.main.async {
+                self?.editingMode(enable: false)
+            }
+        }
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
+    private func showSavingFailAlert() {
+        let alert = UIAlertController(title: "Error", message: "Saving fail, please try again", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { [weak self] (_) in
+            DispatchQueue.main.async {
+                self?.editingMode(enable: false)
+            }
+        }
+        let repeatAction = UIAlertAction(title: "Try again", style: .default) { [weak self] (_) in
+            self?.saveGCDBtnTapped()
+        }
+        alert.addAction(okAction)
+        alert.addAction(repeatAction)
+        present(alert, animated: true)
+    }
     
     private func setupLogoView() {
         
