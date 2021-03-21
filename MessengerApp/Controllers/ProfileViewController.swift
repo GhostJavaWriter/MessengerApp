@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var editButtonOutlet: AppButton!
     @IBOutlet weak var logoView: UIButton!
     @IBOutlet weak var closeButtonOutlet: UIButton!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     lazy var cancelEditButton : UIButton = {
         let button = UIButton(type: .system)
@@ -65,7 +66,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return view
     }()
     
-    
     //MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
         
@@ -94,14 +94,21 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let nameText = nameTextField.text,
            let workText = workInfoTextField.text,
            let location = locationTextField.text {
-            
-            gcdDataManager.saveData(toFile: "userData.json", name: nameText, workInfo: workText, location: location) { result in
+            indicatorView.startAnimating()
+            gcdDataManager.saveData(toFile: "userData.json",
+                                    name: nameText,
+                                    workInfo: workText,
+                                    location: location) { [weak self] result in
                 switch result {
                 case .success:
                     print("saved")
                 case .failure:
                     print("error")
                 }
+                DispatchQueue.main.async {
+                    self?.indicatorView.stopAnimating()
+                }
+                
             }
         } else {
             print("fields error")

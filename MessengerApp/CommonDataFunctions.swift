@@ -21,6 +21,7 @@ public func syncSaveImg(fileName: String, image: UIImage, completion: @escaping 
         let pathWithFilename = path.appendingPathComponent(fileName)
         
         if let imageData = image.jpegData(compressionQuality: 1.0) {
+            sleep(3)
             do {
                 try imageData.write(to: pathWithFilename)
                 completion(.success(image))
@@ -47,6 +48,7 @@ public func syncSaveData(toFile: String, name: String, workInfo: String, locatio
         let pathWithFilename = path.appendingPathComponent(toFile)
         do {
             if let data = jsonString.data(using: .utf8) {
+                sleep(3)
                 try data.write(to: pathWithFilename)
                 completion(.success(data))
             } else {
@@ -64,6 +66,7 @@ public func syncLoadImg(imageString: String, completion: @escaping (Result<UIIma
         let pathWithFileName = path.appendingPathComponent(imageString)
         if let data = try? Data(contentsOf: pathWithFileName),
            let image = UIImage(data: data) {
+            
             completion(.success(image))
         } else {
             completion(.failure(DataOperationError.readingError))
