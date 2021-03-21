@@ -47,6 +47,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return button
     }()
     
+    lazy var verStackView : UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var horStackView : UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
     //MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
         
@@ -58,8 +75,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         configureSaveButtons()
         
         editingMode(enable: true)
-        
-        //save buttons is inactive
     }
     
     @objc
@@ -68,6 +83,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         nameTextField.text = tempNameText
         workInfoTextField.text = tempWorkText
         locationTextField.text = tempLocationText
+        
+        editingMode(enable: false)
     }
     
     @objc
@@ -335,26 +352,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             workInfoTextField.isEnabled = false
             locationTextField.isEnabled = false
             
-            cancelEditButton.isHidden = true
-            saveGCDButton.isHidden = true
-            saveOperationsButton.isHidden = true
+            verStackView.removeFromSuperview()
         }
     }
     
     private func configureSaveButtons() {
         
-        let verStackView = UIStackView()
-        verStackView.axis = .vertical
-        verStackView.distribution = .equalSpacing
-        verStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let horStackView = UIStackView()
-        horStackView.axis = .horizontal
-        horStackView.distribution = .equalSpacing
-        horStackView.translatesAutoresizingMaskIntoConstraints = false
-        
         horStackView.addSubview(saveGCDButton)
         horStackView.addSubview(saveOperationsButton)
+        
+        saveGCDButton.isEnabled = false
+        saveOperationsButton.isEnabled = false
         
         verStackView.addSubview(horStackView)
         verStackView.addSubview(cancelEditButton)
@@ -440,6 +448,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         dismiss(animated: true)
         editingMode(enable: true)
+        saveGCDButton.isEnabled = true
+        saveOperationsButton.isEnabled = true
     }
     
     //MARK: - UITextFieldDelegate
@@ -453,6 +463,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else {
             textField.resignFirstResponder()
         }
+        
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        saveGCDButton.isEnabled = true
+        saveOperationsButton.isEnabled = true
         
         return true
     }
