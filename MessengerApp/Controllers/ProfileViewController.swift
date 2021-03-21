@@ -38,28 +38,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         button.isEnabled = false
         return button
     }()
-    lazy var saveOperationsButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Save Operations", for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
-        button.layer.cornerRadius = 14
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(saveOperationsBtnTapped), for: .touchUpInside)
-        button.isEnabled = false
-        return button
-    }()
     
     lazy var verStackView : UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.distribution = .equalSpacing
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var horStackView : UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
         view.distribution = .equalSpacing
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -145,43 +127,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    @objc
-    private func saveOperationsBtnTapped() {
-        
-        if let nameText = nameTextField.text,
-           let workText = workInfoTextField.text,
-           let location = locationTextField.text {
-            
-            let userInfo = UserDataModel(name: nameText, workInfo: workText, location: location)
-            
-            operationsDataManager.saveData(toFile: "userData.json", userInfo: userInfo) { result in
-                switch result {
-                case .success:
-                    print("saved")
-                case .failure:
-                    print("error")
-                }
-            }
-        } else {
-            print("fields error")
-        }
-        
-        if let image = logoView.imageView?.image {
-            operationsDataManager.saveImage(toFile: "logo.jpg", image: image) { (result) in
-                switch result {
-                case .success(let image):
-                    print(image)
-                case .failure(let err):
-                    print(err)
-                }
-            }
-        } else {
-            print("there is no image")
-        }
-        
-        editingMode(enable: false)
-    }
-    
     @IBAction func logoViewTapped(_ sender: Any) {
         
         let ac = UIAlertController(title: "Set photo from ...", message: nil, preferredStyle: .actionSheet)
@@ -217,7 +162,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private var tempLocationText: String?
     
     private let gcdDataManager = DataManagerGCD()
-    private let operationsDataManager = DataManagerOperations()
     
     private func showSavingSucceedAlert() {
         let alert = UIAlertController(title: "Data saved", message: nil, preferredStyle: .alert)
@@ -345,38 +289,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    private func loadUserDataOperations() {
-        
-        operationsDataManager.loadImage(fileWithImage: "logo.jpg") { [weak self] (result) in
-            
-            switch result {
-            case .success(let image):
-                self?.logoView.setImage(image, for: .normal)
-            case .failure:
-                self?.logoView.setImage(nil, for: .normal)
-            }
-        }
-        operationsDataManager.loadData(fileWithData: "userData.json") { [weak self] (result) in
-            
-            switch result {
-            case .success(let data):
-                
-                parseUserInfoModel(jsonData: data) { (result) in
-                    switch result {
-                    case .success(let dictionary):
-                        self?.nameTextField.text = dictionary["name"]
-                        self?.workInfoTextField.text = dictionary["workInfo"]
-                        self?.locationTextField.text = dictionary["location"]
-                    case .failure:
-                        print("parsing error")
-                    }
-                }
-            case .failure:
-                print("error loading")
-            }
-        }
-    }
-    
     private func editingMode(enable: Bool) {
         
         if enable {
@@ -408,11 +320,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     private func configureSaveButtons() {
         
-        horStackView.addSubview(saveGCDButton)
-        horStackView.addSubview(saveOperationsButton)
-        
-        verStackView.addSubview(horStackView)
         verStackView.addSubview(cancelEditButton)
+        verStackView.addSubview(saveGCDButton)
         
         view.addSubview(verStackView)
         
@@ -425,24 +334,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             cancelEditButton.topAnchor.constraint(equalTo: verStackView.topAnchor),
             cancelEditButton.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
             cancelEditButton.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
-            cancelEditButton.bottomAnchor.constraint(equalTo: horStackView.topAnchor, constant: -10),
+            cancelEditButton.bottomAnchor.constraint(equalTo: saveGCDButton.topAnchor, constant: -10),
             cancelEditButton.heightAnchor.constraint(equalToConstant: 40),
             
-            horStackView.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
-            horStackView.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
-            horStackView.bottomAnchor.constraint(equalTo: verStackView.bottomAnchor),
-            
-            saveGCDButton.leadingAnchor.constraint(equalTo: horStackView.leadingAnchor),
-            saveGCDButton.trailingAnchor.constraint(equalTo: saveOperationsButton.leadingAnchor, constant: -10),
-            saveGCDButton.topAnchor.constraint(equalTo: horStackView.topAnchor),
-            saveGCDButton.bottomAnchor.constraint(equalTo: horStackView.bottomAnchor),
+            saveGCDButton.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
+            saveGCDButton.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
+            saveGCDButton.bottomAnchor.constraint(equalTo: verStackView.bottomAnchor),
             saveGCDButton.heightAnchor.constraint(equalToConstant: 40),
-            saveGCDButton.widthAnchor.constraint(equalTo: saveOperationsButton.widthAnchor),
-            
-            saveOperationsButton.trailingAnchor.constraint(equalTo: horStackView.trailingAnchor),
-            saveOperationsButton.topAnchor.constraint(equalTo: horStackView.topAnchor),
-            saveOperationsButton.bottomAnchor.constraint(equalTo: horStackView.bottomAnchor),
-            saveOperationsButton.heightAnchor.constraint(equalTo: saveGCDButton.heightAnchor),
         ])
     }
     
@@ -467,8 +365,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //loadUserDataGCD()
-        loadUserDataOperations()
+        loadUserDataGCD()
         
         nameTextField.delegate = self
         workInfoTextField.delegate = self
@@ -497,7 +394,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dismiss(animated: true)
         
         saveGCDButton.isEnabled = true
-        saveOperationsButton.isEnabled = true
     }
     
     //MARK: - UITextFieldDelegate
@@ -518,7 +414,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         saveGCDButton.isEnabled = true
-        saveOperationsButton.isEnabled = true
         
         return true
     }
