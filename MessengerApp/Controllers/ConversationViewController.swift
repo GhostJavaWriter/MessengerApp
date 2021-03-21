@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ConversationViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var companionName : String?
+    var companionName: String?
     
-    //MARK: - Private
+// MARK: - Private
     
     private let inboxCellIdentifier = String(describing: InboxMessageCell.self)
     private let outboxCellIdentifier = String(describing: OutboxMessageCell.self)
     
-    private lazy var tableView : UITableView = {
+    private lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         
@@ -39,21 +39,16 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
                             MessageModel(text: "I'm ok", isInbox: true),
                             MessageModel(text: "Have you seen the sunrise this morning?", isInbox: false),
                             MessageModel(text: "Nope", isInbox: true),
-                            MessageModel(text: "Nope jjjj aaa jfdf adfsfsfsf sfdsfsdf fdsfds fd fdfdf f dsfdsfs fsdf fsdff fdsfkjlj jlkjl ljlkj kkljlk jlklkj jlkklj jlkjklll ll", isInbox: false),
-                            MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope3", isInbox: false),
                             MessageModel(text: "Nope5", isInbox: false),
-                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
                             MessageModel(text: "Nope7", isInbox: false),
-                            MessageModel(text: "Nope8", isInbox: true),
-                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs joker", isInbox: false),
-                           
+                            MessageModel(text: "Nope8", isInbox: true)
     ]
     
-    //MARK: - LifeCycle
+// MARK: - LifeCycle
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         view.backgroundColor = .white
         
         if let name = companionName {
@@ -66,7 +61,7 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
     }
     
-    //MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         

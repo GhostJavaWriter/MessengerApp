@@ -110,13 +110,13 @@ public func syncSaveTheme(fileName: String, theme: Any, completion: @escaping (R
     }
 }
 
-public func parseUserInfoModel(jsonData: Data, completion: @escaping (Result<Dictionary<String, String>, Error>) -> Void) {
+public func parseUserInfoModel(jsonData: Data, completion: @escaping (Result <[String: String], Error>) -> Void) {
     do {
         let decodedData = try JSONDecoder().decode(UserDataModel.self,
                                                    from: jsonData)
-        let dictrionary = ["name" : decodedData.name,
-                           "workInfo" : decodedData.workInfo,
-                           "location" : decodedData.location]
+        let dictrionary = ["name": decodedData.name,
+                           "workInfo": decodedData.workInfo,
+                           "location": decodedData.location]
         
         completion(.success(dictrionary))
     } catch {
@@ -124,11 +124,11 @@ public func parseUserInfoModel(jsonData: Data, completion: @escaping (Result<Dic
     }
 }
 
-public func parseSavedThemeModel(jsonData: Data, completion: @escaping (Result<Dictionary<String, String>, Error>) -> Void) {
+public func parseSavedThemeModel(jsonData: Data, completion: @escaping (Result <[String: String], Error>) -> Void) {
     do {
         let decodedData = try JSONDecoder().decode(SavedThemeModel.self,
                                                    from: jsonData)
-        let dictrionary = ["theme" : decodedData.theme]
+        let dictrionary = ["theme": decodedData.theme]
         
         completion(.success(dictrionary))
     } catch {

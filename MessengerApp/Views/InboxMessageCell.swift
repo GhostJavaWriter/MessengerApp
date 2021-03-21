@@ -18,9 +18,9 @@ class InboxMessageCell: UITableViewCell {
         messageBgView.addSubview(messageLabel)
         contentView.addSubview(messageBgView)
         
-        let edgeInset : CGFloat = 30
-        let labelInset : CGFloat = 5
-        let messageInset = contentView.frame.width/4
+        let edgeInset: CGFloat = 30
+        let labelInset: CGFloat = 5
+        let messageInset = contentView.frame.width / 4
         
         messageBgView.translatesAutoresizingMaskIntoConstraints = false
         messageBgView.layer.cornerRadius = 10
@@ -41,7 +41,6 @@ class InboxMessageCell: UITableViewCell {
             messageLabel.leadingAnchor.constraint(equalTo: messageBgView.leadingAnchor, constant: labelInset),
             messageLabel.trailingAnchor.constraint(equalTo: messageBgView.trailingAnchor, constant: -labelInset)
         ])
-        
     }
     
     required init?(coder: NSCoder) {
@@ -52,5 +51,3 @@ class InboxMessageCell: UITableViewCell {
         messageLabel.text = text
     }
 }
-
-

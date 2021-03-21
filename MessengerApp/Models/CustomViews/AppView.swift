@@ -7,14 +7,14 @@
 
 import UIKit
 
-class AppView : UIView{
+class AppView: UIView {
     
 }
 
-class AppInboxMessageView : UIView {
+class AppInboxMessageView: UIView {
     
 }
 
-class AppOutboxMessageView : UIView {
+class AppOutboxMessageView: UIView {
     
 }

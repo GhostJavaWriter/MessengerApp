@@ -9,13 +9,13 @@ import UIKit
 
 struct ThemeSettings {
     
-    let appBgColor : UIColor
-    let inboxMsgBgColor : UIColor
-    let outboxMsgBgColor : UIColor
-    let mainTextColor : UIColor
-    let btnEnabledTitleColor : UIColor
-    let subviewsTextColor : UIColor
-    let barButtonColor : UIColor
+    let appBgColor: UIColor
+    let inboxMsgBgColor: UIColor
+    let outboxMsgBgColor: UIColor
+    let mainTextColor: UIColor
+    let btnEnabledTitleColor: UIColor
+    let subviewsTextColor: UIColor
+    let barButtonColor: UIColor
     
 }
 
@@ -46,27 +46,27 @@ extension ThemeSettings {
                                           barButtonColor: .white)
 }
 
-enum ThemeOptions : String {
+enum ThemeOptions: String {
     
-    case classic = "classic"
-    case day = "day"
-    case night = "night"
-    var colors : ThemeSettings {
+    case classic
+    case day
+    case night
+    var colors: ThemeSettings {
         switch self {
         case .classic : return ThemeSettings.classicTheme
         case .day : return ThemeSettings.dayTheme
         case .night : return ThemeSettings.nightTheme
         }
     }
-    var navBarStyle : UIBarStyle {
+    var navBarStyle: UIBarStyle {
         switch self {
-        case .classic : return .default
-        case .day : return .default
-        case .night : return .blackOpaque
+        case .classic: return .default
+        case .day: return .default
+        case .night: return .blackOpaque
         }
     }
     
-    var userInterfaceStyle : UIUserInterfaceStyle {
+    var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
         case .classic:
             return .light

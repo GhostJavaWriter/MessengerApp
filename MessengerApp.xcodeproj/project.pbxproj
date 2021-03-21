@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		8875698525EDF8D000BC0B00 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698425EDF8D000BC0B00 /* ConversationCellConfiguration.swift */; };
 		8875698A25EDF9AC00BC0B00 /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698925EDF9AC00BC0B00 /* MessageCellConfiguration.swift */; };
 		8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875698C25EDF9D600BC0B00 /* MessageModel.swift */; };
+		88D39FEB260781DC002CA034 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D39FEA260781DC002CA034 /* GoogleService-Info.plist */; };
 		88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10B525F0D454009EE75F /* OutboxMessageCell.swift */; };
 		88DC10BC25F1C109009EE75F /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC10BB25F1C109009EE75F /* ThemesViewController.swift */; };
 		88DC10C225F21D89009EE75F /* ThemesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88DC10C125F21D89009EE75F /* ThemesViewController.storyboard */; };
@@ -62,6 +63,7 @@
 		8875698425EDF8D000BC0B00 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
 		8875698925EDF9AC00BC0B00 /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
 		8875698C25EDF9D600BC0B00 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		88D39FEA260781DC002CA034 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88DC10B525F0D454009EE75F /* OutboxMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutboxMessageCell.swift; sourceTree = "<group>"; };
 		88DC10BB25F1C109009EE75F /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		88DC10C125F21D89009EE75F /* ThemesViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ThemesViewController.storyboard; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 				B556DCF82C20466C41BC0AF0 /* Pods-MessengerApp.debug.xcconfig */,
 				588C937352371BEFCB27BAC4 /* Pods-MessengerApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -141,6 +142,7 @@
 				88DC10C125F21D89009EE75F /* ThemesViewController.storyboard */,
 				8804582825D69B63006397F2 /* Assets.xcassets */,
 				8804582A25D69B63006397F2 /* LaunchScreen.storyboard */,
+				88D39FEA260781DC002CA034 /* GoogleService-Info.plist */,
 				8804582D25D69B63006397F2 /* Info.plist */,
 			);
 			path = MessengerApp;
@@ -229,6 +231,7 @@
 				8804581925D69B62006397F2 /* Frameworks */,
 				8804581A25D69B62006397F2 /* Resources */,
 				C49A15AC400FFD11FBD7B081 /* [CP] Embed Pods Frameworks */,
+				88D39FED26078484002CA034 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -278,6 +281,7 @@
 			files = (
 				88DC10C225F21D89009EE75F /* ThemesViewController.storyboard in Resources */,
 				8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */,
+				88D39FEB260781DC002CA034 /* GoogleService-Info.plist in Resources */,
 				8804582925D69B63006397F2 /* Assets.xcassets in Resources */,
 				8804582725D69B62006397F2 /* ProfileViewController.storyboard in Resources */,
 			);
@@ -307,6 +311,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		88D39FED26078484002CA034 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n";
 		};
 		C49A15AC400FFD11FBD7B081 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

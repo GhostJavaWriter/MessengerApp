@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ThemesPickerDelegate : class {
+protocol ThemesPickerDelegate: class {
     
     func apply(theme: ThemeOptions)
 }

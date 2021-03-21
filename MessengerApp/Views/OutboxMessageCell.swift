@@ -18,9 +18,9 @@ class OutboxMessageCell: UITableViewCell {
         messageBgView.addSubview(messageLabel)
         contentView.addSubview(messageBgView)
         
-        let edgeInset : CGFloat = 30
-        let labelInset : CGFloat = 5
-        let messageInset = contentView.frame.width/4
+        let edgeInset: CGFloat = 30
+        let labelInset: CGFloat = 5
+        let messageInset = contentView.frame.width / 4
         
         messageBgView.translatesAutoresizingMaskIntoConstraints = false
         messageBgView.layer.cornerRadius = 10
@@ -52,4 +52,3 @@ class OutboxMessageCell: UITableViewCell {
         messageLabel.text = text
     }
 }
-

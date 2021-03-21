@@ -21,7 +21,7 @@ class ConversationsListTableViewCell: UITableViewCell {
         contentView.addSubview(lastMessageTimeLabel)
         contentView.addSubview(avatarImage)
         
-        //FIXME: change fixed values to drowing circle with UIBizierPath and add views to UIStackView
+        // FIXME: change fixed values to drowing circle with UIBizierPath and add views to UIStackView
         avatarImage.layer.cornerRadius = 30
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -80,11 +80,10 @@ class ConversationsListTableViewCell: UITableViewCell {
     private func checkDate(_ lastDate: Date) -> Bool {
         let calendar = Calendar.current
         
-        let startOfLastDate =  calendar.startOfDay(for: lastDate)
+        let startOfLastDate = calendar.startOfDay(for: lastDate)
         let startOfToday = calendar.startOfDay(for: Date())
         
         if let numberOfDays = calendar.dateComponents([.day], from: startOfLastDate, to: startOfToday).day {
-            //Тут не знаю, насколько правильно обрабатывать даты из будущего, но добавил abs
             return abs(numberOfDays) < 1
         } else {
             return false

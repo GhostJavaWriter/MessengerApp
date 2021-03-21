@@ -9,13 +9,13 @@ import UIKit
 
 class ThemesViewController: UIViewController {
     
-    weak var themesPickerDelegate : ThemesPickerDelegate?
+    weak var themesPickerDelegate: ThemesPickerDelegate?
     
-    var currentTheme : ThemeOptions?
+    var currentTheme: ThemeOptions?
     
-    //MARK: - UI
+// MARK: - UI
     
-    //rename the buttons
+    // rename the buttons
     @IBOutlet weak var classicThemeView: UIView!
     @IBOutlet weak var classicLabel: UILabel!
     @IBOutlet weak var dayThemeView: UIView!
@@ -23,7 +23,7 @@ class ThemesViewController: UIViewController {
     @IBOutlet weak var nightThemeView: UIView!
     @IBOutlet weak var nightLabel: UILabel!
     
-    //MARK: - Private
+// MARK: - Private
     
     @objc
     private func cancelSettings() {
@@ -111,7 +111,7 @@ class ThemesViewController: UIViewController {
         nightThemeView.layer.cornerRadius = 14
     }
     
-    //MARK: - LifeCycle
+// MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +132,4 @@ class ThemesViewController: UIViewController {
         
         configureGestureRecognizers()
     }
-    
-    
 }

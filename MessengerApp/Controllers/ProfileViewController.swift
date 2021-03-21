@@ -10,7 +10,7 @@ import AVFoundation
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-    //MARK: - UI
+// MARK: - UI
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var workInfoTextField: UITextField!
@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var logoView: UIButton!
     @IBOutlet weak var closeButtonOutlet: UIButton!
     
-    lazy var cancelEditButton : UIButton = {
+    lazy var cancelEditButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Cancel", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         button.addTarget(self, action: #selector(cancelBtnTapped), for: .touchUpInside)
         return button
     }()
-    lazy var saveGCDButton : UIButton = {
+    lazy var saveGCDButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Save GCD", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.9567790627, green: 0.9569163918, blue: 0.9567491412, alpha: 1)
@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return button
     }()
     
-    lazy var verStackView : UIStackView = {
+    lazy var verStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.distribution = .equalSpacing
@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return view
     }()
     
-    lazy var indicatorView : UIActivityIndicatorView = {
+    lazy var indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         view.addSubview(indicator)
         indicator.hidesWhenStopped = true
@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return indicator
     }()
     
-    //MARK: - Actions
+// MARK: - Actions
     @IBAction func closeProfileBtn(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
@@ -123,8 +123,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else {
             print("there is no image")
         }
-        
-        
     }
     
     @IBAction func logoViewTapped(_ sender: Any) {
@@ -154,7 +152,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         present(ac, animated: true, completion: nil)
     }
     
-    //MARK: - Private
+// MARK: - Private
     
     private var tempLogoImage: UIImage?
     private var tempNameText: String?
@@ -192,7 +190,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private func setupLogoView() {
         
         let logoHeight = CGFloat(view.frame.width * 0.6)
-        logoView.layer.cornerRadius = logoHeight/2
+        logoView.layer.cornerRadius = logoHeight / 2
         logoView.titleLabel?.font = UIFont.systemFont(ofSize: logoHeight / 2)
         
         editButtonOutlet.layer.cornerRadius = 14
@@ -292,7 +290,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private func editingMode(enable: Bool) {
         
         if enable {
-            //save current info for cancel case
+            // save current info for cancel case
             tempLogoImage = logoView.imageView?.image
             tempNameText = nameTextField.text
             tempWorkText = workInfoTextField.text
@@ -340,7 +338,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             saveGCDButton.leadingAnchor.constraint(equalTo: verStackView.leadingAnchor),
             saveGCDButton.trailingAnchor.constraint(equalTo: verStackView.trailingAnchor),
             saveGCDButton.bottomAnchor.constraint(equalTo: verStackView.bottomAnchor),
-            saveGCDButton.heightAnchor.constraint(equalToConstant: 40),
+            saveGCDButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -360,7 +358,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    //MARK: - Lifecycle
+// MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -382,8 +380,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         setupLogoView()
     }
     
-    //MARK: - UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// MARK: - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         editingMode(enable: true)
         
         guard let image = info[.editedImage] as? UIImage else { return }
@@ -396,7 +395,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveGCDButton.isEnabled = true
     }
     
-    //MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -418,4 +417,3 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return true
     }
 }
-

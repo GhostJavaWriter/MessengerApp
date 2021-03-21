@@ -8,20 +8,20 @@
 import UIKit
 
 struct TableViewItems {
-    var title : String
-    var group : [ConversationModel]
+    var title: String
+    var group: [ConversationModel]
 }
 
-class ConversationsListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, ThemesPickerDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ThemesPickerDelegate {
     
-    var themeManager : ThemeManager?
-    var themesController : ThemesViewController?
+    var themeManager: ThemeManager?
+    var themesController: ThemesViewController?
     
-    //MARK: - Private
+// MARK: - Private
     
     private let cellIdentifier = String(describing: ConversationsListTableViewCell.self)
     
-    private lazy var tableView : UITableView = {
+    private lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.register(ConversationsListTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -37,7 +37,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     @objc
     private func openProfileViewController() {
         
-        if let profileController = UIStoryboard(name: "ProfileViewController", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+        if let profileController = UIStoryboard(name: "ProfileViewController",
+                                                bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
             
             present(profileController, animated: true, completion: nil)
         }
@@ -46,7 +47,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     @objc
     private func openThemesViewController() {
         
-        if let themesController = UIStoryboard(name: "ThemesViewController", bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
+        if let themesController = UIStoryboard(name: "ThemesViewController",
+                                               bundle: nil).instantiateViewController(withIdentifier: "ThemesViewController") as? ThemesViewController {
             
             themesController.themesPickerDelegate = self
             themesController.currentTheme = themeManager?.currentTheme
@@ -57,11 +59,11 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
     
     private func randomString(length: Int) -> String {
       let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-      return String((0..<length).map{ _ in letters.randomElement()! })
+      return String((0..<length).map { _ in letters.randomElement()! })
     }
     
     private func fillData() {
-        //EXAMPLE INPUT DATA: here we will "load" item from somewhere
+        // EXAMPLE INPUT DATA: here we will "load" item from somewhere
         
         conversationsList.append(TableViewItems(title: "Online", group: [ConversationModel]()))
         conversationsList.append(TableViewItems(title: "History", group: [ConversationModel]()))
@@ -86,8 +88,8 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
                                                         hasUnreadMessages: hasUnreadMessages))
         }
         
-        //here we are sorting an input conversations to different sections in conversations list
-        //later we can add rules what we need
+        // here we are sorting an input conversations to different sections in conversations list
+        // later we can add rules what we need
         for item in inputConversations {
             if item.online {
                 conversationsList[0].group.append(item)
@@ -99,7 +101,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         }
     }
     
-    //MARK: - LifeCycle
+// MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +118,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         fillData()
     }
     
-    //MARK: - UITableViewDataSource, UITableViewDelegate
+// MARK: - UITableViewDataSource, UITableViewDelegate
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return conversationsList.count
@@ -159,7 +161,7 @@ class ConversationsListViewController : UIViewController, UITableViewDataSource,
         navigationController?.pushViewController(conversationViewController, animated: true)
     }
     
-    //MARK: - ThemesPickerDelegate
+// MARK: - ThemesPickerDelegate
     func apply(theme: ThemeOptions) {
         themeManager?.apply(theme: theme)
         

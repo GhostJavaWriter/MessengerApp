@@ -27,8 +27,8 @@ class InboxMessageCell: UITableViewCell {
         messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         
-        let messageInset = contentView.frame.width/4
-        let edgeInset : CGFloat = 30
+        let messageInset = contentView.frame.width / 4
+        let edgeInset: CGFloat = 30
         
         let inboxLeadingAnchor = messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: edgeInset)
         let inboxTrailingAnchor = messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -messageInset)
