@@ -18,7 +18,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var editButtonOutlet: AppButton!
     @IBOutlet weak var logoView: UIButton!
     @IBOutlet weak var closeButtonOutlet: UIButton!
-    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     lazy var cancelEditButton : UIButton = {
         let button = UIButton(type: .system)
@@ -64,6 +63,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         view.distribution = .equalSpacing
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    lazy var indicatorView : UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        view.addSubview(indicator)
+        indicator.hidesWhenStopped = true
+        
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.topAnchor.constraint(equalTo: locationTextField.bottomAnchor, constant: 10).isActive = true
+        indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        return indicator
     }()
     
     //MARK: - Actions

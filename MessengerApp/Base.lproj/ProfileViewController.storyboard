@@ -66,21 +66,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lYP-yI-9Jd">
-                                <rect key="frame" x="150" y="395" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="lYP-yI-9Jd" firstAttribute="top" secondItem="phy-NN-pPI" secondAttribute="bottom" constant="8" symbolic="YES" id="2oR-at-TOf"/>
                             <constraint firstItem="Q4a-t7-Hxt" firstAttribute="top" secondItem="JKH-TI-jrj" secondAttribute="bottom" constant="15" id="2qm-ng-HOt"/>
                             <constraint firstItem="phy-NN-pPI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="3aW-Bw-aQ4"/>
                             <constraint firstItem="hPX-cI-dCL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="8OQ-fr-c5e"/>
                             <constraint firstItem="hPX-cI-dCL" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="8Oj-tE-H3R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q4a-t7-Hxt" secondAttribute="trailing" constant="60" id="Ay1-fd-ARN"/>
                             <constraint firstItem="phy-NN-pPI" firstAttribute="top" secondItem="Q4a-t7-Hxt" secondAttribute="bottom" constant="10" id="FDz-ay-LHq"/>
-                            <constraint firstItem="lYP-yI-9Jd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GyF-HN-Ih4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ePV-h5-pD2" secondAttribute="trailing" constant="20" id="Lmy-oV-5CS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="phy-NN-pPI" secondAttribute="trailing" constant="60" id="Mca-qh-A69"/>
                             <constraint firstItem="hPX-cI-dCL" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="QWR-xP-3YP"/>
@@ -100,7 +95,6 @@
                     <connections>
                         <outlet property="closeButtonOutlet" destination="ePV-h5-pD2" id="Rjj-9w-yhN"/>
                         <outlet property="editButtonOutlet" destination="aCf-bx-BbF" id="EBi-Ii-wQd"/>
-                        <outlet property="indicatorView" destination="lYP-yI-9Jd" id="gTA-UR-kn4"/>
                         <outlet property="locationTextField" destination="phy-NN-pPI" id="TYx-Wi-XJ9"/>
                         <outlet property="logoView" destination="hPX-cI-dCL" id="wLQ-fK-ky9"/>
                         <outlet property="nameTextField" destination="JKH-TI-jrj" id="Ezh-Rz-cfa"/>
