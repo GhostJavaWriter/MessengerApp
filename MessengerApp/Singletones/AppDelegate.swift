@@ -41,23 +41,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
                     case .failure:
                         themeManager.apply(theme: .classic)
+                        UIApplication.shared.windows.reload()
                         NSLog("Theme loading fail. Apply default classic theme")
                     }
                 }
                 
             case .failure:
-                print("error loading")
+                themeManager.apply(theme: .classic)
+                UIApplication.shared.windows.reload()
+                NSLog("error loading")
             }
         }
-        
-//        let userDefaults = UserDefaults.standard
-//        if let rowValue = userDefaults.object(forKey: Keys.selectedTheme) as? String,
-//           let theme = ThemeOptions(rawValue: rowValue) {
-//            themeManager.apply(theme: theme)
-//        } else {
-//            themeManager.apply(theme: .classic)
-//            NSLog("Theme loading fail. Apply default classic theme")
-//        }
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

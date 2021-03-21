@@ -21,6 +21,7 @@ class DataManagerGCD {
             }
         }
     }
+    
     func saveData(toFile: String, name: String, workInfo: String, location: String, completion: @escaping (Result<Data, Error>) -> Void) {
         queue.async {
             syncSaveData(toFile: toFile, name: name, workInfo: workInfo, location: location) { result in
