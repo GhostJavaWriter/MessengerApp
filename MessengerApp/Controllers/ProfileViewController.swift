@@ -35,6 +35,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         button.layer.cornerRadius = 14
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(saveGCDBtnTapped), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     lazy var saveOperationsButton : UIButton = {
@@ -44,6 +45,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         button.layer.cornerRadius = 14
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(saveOperationsBtnTapped), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
@@ -361,9 +363,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         horStackView.addSubview(saveGCDButton)
         horStackView.addSubview(saveOperationsButton)
         
-        saveGCDButton.isEnabled = false
-        saveOperationsButton.isEnabled = false
-        
         verStackView.addSubview(horStackView)
         verStackView.addSubview(cancelEditButton)
         
@@ -440,6 +439,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        editingMode(enable: true)
         
         guard let image = info[.editedImage] as? UIImage else { return }
         
@@ -447,7 +447,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         logoView.titleLabel?.text = ""
         
         dismiss(animated: true)
-        editingMode(enable: true)
+        
         saveGCDButton.isEnabled = true
         saveOperationsButton.isEnabled = true
     }
