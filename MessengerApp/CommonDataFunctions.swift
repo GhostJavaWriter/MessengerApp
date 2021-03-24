@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 public enum DataOperationError: Error {
     case readingError
@@ -142,3 +143,10 @@ public func getDocumentsDirectory() -> URL? {
     let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     return path
 }
+
+/*
+public func syncRetrieveChannels(from dataBase: CollectionReference,
+                                 completion: @escaping (Result <[String: Any], Error>) -> Void) {
+    
+}
+ */

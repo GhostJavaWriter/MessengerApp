@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Aplication moved from <Not running> to <Inactive>
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let controller = ConversationsListViewController()
+        let controller = ChannelsViewController()
         let themeManager = ThemeManager()
         controller.themeManager = themeManager
         
