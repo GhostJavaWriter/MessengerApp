@@ -100,7 +100,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let createAction = UIAlertAction(title: "Create", style: .default) { [weak self, weak ac] _ in
             guard let channelName = ac?.textFields?[0].text else { return }
-            if !channelName.isEmpty {
+            if !channelName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty {
                 self?.submit(channelName)
             } else {
                 print("textField is empty")

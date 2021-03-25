@@ -44,6 +44,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = msgInputConteinerView.backgroundColor
         view.delegate = self
+        view.sizeToFit()
+        view.isScrollEnabled = false
         view.layer.cornerRadius = 14
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lightGray.cgColor
@@ -119,7 +121,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
-            bottomConstraint?.constant = -keyboardSize.height
+            bottomConstraint?.constant = 40 - keyboardSize.height
             
             UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) { [weak self] in
                 self?.view.layoutIfNeeded()
@@ -154,6 +156,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             messagesCollection?.addDocument(data: ["content": content, "created": created, "senderId": senderId, "senderName": senderName])
             
+            bottomConstraint?.constant = 0
+            senderTextView.endEditing(true)
+            
             senderTextView.text = nil
             senderTextView.resignFirstResponder()
         }
@@ -168,19 +173,22 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         
-        msgInputConteinerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         msgInputConteinerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         msgInputConteinerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
         bottomConstraint = msgInputConteinerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomConstraint?.isActive = true
         
+        senderTextView.heightAnchor.constraint(greaterThanOrEqualTo: sendButton.heightAnchor).isActive = true
         senderTextView.topAnchor.constraint(equalTo: msgInputConteinerView.topAnchor, constant: 10).isActive = true
         senderTextView.leadingAnchor.constraint(equalTo: msgInputConteinerView.leadingAnchor, constant: 30).isActive = true
         senderTextView.bottomAnchor.constraint(equalTo: msgInputConteinerView.bottomAnchor, constant: -50).isActive = true
         
-        sendButton.topAnchor.constraint(equalTo: msgInputConteinerView.topAnchor, constant: 10).isActive = true
         sendButton.leadingAnchor.constraint(equalTo: senderTextView.trailingAnchor, constant: 5).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: msgInputConteinerView.trailingAnchor, constant: -30).isActive = true
+        
+        let cons = sendButton.trailingAnchor.constraint(equalTo: msgInputConteinerView.trailingAnchor, constant: -30)
+        cons.priority = .defaultHigh
+        cons.isActive = true
         sendButton.bottomAnchor.constraint(equalTo: msgInputConteinerView.bottomAnchor, constant: -50).isActive = true
     }
     
