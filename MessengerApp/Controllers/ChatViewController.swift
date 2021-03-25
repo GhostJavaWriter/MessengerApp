@@ -68,32 +68,40 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private var messages = [Message]()
     
-    private func retrieveMessages() {
-        guard let ref = messagesCollection else { return }
+    private func fetchData() {
+        guard let ref = messagesCollection else {
+            print("no collection")
+            return
+        }
         
         ref.addSnapshotListener { [weak self] (snap, _) in
             
-            if let documents = snap?.documentChanges {
+            guard let documents = snap?.documents else {
+                print("no messages")
+                return
+            }
+            
+            self?.messages = documents.map { (queryDocumentSnapshot) -> Message in
+                let data = queryDocumentSnapshot.data()
                 
-                for doc in documents {
-                    
-                    if let content = doc.document.data()["content"] as? String,
-                       let timeStamp = doc.document.data()["created"] as? Timestamp,
-                       let senderId = doc.document.data()["senderId"] as? String,
-                       let senderName = doc.document.data()["senderName"] as? String {
-                        
-                        let created = timeStamp.dateValue()
-                        let message = Message(content: content, created: created, senderId: senderId, senderName: senderName)
-                        self?.messages.append(message)
-                    } else {
-                        NSLog("Message parsing error")
-                    }
+                let content = data["content"] as? String
+                let timeStamp = data["created"] as? Timestamp
+                let senderId = data["senderId"] as? String
+                let senderName = data["senderName"] as? String
+                let created = timeStamp?.dateValue()
+                
+                return Message(content: content ?? "error",
+                               created: created ?? Date(),
+                               senderId: senderId ?? "invalid object",
+                               senderName: senderName ?? "invalid object")
+            }
+            if let messages = self?.messages {
+                self?.messages = messages.sorted { (current, next) -> Bool in
+                    return current.created < next.created
                 }
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            } else {
-                NSLog("Database have not any docs")
+            }
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
             }
         }
     }
@@ -125,6 +133,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             // let newMessage = Message(content: content, created: created, senderId: senderId, senderName: senderName)
             
             messagesCollection?.addDocument(data: ["content": content, "created": created, "senderId": senderId, "senderName": senderName])
+            outputMessageView.text = ""
+            outputMessageView.resignFirstResponder()
         }
     }
     
@@ -167,7 +177,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         configureView()
         
-        retrieveMessages()
+        fetchData()
     }
     
 // MARK: - UITableViewDelegate, UITableViewDataSource

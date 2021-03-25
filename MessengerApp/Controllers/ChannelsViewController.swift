@@ -32,34 +32,42 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     }()
     private var channels = [Channel]()
 
-    private func retrieveData() {
+    private func fetchData() {
         
         reference.addSnapshotListener { [weak self] (snap, _) in
             
-            if let documents = snap?.documentChanges {
+            guard let documents = snap?.documents else {
+                print("No documents")
+                return
+            }
+            
+            self?.channels = documents.map { (queryDocumentSnapshot) -> Channel in
+                let data = queryDocumentSnapshot.data()
                 
-                for doc in documents {
-                    
-                    if let name = doc.document.data()["name"] as? String {
-                        
-                        let identifier = doc.document.documentID
-                        let lastMessage = doc.document.data()["lastMessage"] as? String
-                        let lastActivityTimestamp = doc.document.data()["lastActivity"] as? Timestamp
-                        let lastActivity = lastActivityTimestamp?.dateValue()
-                        let channel = Channel(identifier: identifier,
-                                              name: name,
-                                              lastMessage: lastMessage,
-                                              lastActivity: lastActivity)
-                        self?.channels.append(channel)
-                    } else {
-                        NSLog("Cannot cast channel name to String")
+                let id = queryDocumentSnapshot.documentID
+                let name = data["name"] as? String ?? "default"
+                let lastMsg = data["lastMessage"] as? String
+                let lastActivityTimestamp = data["lastActivity"] as? Timestamp
+                let lastActivity = lastActivityTimestamp?.dateValue()
+                
+                return Channel(identifier: id, name: name, lastMessage: lastMsg, lastActivity: lastActivity)
+            }
+            // страшная логика сортировки О_О
+            if let channels = self?.channels {
+                self?.channels = channels.sorted { (current, next) -> Bool in
+                    if let current = current.lastActivity {
+                        if let next = next.lastActivity {
+                            return current > next
+                        }
+                        return true
+                    } else if next.lastActivity != nil {
+                        return false
                     }
+                    return false
                 }
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            } else {
-                NSLog("Database have not any docs")
+            }
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
             }
         }
     }
@@ -69,7 +77,6 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if let profileController = UIStoryboard(name: "ProfileViewController",
                                                 bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
-            
             present(profileController, animated: true, completion: nil)
         }
     }
@@ -128,7 +135,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         view.addSubview(tableView)
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         
-        retrieveData()
+        fetchData()
         
     }
     
