@@ -33,34 +33,34 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         return tableView
     }()
     
-    private lazy var senderBgView: UIView = {
-        let view = UIView()
+    private lazy var msgInputConteinerView: AppView = {
+        let view = AppView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.8)
-        
         return view
     }()
     
-    private lazy var outputMessageView: UITextView = {
+    private lazy var senderTextView: UITextView = {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.8)
+        view.backgroundColor = msgInputConteinerView.backgroundColor
         view.delegate = self
         view.layer.cornerRadius = 14
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
-    private lazy var sendButton: UIButton = {
-        let btn = UIButton()
+    private lazy var sendButton: AppButton = {
+        let btn = AppButton(type: .system)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("send", for: .normal)
+        btn.titleLabel?.font = .boldSystemFont(ofSize: 20)
         btn.addTarget(self, action: #selector(sendBtnTapped), for: .touchUpInside)
-        // btn.isEnabled = false
+        btn.isEnabled = false
         return btn
     }()
+    
+    private var bottomConstraint: NSLayoutConstraint?
     
 // MARK: - Private
     
@@ -102,7 +102,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
             DispatchQueue.main.async {
+                
                 self?.tableView.reloadData()
+                
+                if let currentRow = self?.messages.count {
+                    if currentRow > 0 {
+                        let indexPath = IndexPath(row: currentRow - 1, section: 0)
+                        self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+                    }
+                }
             }
         }
     }
@@ -110,24 +118,35 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc
     private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            
+            bottomConstraint?.constant = -keyboardSize.height
+            
+            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) { [weak self] in
+                self?.view.layoutIfNeeded()
+            } completion: { [weak self] (_) in
+//                if let lastItem = self?.messages.count {
+//                    let indexPath = IndexPath(item: lastItem - 1, section: 0)
+//                    self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                }
+                self?.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 100, right: 0)
             }
         }
     }
 
     @objc
     private func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        
+        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) { [weak self] in
+            self?.view.layoutIfNeeded()
+        } completion: { [weak self] (_) in
+            self?.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         }
     }
     
     @objc
     private func sendBtnTapped() {
         
-        if let content = outputMessageView.text,
+        if let content = senderTextView.text,
            let senderID = self.messageID {
             let created = Date()
             let senderId = senderID
@@ -135,32 +154,34 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             messagesCollection?.addDocument(data: ["content": content, "created": created, "senderId": senderId, "senderName": senderName])
             
-            outputMessageView.text = nil
-            outputMessageView.resignFirstResponder()
+            senderTextView.text = nil
+            senderTextView.resignFirstResponder()
         }
     }
     
     private func configureView() {
         view.addSubview(tableView)
-        view.addSubview(senderBgView)
-        senderBgView.addSubview(outputMessageView)
-        senderBgView.addSubview(sendButton)
+        view.addSubview(msgInputConteinerView)
+        msgInputConteinerView.addSubview(senderTextView)
+        msgInputConteinerView.addSubview(sendButton)
         
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         
-        senderBgView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        senderBgView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        senderBgView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        senderBgView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        msgInputConteinerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        msgInputConteinerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        msgInputConteinerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        bottomConstraint = msgInputConteinerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        bottomConstraint?.isActive = true
         
-        outputMessageView.topAnchor.constraint(equalTo: senderBgView.topAnchor, constant: 10).isActive = true
-        outputMessageView.leadingAnchor.constraint(equalTo: senderBgView.leadingAnchor, constant: 30).isActive = true
-        outputMessageView.bottomAnchor.constraint(equalTo: senderBgView.bottomAnchor, constant: -20).isActive = true
+        senderTextView.topAnchor.constraint(equalTo: msgInputConteinerView.topAnchor, constant: 10).isActive = true
+        senderTextView.leadingAnchor.constraint(equalTo: msgInputConteinerView.leadingAnchor, constant: 30).isActive = true
+        senderTextView.bottomAnchor.constraint(equalTo: msgInputConteinerView.bottomAnchor, constant: -50).isActive = true
         
-        sendButton.topAnchor.constraint(equalTo: senderBgView.topAnchor, constant: 10).isActive = true
-        sendButton.leadingAnchor.constraint(equalTo: outputMessageView.trailingAnchor, constant: 5).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: senderBgView.trailingAnchor, constant: -30).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: senderBgView.bottomAnchor, constant: -20).isActive = true
+        sendButton.topAnchor.constraint(equalTo: msgInputConteinerView.topAnchor, constant: 10).isActive = true
+        sendButton.leadingAnchor.constraint(equalTo: senderTextView.trailingAnchor, constant: 5).isActive = true
+        sendButton.trailingAnchor.constraint(equalTo: msgInputConteinerView.trailingAnchor, constant: -30).isActive = true
+        sendButton.bottomAnchor.constraint(equalTo: msgInputConteinerView.bottomAnchor, constant: -50).isActive = true
     }
     
 // MARK: - LifeCycle
@@ -218,14 +239,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-// MARK: - UITextViewDelegate
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        bottomConstraint?.constant = 0
+        senderTextView.endEditing(true)
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+// MARK: - UITextViewDelegate
+    
+    func textViewDidChange(_ textView: UITextView) {
         
-        return true
+        let text = textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        if text.isEmpty {
+            sendButton.isEnabled = false
+        } else {
+            sendButton.isEnabled = true
+        }
     }
 }

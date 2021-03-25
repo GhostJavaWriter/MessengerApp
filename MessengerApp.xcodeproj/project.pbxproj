@@ -12,6 +12,7 @@
 		8804582725D69B62006397F2 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582525D69B62006397F2 /* ProfileViewController.storyboard */; };
 		8804582925D69B63006397F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8804582825D69B63006397F2 /* Assets.xcassets */; };
 		8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582A25D69B63006397F2 /* LaunchScreen.storyboard */; };
+		8818DCD5260CD676000B64D1 /* AppTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8818DCD4260CD676000B64D1 /* AppTextView.swift */; };
 		882B1A0C25FDA64300E67F15 /* DataManagerGCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */; };
 		882B1A0F25FDAED100E67F15 /* CommonDataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */; };
 		882B1A1625FDCDBA00E67F15 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */; };
@@ -52,6 +53,7 @@
 		8804582825D69B63006397F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8804582B25D69B63006397F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8804582D25D69B63006397F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8818DCD4260CD676000B64D1 /* AppTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTextView.swift; sourceTree = "<group>"; };
 		882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerGCD.swift; sourceTree = "<group>"; };
 		882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDataFunctions.swift; sourceTree = "<group>"; };
 		882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				88DC10EB25F61B11009EE75F /* AppView.swift */,
 				88DC10F225F61BA9009EE75F /* AppLabel.swift */,
 				88DC10F525F61BCA009EE75F /* AppButton.swift */,
+				8818DCD4260CD676000B64D1 /* AppTextView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				8875697A25EDE06800BC0B00 /* UIButtonExtension.swift in Sources */,
 				88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */,
 				8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */,
+				8818DCD5260CD676000B64D1 /* AppTextView.swift in Sources */,
 				88DC10F325F61BA9009EE75F /* AppLabel.swift in Sources */,
 				8875698525EDF8D000BC0B00 /* ConversationCellConfiguration.swift in Sources */,
 				88DC10F625F61BCA009EE75F /* AppButton.swift in Sources */,
