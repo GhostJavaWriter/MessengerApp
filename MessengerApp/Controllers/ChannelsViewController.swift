@@ -15,6 +15,8 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     
 // MARK: - Private
     
+    private let defaults = UserDefaults.standard
+    private var messegesIdentifier: String?
     private let cellIdentifier = String(describing: ChannelTableViewCell.self)
     private lazy var dataBase = Firestore.firestore()
     private lazy var reference = dataBase.collection("channels")
@@ -69,6 +71,16 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
+        }
+    }
+    
+    private func loadID() {
+        if let id = defaults.string(forKey: "identifier") {
+            messegesIdentifier = id
+        } else {
+            let id = UUID().uuidString
+            defaults.set(id, forKey: "identifier")
+            messegesIdentifier = id
         }
     }
     
@@ -132,11 +144,12 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         let settingsImage = UIImage(named: "settingsWheel")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(openThemesViewController))
         
+        loadID()
+        
         view.addSubview(tableView)
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         
         fetchData()
-        
     }
     
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -168,6 +181,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         let conversationViewController = ChatViewController()
         conversationViewController.messagesCollection = reference.document(currentChannel.identifier).collection("messages")
         conversationViewController.channelName = currentChannel.name
+        conversationViewController.messageID = messegesIdentifier
         
         navigationController?.pushViewController(conversationViewController, animated: true)
     }

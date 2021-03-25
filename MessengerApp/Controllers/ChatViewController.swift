@@ -11,6 +11,7 @@ import Firebase
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
     var channelName: String?
+    var messageID: String?
     var messagesCollection: CollectionReference?
     
 // MARK: - UI
@@ -111,6 +112,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
             }
         }
     }
@@ -125,15 +127,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc
     private func sendBtnTapped() {
         
-        if let content = outputMessageView.text {
+        if let content = outputMessageView.text,
+           let senderID = self.messageID {
             let created = Date()
-            let senderId = ":11"
+            let senderId = senderID
             let senderName = "Bair"
             
-            // let newMessage = Message(content: content, created: created, senderId: senderId, senderName: senderName)
-            
             messagesCollection?.addDocument(data: ["content": content, "created": created, "senderId": senderId, "senderName": senderName])
-            outputMessageView.text = ""
+            
+            outputMessageView.text = nil
             outputMessageView.resignFirstResponder()
         }
     }
@@ -178,6 +180,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         configureView()
         
         fetchData()
+        
     }
     
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -191,18 +194,27 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let messageModel = messages[indexPath.row]
         
+        if messageModel.senderId == messageID {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: outboxCellIdentifier,
+                                                           for: indexPath) as? OutboxMessageCell else {
+                
+                return UITableViewCell()
+            }
+            cell.configure(content: messageModel.content,
+                           created: messageModel.created,
+                           senderId: messageModel.senderId)
+            cell.selectionStyle = .none
+            return cell
+        }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: inboxCellIdentifier,
                                                        for: indexPath) as? InboxMessageCell else {
             return UITableViewCell()
         }
-        
         cell.configure(content: messageModel.content,
                        created: messageModel.created,
                        senderId: messageModel.senderId,
                        senderName: messageModel.senderName)
-        
         cell.selectionStyle = .none
-
         return cell
     }
     
