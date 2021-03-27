@@ -18,6 +18,8 @@
 		882B1A1625FDCDBA00E67F15 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */; };
 		882B1A1A25FE11EA00E67F15 /* DataManagerOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */; };
 		882B1A1D25FE4FF400E67F15 /* SavedThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */; };
+		8845E53B260F5B0D008DE2AF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */; };
+		8845E541260F5B70008DE2AF /* ChatStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53F260F5B70008DE2AF /* ChatStorage.xcdatamodeld */; };
 		8875696325EB39F700BC0B00 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
 		8875697625EDC61300BC0B00 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ChatViewController.swift */; };
@@ -59,6 +61,8 @@
 		882B1A1525FDCDBA00E67F15 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerOperations.swift; sourceTree = "<group>"; };
 		882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedThemeModel.swift; sourceTree = "<group>"; };
+		8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		8845E540260F5B70008DE2AF /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
 		8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		8875697525EDC61300BC0B00 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 				882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */,
 				882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */,
 				882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */,
+				8845E53D260F5B13008DE2AF /* CoreDataManager */,
 				8875698F25EDFA0D00BC0B00 /* Singletones */,
 				8875697825EDE03700BC0B00 /* Extensions */,
 				8875698325EDF87400BC0B00 /* Protocols */,
@@ -152,6 +157,15 @@
 				8804582D25D69B63006397F2 /* Info.plist */,
 			);
 			path = MessengerApp;
+			sourceTree = "<group>";
+		};
+		8845E53D260F5B13008DE2AF /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */,
+				8845E53F260F5B70008DE2AF /* ChatStorage.xcdatamodeld */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		8875696B25EB526C00BC0B00 /* Views */ = {
@@ -383,6 +397,7 @@
 				8804582025D69B62006397F2 /* AppDelegate.swift in Sources */,
 				88DC10CE25F25B01009EE75F /* ThemesPickerDelegate.swift in Sources */,
 				88DC10C825F250CA009EE75F /* ThemeSettings.swift in Sources */,
+				8845E541260F5B70008DE2AF /* ChatStorage.xcdatamodeld in Sources */,
 				88DC10D825F5001B009EE75F /* UIWindowExtension.swift in Sources */,
 				88D39FF426078C1F002CA034 /* Message.swift in Sources */,
 				88FB909E25EB246B00438B5D /* ChannelsViewController.swift in Sources */,
@@ -390,6 +405,7 @@
 				882B1A0C25FDA64300E67F15 /* DataManagerGCD.swift in Sources */,
 				8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */,
 				882B1A1D25FE4FF400E67F15 /* SavedThemeModel.swift in Sources */,
+				8845E53B260F5B0D008DE2AF /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +611,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8845E53F260F5B70008DE2AF /* ChatStorage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8845E540260F5B70008DE2AF /* Chat.xcdatamodel */,
+			);
+			currentVersion = 8845E540260F5B70008DE2AF /* Chat.xcdatamodel */;
+			path = ChatStorage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8804581425D69B62006397F2 /* Project object */;
 }
