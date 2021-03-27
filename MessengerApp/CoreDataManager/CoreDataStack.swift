@@ -19,7 +19,7 @@ class CoreDataStack {
         return documentsURL
     }()
     
-    private let dataModelName = "ChatStorage"
+    private let dataModelName = "Chat"
     private let dataModelExtension = "momd"
     
     // MARK: - init Stack
@@ -133,18 +133,18 @@ class CoreDataStack {
 
     // MARK: - Core Data Logs
     
-    func printDatabaseStatistics() {
-        mainContext.perform {
-            do {
-                let count = try self.mainContext.count(for: User.fetchRequest())
-                print("\(count) пользователей")
-                let array = try self.mainContext.fetch(User.fetchRequest()) as? [User] ?? []
-                array.forEach {
-                    print($0.about)
-                }
-            } catch {
-                fatalError(error.localizedDescription)
-            }
-        }
-    }
+//    func printDatabaseStatistics() {
+//        mainContext.perform {
+//            do {
+//                let count = try self.mainContext.count(for: Channel.fetchRequest())
+//                print("\(count) пользователей")
+//                let array = try self.mainContext.fetch(Channel.fetchRequest()) as? [Channel] ?? []
+//                array.forEach {
+//                    print($0.about)
+//                }
+//            } catch {
+//                fatalError(error.localizedDescription)
+//            }
+//        }
+//    }
 }
