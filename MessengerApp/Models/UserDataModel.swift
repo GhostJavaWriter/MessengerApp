@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct UserDataModel : Codable {
+struct UserDataModel: Codable {
     
-    let name : String
-    let workInfo : String
-    let location : String
+    let name: String
+    let workInfo: String
+    let location: String
 }

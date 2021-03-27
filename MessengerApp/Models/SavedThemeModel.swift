@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct SavedThemeModel : Codable {
-    let theme : String
+struct SavedThemeModel: Codable {
+    let theme: String
 }

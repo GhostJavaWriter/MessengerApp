@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct MessageModel : MessageCellConfiguration{
+struct MessageModel: MessageCellConfiguration {
     
-    var text : String?
-    var isInbox : Bool
+    var text: String?
+    var isInbox: Bool
 }

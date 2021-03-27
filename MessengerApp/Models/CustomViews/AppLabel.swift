@@ -7,4 +7,4 @@
 
 import UIKit
 
-class AppLabel : UILabel {}
+class AppLabel: UILabel {}

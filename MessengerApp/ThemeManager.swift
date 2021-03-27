@@ -9,32 +9,32 @@ import UIKit
 
 class ThemeManager {
     
-    var currentTheme : ThemeOptions?
+    var currentTheme: ThemeOptions?
     
-    //MARK: - ThemesPickerDelegate
+// MARK: - ThemesPickerDelegate
     
     func apply(theme: ThemeOptions) {
         
         currentTheme = theme
         
-        //View
+        // View
         AppView.appearance().backgroundColor = theme.colors.appBgColor
         AppInboxMessageView.appearance().backgroundColor = theme.colors.inboxMsgBgColor
         AppOutboxMessageView.appearance().backgroundColor = theme.colors.outboxMsgBgColor
         
-        //Labels
+        // Labels
         AppLabel.appearance().textColor = theme.colors.mainTextColor
         
-        //Buttons
+        // Buttons
         AppButton.appearance().setTitleColor(theme.colors.btnEnabledTitleColor, for: .normal)
         AppButton.appearance().setTitleColor(theme.colors.subviewsTextColor, for: .disabled)
         AppBarButton.appearance().setTitleColor(theme.colors.barButtonColor, for: .normal)
         
-        //TableView
+        // TableView
         UITableViewCell.appearance().backgroundColor = theme.colors.appBgColor
         UITableView.appearance().backgroundColor = theme.colors.appBgColor
         
-        //NavigationBar
+        // NavigationBar
         let titleColor = theme.colors.mainTextColor
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor]
@@ -44,7 +44,7 @@ class ThemeManager {
         UINavigationBar.appearance().barTintColor = theme.colors.appBgColor
         UINavigationBar.appearance().barStyle = theme.navBarStyle
         
-        //AlertController
+        // AlertController
         if #available(iOS 13.0, *) {
             UIView.appearance().overrideUserInterfaceStyle = theme.userInterfaceStyle
         } else {
@@ -52,5 +52,3 @@ class ThemeManager {
         }
     }
 }
-
-

@@ -53,7 +53,7 @@ class ConversationsListTableViewCell: UITableViewCell {
     private func checkDate(_ lastDate: Date) -> Bool {
         let calendar = Calendar.current
         
-        let startOfLastDate =  calendar.startOfDay(for: lastDate)
+        let startOfLastDate = calendar.startOfDay(for: lastDate)
         let startOfToday = calendar.startOfDay(for: Date())
         
         if let numberOfDays = calendar.dateComponents([.day], from: startOfLastDate, to: startOfToday).day {

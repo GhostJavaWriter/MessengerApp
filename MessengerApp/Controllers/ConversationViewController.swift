@@ -1,22 +1,24 @@
 //
-//  ConversationViewController.swift
+//  ChatViewController.swift
 //  MessengerApp
 //
 //  Created by Bair Nadtsalov on 02.03.2021.
 //
 
 import UIKit
+import Firebase
 
-class ConversationViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var companionName : String?
+    var channelName: String?
+    var messagesRef: DocumentReference?
     
-    //MARK: - Private
+// MARK: - Private
     
     private let inboxCellIdentifier = String(describing: InboxMessageCell.self)
     private let outboxCellIdentifier = String(describing: OutboxMessageCell.self)
     
-    private lazy var tableView : UITableView = {
+    private lazy var tableView: UITableView = {
         
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         
@@ -32,31 +34,45 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         return tableView
     }()
     
-    private let messages = [MessageModel(text: "Hi there!", isInbox: true),
-                            MessageModel(text: "Hi!", isInbox: false),
-                            MessageModel(text: "How are you?", isInbox: true),
-                            MessageModel(text: "I'm fine, what about you?", isInbox: false),
-                            MessageModel(text: "I'm ok", isInbox: true),
-                            MessageModel(text: "Have you seen the sunrise this morning?", isInbox: false),
-                            MessageModel(text: "Nope", isInbox: true),
-                            MessageModel(text: "Nope jjjj aaa jfdf adfsfsfsf sfdsfsdf fdsfds fd fdfdf f dsfdsfs fsdf fsdff fdsfkjlj jlkjl ljlkj kkljlk jlklkj jlkklj jlkjklll ll", isInbox: false),
-                            MessageModel(text: "Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
-                            MessageModel(text: "Nope3", isInbox: false),
-                            MessageModel(text: "Nope5", isInbox: false),
-                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox", isInbox: true),
-                            MessageModel(text: "Nope7", isInbox: false),
-                            MessageModel(text: "Nope8", isInbox: true),
-                            MessageModel(text: "Nope6 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs inbox inbox Nope2 fs joker", isInbox: false),
-                           
-    ]
+    private var messages = [Message]()
     
-    //MARK: - LifeCycle
+    private func retrieveMessages() {
+        let reference = messagesRef?.collection("messages")
+        
+        reference?.addSnapshotListener { [weak self] (snap, _) in
+            
+            if let documents = snap?.documentChanges {
+                
+                for doc in documents {
+                    
+                    if let content = doc.document.data()["content"] as? String,
+                       let timeStamp = doc.document.data()["created"] as? Timestamp,
+                       let senderId = doc.document.data()["senderId"] as? String,
+                       let senderName = doc.document.data()["senderName"] as? String {
+                        
+                        let created = timeStamp.dateValue()
+                        let message = Message(content: content, created: created, senderId: senderId, senderName: senderName)
+                        self?.messages.append(message)
+                    } else {
+                        NSLog("Message parsing error")
+                    }
+                }
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            } else {
+                NSLog("Database have not any docs")
+            }
+        }
+    }
+    
+// MARK: - LifeCycle
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         view.backgroundColor = .white
         
-        if let name = companionName {
+        if let name = channelName {
             title = name
         } else {
             title = "Unknown"
@@ -64,9 +80,12 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         view.addSubview(tableView)
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
+        
+        retrieveMessages()
+        
     }
     
-    //MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -77,18 +96,18 @@ class ConversationViewController : UIViewController, UITableViewDelegate, UITabl
         
         let messageModel = messages[indexPath.row]
         
-        if messageModel.isInbox {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: inboxCellIdentifier, for: indexPath) as? InboxMessageCell else { return UITableViewCell() }
-            cell.selectionStyle = .none
-            cell.configure(text: messageModel.text)
-            
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: inboxCellIdentifier,
+                                                       for: indexPath) as? InboxMessageCell else {
+            return UITableViewCell()
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: outboxCellIdentifier, for: indexPath) as? OutboxMessageCell else { return UITableViewCell() }
-        cell.selectionStyle = .none
-        cell.configure(text: messageModel.text)
+        cell.configure(content: messageModel.content,
+                       created: messageModel.created,
+                       senderId: messageModel.senderId,
+                       senderName: messageModel.senderName)
         
+        cell.selectionStyle = .none
+
         return cell
     }
 }

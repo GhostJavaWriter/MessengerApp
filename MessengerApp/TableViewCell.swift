@@ -9,11 +9,11 @@ import UIKit
 
 protocol ConversationCellConfiguration {
     
-    var name : String? {get set}
-    var message : String? {get set}
-    var date : Date? {get set}
-    var online : Bool {get set}
-    var hasUnreadMessages : Bool {get set}
+    var name: String? {get set}
+    var message: String? {get set}
+    var date: Date? {get set}
+    var online: Bool {get set}
+    var hasUnreadMessages: Bool {get set}
 }
 
 class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration {
@@ -47,9 +47,9 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
             messageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             
             lastMessageTimeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            lastMessageTimeLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            lastMessageTimeLabel.topAnchor.constraint(equalTo: self.topAnchor)
             
-            //TODO: add contentHuggingPriority
+// TODO: add contentHuggingPriority
         ])
     }
     

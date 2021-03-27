@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,16 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Aplication moved from <Not running> to <Inactive>
+        FirebaseApp.configure()
+        
+        // Aplication moved from <Not running> to <Inactive>
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let controller = ConversationsListViewController()
+        let controller = ChannelsViewController()
         let themeManager = ThemeManager()
         controller.themeManager = themeManager
         
         let navigationController = UINavigationController(rootViewController: controller)
         
-        //Load saved theme if that exist
+        // Load saved theme if that exist
         let gcdManager = DataManagerGCD()
         gcdManager.loadData(fileName: "theme.json") { (result) in
             switch result {
@@ -61,26 +64,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         
-        //Aplication moved from <Active> to <Inactive>
+        // Aplication moved from <Active> to <Inactive>
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-        //Aplication moved from <Inactive> to <Background>
+        // Aplication moved from <Inactive> to <Background>
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-        //Aplication moved from <Background> to <Inactive>
+        // Aplication moved from <Background> to <Inactive>
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        //Aplication moved from <Inactive> to <Active>
+        // Aplication moved from <Inactive> to <Active>
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        //Aplication moved from <Background> to <Suspended>
+        // Aplication moved from <Background> to <Suspended>
     }
 }

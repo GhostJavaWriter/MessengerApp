@@ -7,6 +7,6 @@
 
 import UIKit
 
-class AppButton : UIButton {}
+class AppButton: UIButton {}
 
-class AppBarButton : UIButton {}
+class AppBarButton: UIButton {}
