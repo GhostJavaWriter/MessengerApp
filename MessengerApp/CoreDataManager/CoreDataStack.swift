@@ -16,7 +16,7 @@ class CoreDataStack {
                                                           in: .userDomainMask).last else {
             fatalError("Document path not found")
         }
-        return documentsURL
+        return documentsURL.appendingPathComponent("Chat.sqlite")
     }()
     
     private let dataModelName = "Chat"
@@ -53,7 +53,7 @@ class CoreDataStack {
     
     // MARK: - Contexts
     
-    private lazy var writtenContext: NSManagedObjectContext = {
+    private lazy var writterContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
@@ -62,7 +62,7 @@ class CoreDataStack {
     
     private(set) lazy var mainContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.parent = writtenContext
+        context.parent = writterContext
         context.automaticallyMergesChangesFromParent = true
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         return context
@@ -91,6 +91,7 @@ class CoreDataStack {
     private func performSave(in context: NSManagedObjectContext) {
         context.performAndWait {
             do {
+                print("save")
                 try context.save()
             } catch {
                 assertionFailure(error.localizedDescription)
@@ -133,18 +134,18 @@ class CoreDataStack {
 
     // MARK: - Core Data Logs
     
-//    func printDatabaseStatistics() {
-//        mainContext.perform {
-//            do {
-//                let count = try self.mainContext.count(for: Channel.fetchRequest())
-//                print("\(count) пользователей")
-//                let array = try self.mainContext.fetch(Channel.fetchRequest()) as? [Channel] ?? []
-//                array.forEach {
-//                    print($0.about)
-//                }
-//            } catch {
-//                fatalError(error.localizedDescription)
-//            }
-//        }
-//    }
+    func printDatabaseStatistics() {
+        mainContext.perform {
+            do {
+                let count = try self.mainContext.count(for: ChannelDb.fetchRequest())
+                print("\(count) messages")
+                let array = try self.mainContext.fetch(ChannelDb.fetchRequest()) as? [ChannelDb] ?? []
+                array.forEach {
+                    print($0.about)
+                }
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
 }

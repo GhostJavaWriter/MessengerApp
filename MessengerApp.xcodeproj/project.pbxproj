@@ -20,6 +20,7 @@
 		882B1A1D25FE4FF400E67F15 /* SavedThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */; };
 		8845E53B260F5B0D008DE2AF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */; };
 		8845E541260F5B70008DE2AF /* Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53F260F5B70008DE2AF /* Chat.xcdatamodeld */; };
+		8845E54626100AB8008DE2AF /* StoreObjectsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E54526100AB8008DE2AF /* StoreObjectsExtensions.swift */; };
 		8875696325EB39F700BC0B00 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
 		8875697625EDC61300BC0B00 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ChatViewController.swift */; };
@@ -63,6 +64,7 @@
 		882B1A1C25FE4FF400E67F15 /* SavedThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedThemeModel.swift; sourceTree = "<group>"; };
 		8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8845E540260F5B70008DE2AF /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
+		8845E54526100AB8008DE2AF /* StoreObjectsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObjectsExtensions.swift; sourceTree = "<group>"; };
 		8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		8875697525EDC61300BC0B00 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				8875697925EDE06800BC0B00 /* UIButtonExtension.swift */,
 				88DC10D725F5001B009EE75F /* UIWindowExtension.swift */,
+				8845E54526100AB8008DE2AF /* StoreObjectsExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */,
 				8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */,
 				8818DCD5260CD676000B64D1 /* AppTextView.swift in Sources */,
+				8845E54626100AB8008DE2AF /* StoreObjectsExtensions.swift in Sources */,
 				88DC10F325F61BA9009EE75F /* AppLabel.swift in Sources */,
 				8875698525EDF8D000BC0B00 /* ConversationCellConfiguration.swift in Sources */,
 				88DC10F625F61BCA009EE75F /* AppButton.swift in Sources */,

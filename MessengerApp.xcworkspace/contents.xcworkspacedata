@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MessageDb+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:MessageDb+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ChannelDb+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ChannelDb+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:MessengerApp.xcodeproj">
    </FileRef>
    <FileRef

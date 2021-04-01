@@ -101,7 +101,7 @@ class ChannelTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(name: String, lastMessage: String?, lastActivity: Date?, identifier: String?) {
+    func configure(name: String?, lastMessage: String?, lastActivity: Date?, identifier: String?) {
         
         nameLabel.text = name
         nameLabel.font = .systemFont(ofSize: 20)

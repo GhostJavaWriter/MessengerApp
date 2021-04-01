@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Channel {
+struct Channel: Hashable {
     let identifier: String
     let name: String
     let lastMessage: String?
