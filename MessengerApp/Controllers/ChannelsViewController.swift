@@ -136,6 +136,10 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let channelName = ac?.textFields?[0].text else { return }
             if !channelName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty {
                 self?.submit(channelName)
+                if let lastItem = self?.channels.count {
+                    let indexPath = IndexPath(item: lastItem - 1, section: 0)
+                    self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
             } else {
                 print("textField is empty")
             }

@@ -152,6 +152,7 @@
 				8875696B25EB526C00BC0B00 /* Views */,
 				88FB90A025EB247600438B5D /* Controllers */,
 				8804582525D69B62006397F2 /* ProfileViewController.storyboard */,
+				8845E53F260F5B70008DE2AF /* Chat.xcdatamodeld */,
 				88DC10C125F21D89009EE75F /* ThemesViewController.storyboard */,
 				8804582825D69B63006397F2 /* Assets.xcassets */,
 				8804582A25D69B63006397F2 /* LaunchScreen.storyboard */,
@@ -165,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */,
-				8845E53F260F5B70008DE2AF /* Chat.xcdatamodeld */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
