@@ -21,6 +21,8 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     private let cellIdentifier = String(describing: ChannelTableViewCell.self)
     private lazy var dataBase = Firestore.firestore()
     private lazy var reference = dataBase.collection("channels")
+    private var data: [Channel: [Message]] = [:]
+    private var channels = [Channel]()
     
     private lazy var tableView: UITableView = {
         
@@ -33,7 +35,6 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         return tableView
     }()
-    private var channels = [Channel]()
 
     private func fetchData() {
         
@@ -75,6 +76,35 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
+        }
+    }
+    
+    private func collectAllData() {
+        
+        for channel in channels {
+            let id = channel.identifier
+            let messageCollection = reference.document(id).collection("messages")
+            
+            messageCollection.getDocuments(completion: { [weak self] (snap, _) in
+                
+                guard let docs = snap?.documents else {
+                    print("no docs", #function)
+                    return
+                }
+                
+                self?.data[channel] = docs.map({ (snap) -> Message in
+                    
+                    let data = snap.data()
+                    let content = data["content"] as? String ?? "error"
+                    let timeStamp = data["created"] as? Timestamp ?? Timestamp()
+                    let senderId = data["senderId"] as? String ?? "senderId"
+                    let senderName = data["senderName"] as? String ?? "senderName"
+                    let created = timeStamp.dateValue()
+                    let message = Message(content: content, created: created, senderId: senderId, senderName: senderName)
+                    
+                    return message
+                })
+            })
         }
     }
     
@@ -154,36 +184,6 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.frame = view.safeAreaLayoutGuide.layoutFrame
         
         fetchData()
-    }
-    private var data: [Channel: [Message]] = [:]
-    
-    func collectAllData() {
-        
-        for channel in channels {
-            let id = channel.identifier
-            let messageCollection = reference.document(id).collection("messages")
-            
-            messageCollection.getDocuments(completion: { [weak self] (snap, _) in
-                
-                guard let docs = snap?.documents else {
-                    print("no docs", #function)
-                    return
-                }
-                
-                self?.data[channel] = docs.map({ (snap) -> Message in
-                    
-                    let data = snap.data()
-                    let content = data["content"] as? String ?? "error"
-                    let timeStamp = data["created"] as? Timestamp ?? Timestamp()
-                    let senderId = data["senderId"] as? String ?? "senderId"
-                    let senderName = data["senderName"] as? String ?? "senderName"
-                    let created = timeStamp.dateValue()
-                    let message = Message(content: content, created: created, senderId: senderId, senderName: senderName)
-                    
-                    return message
-                })
-            })
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension ChannelDb {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ChannelDb> {

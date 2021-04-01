@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension MessageDb {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<MessageDb> {
