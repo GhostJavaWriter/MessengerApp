@@ -20,6 +20,7 @@
         <relationship name="channel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChannelDb" inverseName="messages" inverseEntity="ChannelDb"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
+                <constraint value="created"/>
                 <constraint value="senderId"/>
             </uniquenessConstraint>
         </uniquenessConstraints>

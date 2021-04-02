@@ -193,7 +193,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        coreDataStack?.performSave { (context) in
+        coreDataStack?.performSave { [weak self] (context) in
             for item in data {
                 
                 let name = item.key.name
@@ -214,6 +214,9 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let messageDb = MessageDb(content: content, created: created, senderId: senderId, senderName: senderName, in: context)
                     channel.addToMessages(messageDb)
                 }
+            }
+            self?.coreDataStack?.didUpdateDataBase = { stack in
+                stack.printDatabaseStatistics()
             }
         }
     }

@@ -31,10 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         coreDataStack.enableObservers()
         
-        coreDataStack.didUpdateDataBase = { stack in
-            stack.printDatabaseStatistics()
-        }
-        
         // Load saved theme if that exist
         let gcdManager = DataManagerGCD()
         gcdManager.loadData(fileName: "theme.json") { (result) in
