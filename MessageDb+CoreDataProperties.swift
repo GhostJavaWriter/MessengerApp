@@ -2,7 +2,7 @@
 //  MessageDb+CoreDataProperties.swift
 //  
 //
-//  Created by Bair Nadtsalov on 01.04.2021.
+//  Created by Bair Nadtsalov on 02.04.2021.
 //
 //
 
@@ -19,6 +19,7 @@ extension MessageDb {
     @NSManaged public var created: Date?
     @NSManaged public var senderId: String?
     @NSManaged public var senderName: String?
+    @NSManaged public var messageId: Int64
     @NSManaged public var channel: ChannelDb?
 
 }

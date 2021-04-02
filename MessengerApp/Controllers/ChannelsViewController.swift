@@ -211,7 +211,12 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let senderId = message.senderId
                     let senderName = message.senderName
                     
-                    let messageDb = MessageDb(content: content, created: created, senderId: senderId, senderName: senderName, in: context)
+                    // Create unique message ID
+                    let inputString = "\(content)\(created)\(senderId)"
+                    
+                    let messageId = Int64(inputString.hashValue)
+                    
+                    let messageDb = MessageDb(content: content, created: created, senderId: senderId, senderName: senderName, messageId: messageId, in: context)
                     channel.addToMessages(messageDb)
                 }
             }

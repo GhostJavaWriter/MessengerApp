@@ -35,12 +35,14 @@ extension MessageDb {
                      created: Date,
                      senderId: String,
                      senderName: String,
+                     messageId: Int64,
                      in context: NSManagedObjectContext) {
         self.init(context: context)
         self.content = content
         self.created = created
         self.senderId = senderId
         self.senderName = senderName
+        self.messageId = messageId
     }
     
     var about: String {

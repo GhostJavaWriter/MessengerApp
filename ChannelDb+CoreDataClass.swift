@@ -2,7 +2,7 @@
 //  ChannelDb+CoreDataClass.swift
 //  
 //
-//  Created by Bair Nadtsalov on 01.04.2021.
+//  Created by Bair Nadtsalov on 02.04.2021.
 //
 //
 
