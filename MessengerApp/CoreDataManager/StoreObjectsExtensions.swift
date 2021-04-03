@@ -21,7 +21,7 @@ extension ChannelDb {
         self.lastActivity = lastActivity
     }
     var about: String {
-        let description = "\(String(describing: name))\n"
+        let description = "\(String(describing: name)) messages: \(String(describing: messages?.count))\n"
         let messages = self.messages?.allObjects
             .compactMap { $0 as? MessageDb }
             .map { "\t\t\t\($0.about)" }

@@ -138,7 +138,7 @@ class CoreDataStack {
         mainContext.perform {
             do {
                 let count = try self.mainContext.count(for: ChannelDb.fetchRequest())
-                print("\(count) messages")
+                print("\(count) channels")
                 let array = try self.mainContext.fetch(ChannelDb.fetchRequest()) as? [ChannelDb] ?? []
                 array.forEach {
                     print($0.about)
