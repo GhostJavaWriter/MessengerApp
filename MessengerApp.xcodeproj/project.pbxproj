@@ -12,6 +12,7 @@
 		8804582725D69B62006397F2 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582525D69B62006397F2 /* ProfileViewController.storyboard */; };
 		8804582925D69B63006397F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8804582825D69B63006397F2 /* Assets.xcassets */; };
 		8804582C25D69B63006397F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8804582A25D69B63006397F2 /* LaunchScreen.storyboard */; };
+		8813AEA6261F223A00802A13 /* ChatTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813AEA5261F223900802A13 /* ChatTableViewDataSource.swift */; };
 		8818DCD5260CD676000B64D1 /* AppTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8818DCD4260CD676000B64D1 /* AppTextView.swift */; };
 		882B1A0C25FDA64300E67F15 /* DataManagerGCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */; };
 		882B1A0F25FDAED100E67F15 /* CommonDataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */; };
@@ -21,6 +22,7 @@
 		8845E53B260F5B0D008DE2AF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */; };
 		8845E541260F5B70008DE2AF /* Chat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8845E53F260F5B70008DE2AF /* Chat.xcdatamodeld */; };
 		8845E54626100AB8008DE2AF /* StoreObjectsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E54526100AB8008DE2AF /* StoreObjectsExtensions.swift */; };
+		8845E55D2619F4B8008DE2AF /* ChannelsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845E55C2619F4B8008DE2AF /* ChannelsTableViewDataSource.swift */; };
 		8875696325EB39F700BC0B00 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */; };
 		8875696625EB3DA200BC0B00 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875696525EB3DA200BC0B00 /* ConversationModel.swift */; };
 		8875697625EDC61300BC0B00 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875697525EDC61300BC0B00 /* ChatViewController.swift */; };
@@ -56,6 +58,7 @@
 		8804582825D69B63006397F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8804582B25D69B63006397F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8804582D25D69B63006397F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8813AEA5261F223900802A13 /* ChatTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewDataSource.swift; sourceTree = "<group>"; };
 		8818DCD4260CD676000B64D1 /* AppTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTextView.swift; sourceTree = "<group>"; };
 		882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerGCD.swift; sourceTree = "<group>"; };
 		882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDataFunctions.swift; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 		8845E53A260F5B0D008DE2AF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8845E540260F5B70008DE2AF /* Chat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chat.xcdatamodel; sourceTree = "<group>"; };
 		8845E54526100AB8008DE2AF /* StoreObjectsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObjectsExtensions.swift; sourceTree = "<group>"; };
+		8845E55C2619F4B8008DE2AF /* ChannelsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsTableViewDataSource.swift; sourceTree = "<group>"; };
 		8875696225EB39F700BC0B00 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		8875696525EB3DA200BC0B00 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		8875697525EDC61300BC0B00 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				88DC10CA25F259C4009EE75F /* ThemeManager.swift */,
+				8845E55C2619F4B8008DE2AF /* ChannelsTableViewDataSource.swift */,
+				8813AEA5261F223900802A13 /* ChatTableViewDataSource.swift */,
 				882B1A0B25FDA64300E67F15 /* DataManagerGCD.swift */,
 				882B1A1925FE11EA00E67F15 /* DataManagerOperations.swift */,
 				882B1A0E25FDAED100E67F15 /* CommonDataFunctions.swift */,
@@ -381,6 +387,7 @@
 			files = (
 				882B1A1625FDCDBA00E67F15 /* UserDataModel.swift in Sources */,
 				8875696325EB39F700BC0B00 /* ChannelTableViewCell.swift in Sources */,
+				8845E55D2619F4B8008DE2AF /* ChannelsTableViewDataSource.swift in Sources */,
 				8804582425D69B62006397F2 /* ProfileViewController.swift in Sources */,
 				88D39FF026078BD6002CA034 /* Channel.swift in Sources */,
 				88DC10EC25F61B12009EE75F /* AppView.swift in Sources */,
@@ -392,6 +399,7 @@
 				8875697A25EDE06800BC0B00 /* UIButtonExtension.swift in Sources */,
 				88DC10B625F0D454009EE75F /* OutboxMessageCell.swift in Sources */,
 				8875698D25EDF9D600BC0B00 /* MessageModel.swift in Sources */,
+				8813AEA6261F223A00802A13 /* ChatTableViewDataSource.swift in Sources */,
 				8818DCD5260CD676000B64D1 /* AppTextView.swift in Sources */,
 				8845E54626100AB8008DE2AF /* StoreObjectsExtensions.swift in Sources */,
 				88DC10F325F61BA9009EE75F /* AppLabel.swift in Sources */,
