@@ -12,6 +12,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var themeManager: ThemeManager?
     var themesController: ThemesViewController?
+    var coreDataStack: CoreDataStack?
     
 // MARK: - Private
     
@@ -20,6 +21,8 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     private let cellIdentifier = String(describing: ChannelTableViewCell.self)
     private lazy var dataBase = Firestore.firestore()
     private lazy var reference = dataBase.collection("channels")
+    private var data: [Channel: [Message]] = [:]
+    private var channels = [Channel]()
     
     private lazy var tableView: UITableView = {
         
@@ -32,7 +35,6 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         return tableView
     }()
-    private var channels = [Channel]()
 
     private func fetchData() {
         
@@ -51,10 +53,11 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let lastMsg = data["lastMessage"] as? String
                 let lastActivityTimestamp = data["lastActivity"] as? Timestamp
                 let lastActivity = lastActivityTimestamp?.dateValue()
+                let newChannel = Channel(identifier: id, name: name, lastMessage: lastMsg, lastActivity: lastActivity)
                 
-                return Channel(identifier: id, name: name, lastMessage: lastMsg, lastActivity: lastActivity)
+                return newChannel
             }
-            // страшная логика сортировки О_О
+            
             if let channels = self?.channels {
                 self?.channels = channels.sorted { (current, next) -> Bool in
                     if let current = current.lastActivity {
@@ -68,9 +71,40 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
                     return false
                 }
             }
+            self?.collectAllData()
+            
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
+        }
+    }
+    
+    private func collectAllData() {
+        
+        for channel in channels {
+            let id = channel.identifier
+            let messageCollection = reference.document(id).collection("messages")
+            
+            messageCollection.getDocuments(completion: { [weak self] (snap, _) in
+                
+                guard let docs = snap?.documents else {
+                    print("no docs", #function)
+                    return
+                }
+                
+                self?.data[channel] = docs.map({ (snap) -> Message in
+                    
+                    let data = snap.data()
+                    let content = data["content"] as? String ?? "error"
+                    let timeStamp = data["created"] as? Timestamp ?? Timestamp()
+                    let senderId = data["senderId"] as? String ?? "senderId"
+                    let senderName = data["senderName"] as? String ?? "senderName"
+                    let created = timeStamp.dateValue()
+                    let message = Message(content: content, created: created, senderId: senderId, senderName: senderName)
+                    
+                    return message
+                })
+            })
         }
     }
     
@@ -102,6 +136,10 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let channelName = ac?.textFields?[0].text else { return }
             if !channelName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty {
                 self?.submit(channelName)
+                if let lastItem = self?.channels.count {
+                    let indexPath = IndexPath(item: lastItem - 1, section: 0)
+                    self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
             } else {
                 print("textField is empty")
             }
@@ -152,6 +190,42 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         fetchData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        coreDataStack?.performSave { [weak self] (context) in
+            for item in data {
+                
+                let name = item.key.name
+                let id = item.key.identifier
+                let lastMsg = item.key.lastMessage
+                let lastActivity = item.key.lastActivity
+                
+                let channel = ChannelDb(name: name, identifier: id, lastMessage: lastMsg, lastActivity: lastActivity, in: context)
+                
+                let messages = item.value
+                
+                for message in messages {
+                    let content = message.content
+                    let created = message.created
+                    let senderId = message.senderId
+                    let senderName = message.senderName
+                    
+                    // Create unique message ID
+                    let inputString = "\(content)\(created)\(senderId)"
+                    
+                    let messageId = Int64(inputString.hashValue)
+                    
+                    let messageDb = MessageDb(content: content, created: created, senderId: senderId, senderName: senderName, messageId: messageId, in: context)
+                    channel.addToMessages(messageDb)
+                }
+            }
+            self?.coreDataStack?.didUpdateDataBase = { stack in
+                stack.printDatabaseStatistics()
+            }
+        }
+    }
+    
 // MARK: - UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,11 +238,13 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let currentChannel = channels[indexPath.row]
         let name = currentChannel.name
-        let lastMessage = currentChannel.lastMessage
-        let lastActivity = currentChannel.lastActivity
         let identifier = currentChannel.identifier
-        
-        cell.configure(name: name, lastMessage: lastMessage, lastActivity: lastActivity, identifier: identifier)
+        let lastActivity = currentChannel.lastActivity
+        let lastMessage = currentChannel.lastMessage
+        cell.configure(name: name,
+                       lastMessage: lastMessage,
+                       lastActivity: lastActivity,
+                       identifier: identifier)
         
         return cell
     }
